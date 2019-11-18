@@ -1,0 +1,200 @@
+page {
+  background: #121a21;
+}
+
+.swiper image {
+  width: 100%;
+  height: auto;
+}
+
+.navbar {
+  flex: none;
+  display: flex;
+  background: #121a21;
+}
+
+.navbar .item {
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color: #936b25;
+}
+
+.navbar .item.active {
+  color: #00a0e9;
+}
+
+.navbar .item.active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #00a0e9;
+}
+
+.btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0;
+  border-top: 1px solid #121a21;
+  outline: none;
+  color: #00a0e9;
+  background: #1c3043;
+}
+
+.card {
+  width: 90%;
+  height: 160rpx;
+  margin: 10px 5% 0 5%;
+  border: 1px solid #46607d;
+  border-radius: 5px;
+  background: #1c3043;
+}
+
+.card .cover {
+  padding: 10px 10px 0 10px;
+  float: left;
+  width: 170rpx;
+  height: 160rpx;
+  display: inline;
+  line-height: 200rpx;
+}
+
+.card .cover image {
+  width: 150rpx;
+  height: 120rpx;
+}
+
+.card .top {
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.card .bottom {
+  height: 70rpx;
+}
+
+.card .title {
+  color: #946b25;
+  /* padding-left: 10rpx;
+  padding-top: 30rpx; */
+  font-size: 18px;
+  /* height:40rpx;
+  line-height: 40rpx; */
+  overflow: hidden;
+  width: 300rpx;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.card .applystatus {
+  /* margin-top: -80rpx; */
+  color: #00acfb;
+  /* padding-right: 5rpx; */
+  font-size: 14px;
+  float: right;
+  margin-right: 30rpx;
+  /* width: 100rpx; *//* display: block; */
+}
+
+.card .date {
+  color: #00acfb;
+  /* padding-left: 10rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx; */
+  font-size: 12px;
+  display: inline-block;
+  width: 200rpx;
+}
+
+.card .btn-holder {
+  float: right;
+  margin-right: 20rpx;
+}
+
+.card .menu {
+  /* margin-top: -30rpx; */
+  color: #00acfb;
+  padding-right: 5rpx;
+  font-size: 14px;
+  /* float: right; */
+  width: 80rpx;
+  display: inline;
+}
+
+.card .sharebtn {
+  color: #00acfb;
+  background: transparent;
+  font-size: 14px;
+  float: right;
+  display: inline;
+  margin-top: -45rpx;
+  margin-left: -20rpx;
+}
+
+.card .sharebtn::after {
+  border: none;
+}
+
+.txt {
+  width: 100%;
+  margin: 0 0 115rpx 0;
+}
+
+.modal-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  z-index: 990;
+}
+
+.modal-body {
+  position: relative;
+}
+
+.modal-content {
+  width: 600rpx;
+  height: 400rpx;
+  margin: 50% 75rpx 0 75rpx;
+  overflow: hidden;
+  /* border-radius: 10rpx; */
+  z-index: 890;
+  background: #121a21;
+  border: 1px solid #1c3043;
+  border-radius: 10rpx;
+}
+
+.modal-title {
+  height: 150rpx;
+  padding: 45rpx 20rpx 0rpx 35rpx;
+  color: #3b93be;
+  font-size: 18px;
+}
+
+.modal-btn {
+  margin-top: 50rpx;
+  height: 100rpx;
+  text-align: center;
+  vertical-align: middle;
+  width: 50%;
+  float: left;
+}
+
+.btnsmall {
+  width: 200rpx;
+  /* margin:0 15% 0 15%; */
+  border: 1px solid #00a0e9;
+  /* height:60rpx; *//* margin-right:25rpx; */
+  color: #00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  font-size: 16px;
+}

@@ -1,0 +1,108 @@
+<!--pages/statusPage/statuspage.wxml-->
+<!-- <view class='container'> -->
+  <block wx:if='{{type==1}}'>
+    <view class='content'>
+      <text class='title'>城市合伙人</text>
+      <view class='memo'>
+        <text>
+      玩霸江湖各地城市合伙人招募火热进行中，一旦成为城市合伙人，您将拥有：
+      1、拥有所在城市的玩霸江湖运营权，在总部
+      赋能下，与各大旅行社、团建公司、景区进行
+      多方位的业务开发，轻松分享客户收益。
+      2、拥有所在城市的玩霸江湖活动模板的创建
+      权，开创许多属于你的精彩模板，并躺着享受
+      模板带给你的收益。
+      3、加入全国各地的城市合伙人网络，轻松链
+      接各地地接伙伴的资源，帮助原有客户外地业
+      务的开展。
+      4、第一时间接触并拥有最新最潮的玩霸江湖
+      新玩法，大大提升客户满意度。
+
+      合伙人资质建议：
+      1、喜欢创新事物，喜欢尝试前沿玩法，并践行
+      “客户第一”的核心价值观；
+      2、从事团建旅游行业三年以上，拥有正规营业
+      执照的从业机构；
+      3、拥有一定的客户资源，可迅速开展相关业务。
+      </text>
+        <button class='bt_next' bindtap='nextStep'>下一步</button>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class='common' wx:if='{{status==0}}'>
+      <text class='audit_text'>您提交的资料还在审核中</text>
+      <button class='bt_common' bindtap='alterApply'>修改申请</button>
+    </view>
+    <view wx:elif='{{status==1}}'>
+     <view class='swiperpic'>
+  <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" easing-function='easeInCubic'>
+    <block wx:for='{{swiper}}' wx:key="{{index}}">
+      <swiper-item bindtap='to' id="{{index}}">
+        <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+      <view class='list_box'>
+        <view class='tab_box'>
+           <view class="{{0 == currentIndex ? 'title_sel' : 'title_unsel'}}" bindtap='tabClick' data-idx='0'>
+          <text>客户档案</text>
+          </view>
+          <view class="{{1 == currentIndex ? 'title_sel' : 'title_unsel'}}" bindtap='tabClick' data-idx='1'>
+          <text>销售统计</text>
+          </view>
+        </view>
+        <view style='padding:40rpx 20rpx;color: #00ACFB;font-size:30rpx;' >
+          <view wx:if="{{currentIndex==0}}">
+            <view wx:for="{{myClients}}" wx:key="{{index}}" class='recordItem'>
+               <!-- {{index+1}} {{item.nick}} {{item.tel}} -->
+               <view class='fl clearfix' style='width:40rpx;'>{{index+1}}</view>
+               <view class='fl clearfix' style='width:160rpx;text-align:center;' >{{item.nick}}</view>
+               <view class='fl clearfix' style='width:240rpx;text-align:center;'>{{item.tel}}</view>
+               <view class='fr clearfix' bindtap='clickRecord' data-id='{{index}}' >记录>>></view>
+            </view>
+            <view wx:if="{{myClients.length==0}}" style='text-align:center;margin-top:200rpx;'>赶快邀请小伙伴加入吧！</view>
+          </view>
+          <view wx:elif="{{currentIndex==1}}">
+               <view class='salebox'>
+              <view style='color:#936B25;'>本季度</view>
+              <view style='color: #00ACFB; margin-top:10rpx;'>
+                <text>销售次数</text>
+                <text class='fr clearfix'bindtap='toSaleNumofseason' >{{seasonSales.length}}>>></text>
+              </view>
+              <view style='color: #00ACFB; margin-top:10rpx;'>
+                <text>客户开发</text>
+                <text class='fr clearfix' bindtap='toClientDevelopofseason'>{{seasonClients.length}}>>></text>
+              </view>
+            </view>
+            <view class='salebox'>
+              <view style='color:#936B25;'>本月</view>
+              <view style='color: #00ACFB; margin-top:10rpx;'>
+                <text>销售次数</text>
+                <text class='fr clearfix' bindtap='toSaleNumofmonth'>{{monthSales.length}}>>></text>
+              </view>
+              <view style='color: #00ACFB; margin-top:10rpx;'>
+                <text>客户开发</text>
+                <text class='fr clearfix' bindtap='toClientDevelopofmonth'>{{monthClients.length}}>>></text>
+              </view>
+            </view>
+            <button class='history_btn' bindtap='toHistory'>历史记录</button>
+          </view>
+        </view>
+      </view>
+      <!-- <text class='audit_text'>恭喜你成为《玩霸江湖》
+  {{city}}区域合伙人</text> -->
+      <button class='bt_invite' open-type="share" wx:if="{{currentIndex!=1}}">邀请加入</button>
+    </view>
+    <view class='common' wx:elif='{{status==-1}}'>
+      <text class='audit_text'>您的申请被驳回！原因如下
+      {{reason}}
+      </text>
+      <!-- <text class='audit_text'>您的申请被驳回！</text> -->
+      <button class='bt_common' bindtap='reapply'>重新申请</button>
+    </view>
+
+  </block>
+<!-- </view> -->

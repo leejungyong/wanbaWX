@@ -1,0 +1,16 @@
+<view style="width:50%;margin:30px 25% 10px 25%;text-align:center;" class="{{hidden?'show':'hide'}}"><button type="primary" bindtap="scan" style="">   扫码</button></view>
+
+<view class="modal-box" hidden="{{flag}}" catchtouchmove="preventTouchMove">
+
+  <view class="modal-body">
+
+    <view class="modal-content">
+      <view style="margin-top:1%;padding:30rpx;color:#1989c3;">给{{teamname}}加分：</view>
+      <input placeholder='请输入金额' class="input" bindinput="updateTxt" placeholder-class='input-placeholder'></input>
+      <view class="modal-btn">
+        <image src="https://img.wondfun.com/wanba/img/gamepic/cancel_btn.png" class="cancel_btn" bindtap='cancelAddMoney'></image>
+        <image src="https://img.wondfun.com/wanba/img/gamepic/confirm_btn.png" class="cancel_btn" style='padding-left:5px;' bindtap='confirmAddMoney'></image>
+      </view>
+    </view>
+  </view>
+</view>

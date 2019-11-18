@@ -1,0 +1,133 @@
+<view class="table">
+  <view class="point">
+    <block wx:for="{{lands}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+      <block wx:if="{{item.ptype==2}}">
+        <view class="poi" id="{{index}}" style="border: 1rpx solid #ed6c00;background:{{teams[item.owner-1].color}}">
+          G </view>
+      </block>
+      <block wx:elif="{{item.ptype==1}}">
+        <!-- 有占领 -->
+        <block wx:if="{{item.owner.length>0}}">
+          <!-- 独占 -->
+          <block wx:if="{{item.owner.length==1}}">
+            <block wx:if="{{!item.isSlod}}">
+              <view class="poi" id="{{index}}" style="border: 1rpx solid #fff100;">
+                <span style="background:{{teams[item.owner-1].color}};width:10px;height:10px;float:left;margin-right:2px">
+                </span>
+                {{item.displayorder}}
+              </view>
+            </block>
+            <block wx:elif="{{item.isSlod}}">
+              <view class="poi" id="{{index}}" style="border: 1rpx solid #fff100;background:{{teams[item.owner-1].color}}">
+
+                {{item.displayorder}}
+              </view>
+            </block>
+
+          </block>
+          <!-- 多人占领 -->
+          <block wx:else>
+            <view class="poi" id="{{index}}" style="border: 1rpx solid #fff100;">
+              <block wx:for="{{item.owner}}" wx:for-index="idx" wx:key="idx" wx:for-item="it">
+                <span style="background:{{teams[it-1].color}};width:10px;height:10px;float:left;margin-right:2px">
+                </span>
+              </block>
+              {{item.displayorder}}
+            </view>
+          </block>
+        </block>
+
+        <block wx:else>
+          <view class="poi" id="{{index}}" style="border: 1rpx solid #fff100;">
+            {{item.displayorder}}
+          </view>
+        </block>
+      </block>
+       <block wx:elif="{{item.ptype==3}}">
+        <!-- 有占领 -->
+        <block wx:if="{{item.owner.length>0}}">
+          <!-- 独占 -->
+          <block wx:if="{{item.owner.length==1}}">
+
+
+            <block wx:if="{{!item.isSlod}}">
+              <view class="poi" id="{{index}}" style="border: 1rpx solid #fff;">
+                <span style="background:{{teams[item.owner-1].color}};width:10px;height:10px;float:left;margin-right:2px">
+                </span>
+                {{item.displayorder}}
+              </view>
+            </block>
+            <block wx:elif="{{item.isSlod}}">
+              <view class="poi" id="{{index}}" style="border: 1rpx solid #fff;background:{{teams[item.owner-1].color}}">
+
+                {{item.displayorder}}
+              </view>
+            </block>
+
+
+          </block>
+          <!-- 多人占领 -->
+          <block wx:else>
+            <view class="poi" id="{{index}}" style="border: 1rpx solid #fff;">
+              <block wx:for="{{item.owner}}" wx:for-index="idx" wx:key="idx" wx:for-item="it">
+
+                <span style="background:{{teams[it-1].color}};width:10px;height:10px;float:left;margin-right:2px">
+                </span>
+
+              </block>
+              {{item.displayorder}}
+            </view>
+          </block>
+        </block>
+
+        <block wx:else>
+          <view class="poi" id="{{index}}" style="border: 1rpx solid #fff;">
+            {{item.displayorder}}
+          </view>
+        </block>
+      </block>
+      <block wx:elif="{{item.ptype==0}}">
+        <view class="poi" id="{{index}}" style="background:{{teams[item.owner-1].color}}">
+          {{item.displayorder}}
+        </view>
+      </block>
+    </block>
+  </view>
+</view>
+<view class="status">
+  <text class="gold">活动模式切换：</text>
+
+  <view class="navbar">
+    <text wx:for="{{modes}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item.name}}</text>
+  </view>
+</view>
+<view class="status">
+  <text class="gold">活动状态管理：</text>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+    </label>
+  </radio-group>
+</view>
+<view class="status">
+  <text class="gold">点位开放批次：</text>
+  <checkbox-group class="checkbox-group" bindchange="checkboxChange">
+    <label class="checkbox" wx:for="{{openArea}}" wx:key="index">
+      <checkbox value="{{item.value}}" checked="{{item.checked}}" /> {{item.name}}
+    </label>
+  </checkbox-group>
+</view>
+<block  wx:if="{{linktype==0}}">
+<view class="block padding">
+  <button class='btn' bindtap="auctionScore">拍卖结算</button>
+</view>
+</block>
+<view class="block padding">
+  <button class='btn' bindtap="viewTeam">查看队伍</button>
+</view>
+<view class="block padding">
+  <button class='btn' bindtap="log">历史记录</button>
+</view>
+<view class="block padding">
+  <button class='btn' bindtap="downPhotos">照片下载</button>
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "管理页面",
+  "navigationBarBackgroundColor": "#000000",
+  "navigationBarTextStyle": "white",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

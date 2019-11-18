@@ -1,0 +1,29 @@
+ <!-- <view class="bg_head">
+  
+  <image src="{{imgUrl}}wanba/img/gamepic/logo_big.png" mode="aspectFit" class="logo"></image>
+</view> -->
+ <view class="navbar">
+  <text wx:for="{{list}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item.name}}</text>
+</view>
+
+<view class="list"> 
+  <!-- <view class="name"> 
+共有{{list.length}}名成员
+</view> -->
+  <block wx:for="{{list}}"  wx:key="{{index}}">
+  <view hidden="{{currentTab!==index}}">
+  <view class="name"> 
+共有{{item.members.length}}名成员
+</view>
+  <block wx:for="{{item.members}}" wx:key="{{idx}}" wx:for-index="idx" wx:for-item="it">
+  <view class='image_box'>
+    <text wx:if="{{it.currentrole==0}}" style="color:#00a0e9;font-size:12px;position:absolute;width:0;height:0;border-style:solid;border-width:16rpx;border-color: #00a0e9 transparent transparent #00a0e9 ;margin-left:20rpx;margin-top:20rpx;"></text>
+    <image src="{{it.avatar}}" class="avatar"></image>
+  </view>
+ </block>
+  </view>
+  </block>
+  
+</view>
+
+ 

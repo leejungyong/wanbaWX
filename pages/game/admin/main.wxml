@@ -1,0 +1,55 @@
+
+
+<view class="flex">
+     <view class="box" bindtap="homepage">
+      <image src="https://img.wondfun.com/wanba/img/gamepic/home.png" class="icon"></image>
+      <span class="txt">主页</span>
+      </view>
+       <view class="box"  bindtap="summary">
+     <image src="https://img.wondfun.com/wanba/img/gamepic/progress.png" class="icon"></image>
+      <span class="txt">   进程</span>
+      </view>
+     <view class="box"  bindtap="setting">
+     <image src="https://img.wondfun.com/wanba/img/gamepic/setting.png" class="icon"></image>
+      <span class="txt">   设置</span>
+      </view>
+       <view class="box"  bindtap="stone">
+     <image src="https://img.wondfun.com/wanba/img/gamepic/stone.png" class="icon"></image>
+      <span class="txt">   宝石</span>
+      </view>
+  <view class="box" bindtap="scan">
+      <image src="https://img.wondfun.com/wanba/img/gamepic/scan.png" class="icon"></image>
+      <span class="txt">   扫码</span>
+      </view>
+      <view class="box" bindtap="topBoard">
+     <image src="https://img.wondfun.com/wanba/img/gamepic/board.png" class="icon"></image>
+      <span class="txt">      排行</span>
+      </view>
+      <view class="box" bindtap="reload">
+      <image src="https://img.wondfun.com/wanba/img/gamepic/refresh.png" class="icon"></image>
+      <span class="txt">刷新</span>
+      </view>
+      <!-- <view class="box">
+     <button class="share" open-type="share" plain></button>
+      <span class="txt">分享</span>
+      </view> -->
+</view>
+  <view class="table">
+    <block wx:for="{{task}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+
+      <view class="item" bindtap="view" id="{{index}}">
+        <div class="left_div">
+          <div class="img_div">
+            <image src="{{item.flag}}" class="img"></image>
+          </div>
+        </div>
+        <div class="right_div">
+          <div class="div1">任务名称:{{item.displayorder}}号点位 {{item.name}}</div>
+          <div class="div1">队伍:{{item.team}}</div>
+          <div class="div1">时间:{{item.date}}</div>
+        </div>
+      </view>
+
+    </block>
+  </view>
+

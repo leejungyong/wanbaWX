@@ -1,0 +1,87 @@
+<view class="item">
+  <view class="title">布雷数量限制</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{mineNum}}" placeholder='每队最多可同时布雷数量' placeholder-class='input-placeholder' bindinput='updateMineNum'></input>
+</view>
+<view class="item">
+  <view class="title">布雷金额限制</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{mineMoney}}" placeholder='设定点位布雷金额和地价的百分比' placeholder-class='input-placeholder' bindinput='updateMineMoney'></input>
+</view>
+<view class="item">
+  <view class="title">GPS限制（米）</view>
+  
+</view>
+<view class="item">
+    <input class="input" value="{{gps}}" placeholder='输入距离如100，输入0则为不做限制' placeholder-class='input-placeholder' bindinput='updateGPS'></input>
+</view>
+<view class="item">
+  <view class="title">普通点预设地价</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{pvalue}}" placeholder='' placeholder-class='input-placeholder' bindinput='updatePvalue'></input>
+</view>
+<view class="item">
+  <view class="title">拍卖点预设地价</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{pvalue1}}" placeholder='' placeholder-class='input-placeholder' bindinput='updatePvalue1'></input>
+</view>
+<view class="item">
+  <view class="title">G点预设地价</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{pvalue2}}" placeholder='' placeholder-class='input-placeholder' bindinput='updatePvalue2'></input>
+</view>
+<view class="item">
+  <view class="title">挑战点预设地价</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{pvalue3}}" placeholder='' placeholder-class='input-placeholder' bindinput='updatePvalue3'></input>
+</view>
+<view class="item">
+  <view class="title">连线结算方式</view>
+</view>
+<view class="status">
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+    </label>
+  </radio-group>
+</view>
+<view class="item">
+  <view class="title">游戏倒计时截止时间</view>
+  
+</view>
+<view class="item">
+<picker mode="time" value="{{endTime}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+    <view style="color:#00a0e9;">
+      {{endTime}} 
+    </view>
+  </picker>
+  <view style="color:#f00;" bindtap="clearEndTime" wx:if="{{endTime!='选择时间'}}">清除设置</view>
+  </view>
+<!-- <view class="item">
+  <view class="title">初始地价</view>
+  
+</view>
+<view class="item">
+    <input class="input" value="{{pvalue}}" placeholder='全局初始化点位地价' placeholder-class='input-placeholder' bindinput='updatePvalue'></input>
+</view> -->
+
+<view class="block" style="clear:both;">
+  <button class="btnsmall" bindtap="back">取消</button>
+</view>
+<view class="block">
+  <button class="btnsmall" bindtap="confirm">确定</button>
+</view>
+
+

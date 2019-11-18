@@ -1,0 +1,33 @@
+<view class="cells">
+<view class="cell">
+    <view class="time head">排名</view>
+    <view class="event head">   队伍</view>
+    <view class="win head">财富</view>
+    
+  </view>
+  <view wx:for="{{list}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+   
+
+    <view class="cell">
+      <view class="time">
+      <block wx:if="{{item.rank==1}}">
+       <image src="{{imgUrl}}wanba/img/gamepic/no1.png" class="img"></image>
+       </block>
+       <block wx:elif="{{item.rank==2}}">
+       <image src="{{imgUrl}}wanba/img/gamepic/no2.png" class="img"></image>
+       </block>
+       <block wx:else>
+       {{item.rank}} 
+       </block>
+       </view>
+      <view class="event">
+       <span style="background:{{item.color}};height:14px;width:14px;display:inline-block;"></span> {{item.name}}
+      </view>
+      <view class="win">
+        {{item.score}}
+      </view>
+
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,41 @@
+<view class='swiper'>
+  <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+    <block wx:for='{{swiper}}' wx:key="{{index}}">
+      <swiper-item bindtap='to' id="{{index}}">
+        <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+
+<view class="txt">
+<view class="listmode" bindtap="map">地图模式</view>
+  <block wx:for='{{list}}' wx:key="{{index}}">
+
+    <view class="card">
+       
+      <view class="title">
+        {{item.name}}
+
+      </view>
+      <view class="date">
+        {{item.address}}
+      </view>
+      <view class="menu" bindtap='delPos' id="{{index}}">
+        删除
+      </view>
+      <!-- <view class="menu" bindtap='sharePos' id="{{index}}">
+        分享
+      </view> -->
+      <view class="menu" bindtap='editPos' id="{{index}}">
+        编辑
+      </view>
+    
+      
+    </view>
+  </block>
+</view>
+
+
+<button class="btn" bindtap="new">{{btnTxt}}</button>

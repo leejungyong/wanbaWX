@@ -1,0 +1,27 @@
+
+<view class="cells">
+  <view class="cell">
+    <view class="time head">时间</view>
+    <view class="event head">事件</view>
+   
+  </view>
+  <view wx:for="{{list}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+
+
+    <view class="cell   {{item.status==1 ? 'sys_event' :'team_event'}}">
+      <view class="time">{{item.date}} </view>
+      <view class="event_left">
+
+
+        {{item.event ? item.event:item.memo}}
+
+      </view>
+     
+
+
+
+
+    </view>
+  </view>
+
+</view>

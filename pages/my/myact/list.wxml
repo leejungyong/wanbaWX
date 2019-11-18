@@ -1,0 +1,131 @@
+<view class='swiper'>
+  <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+    <block wx:for='{{swiper}}' wx:key="{{index}}">
+      <swiper-item bindtap='to' id="{{index}}">
+        <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+</view>
+
+<view hidden="{{currentTab!==0}}" class="txt">
+  <block wx:for='{{actNow}}' wx:key="{{index}}">
+
+    <view class="card">
+      <view class="cover">
+        <image src="{{uploadUrl}}wanba/api/sharepic/{{item.sharepic ?item.sharepic : '1.jpg'}}"></image>
+      </view>
+      <view class='top'>
+        <view class="title">
+          {{item.title}}
+        </view>
+        <block wx:if="{{item.applystatus==-2}}">
+          <view class="applystatus" bindtap='postRouteApply' id="{{index}}">
+            未推荐
+          </view>
+        </block>
+        <block wx:if="{{item.applystatus==-1}}">
+          <view class="applystatus" bindtap='postRouteApply' id="{{index}}">
+            未推荐
+          </view>
+        </block>
+        <block wx:if="{{item.applystatus==0}}">
+          <view class="applystatus" id="{{index}}">
+            审核中
+          </view>
+        </block>
+        <block wx:if="{{item.applystatus==1}}">
+          <view class="applystatus" id="{{index}}">
+            已推荐
+          </view>
+        </block>
+      </view>
+      <view class='bottom'>
+        <view class="date">
+          {{item.date}}
+        </view>
+      <view class='btn-holder'>
+       <view class="menu" bindtap='editAct' id="{{index}}">
+          编辑
+        </view>
+
+        <view class=" menu" bindtap='beforeShare' id="{{index}}">
+          使用
+        </view>
+        <view class="menu" bindtap='delAct' id="{{index}}">
+          删除
+        </view>
+      </view>
+       
+      </view>
+
+
+    </view>
+  </block>
+</view>
+
+<view hidden="{{currentTab!==1}}" class="txt">
+  <block wx:for='{{actFinished}}' wx:key="{{index}}">
+
+    <view class="card">
+      <view class="cover">
+        <image src="{{uploadUrl}}wanba/api/sharepic/{{item.sharepic}}"></image>
+      </view>
+      <view class="title">
+        {{item.title}}
+
+      </view>
+      <view class="date">
+        {{item.date}}
+      </view>
+      <block wx:if="{{item.applystatus==-2}}">
+        <view class="applystatus" bindtap='postRouteApply' id="{{index}}">
+          推荐
+        </view>
+      </block>
+      <block wx:if="{{item.applystatus==-1}}">
+        <view class="applystatus" bindtap='postRouteApply' id="{{index}}">
+          推荐
+        </view>
+      </block>
+      <block wx:if="{{item.applystatus==0}}">
+        <view class="applystatus" id="{{index}}">
+          审核中
+        </view>
+      </block>
+      <block wx:if="{{item.applystatus==1}}">
+        <view class="applystatus" id="{{index}}">
+          已推荐
+        </view>
+      </block>
+
+      <view class="menu" bindtap='beforeShare' id="{{index}}">
+        分享
+      </view>
+
+    </view>
+  </block>
+
+</view>
+
+<button class="btn" bindtap="newAct">创建活动</button>
+
+<view class="modal-box" hidden="{{hideShareBox}}">
+
+  <view class="modal-body">
+
+    <view class="modal-content">
+      <view class="modal-title">快邀请好友参加活动吧</view>
+
+      <view class="modal-btn">
+        <button bindtap="hideShareBox" class="btnsmall">取消</button>
+      </view>
+      <view class="modal-btn">
+        <button class="btnsmall" open-type="share" id="{{index}}"> 邀请</button>
+      </view>
+    </view>
+  </view>
+</view>

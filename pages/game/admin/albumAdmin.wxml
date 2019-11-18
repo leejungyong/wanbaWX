@@ -1,0 +1,21 @@
+
+<view class="item">
+  <view class="title">每上传一张照片奖励财富</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{va}}" placeholder='请设置0-20之间的数值' placeholder-class='input-placeholder' bindinput='updateV'></input>
+</view>
+ <text class="item">上传照片奖励总额/所有队伍得分占比超过{{param1}}%，则停止上传奖励</text>
+  <view class="body-view">
+    <slider bindchange="slider1change" value="{{param1}}" max="30" min="0" step="1" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view>
+
+<view class="block" style="clear:both;">
+  <button class="btnsmall" bindtap="back"> 取消</button>
+</view>
+<view class="block">
+  <button class="btnsmall" bindtap="confirm">   确定</button>
+</view>
+
+

@@ -1,0 +1,48 @@
+<view class="item">
+  <view class="title">线路名称</view>
+  <view class="star">*</view>
+</view>
+<view class="item">
+  <input class="input" placeholder='请输入线路名称' placeholder-class='input-placeholder' bindinput='updateTitle'></input>
+</view>
+<view class="item">
+  <view class="title">线路配图</view>
+  <view class="star">*</view>
+</view>
+
+<view class="tip">请上传jpg格式图片，最佳尺寸：长500px 宽250px</view>
+<view style="width:90%;margin:10px 5% 0 5%;">
+
+  <view style="text-align:center;">
+   <block wx:if="{{pic}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+        <image src="{{pic}}" style='width:50px;height:40px;' bindtap="preview"></image>   
+       <view bindtap="delPic" class="delpic">删除</view>
+      </view>
+   </block>
+    <view style="width:30%;float:left;padding:3px 3px 3px 0;;">
+      
+        <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseImg'></image>   
+     
+    </view>
+  </view>
+</view>
+<view class="item" style="clear:both;">
+  <view class="title">背景故事</view>
+  <view class="star">*</view>
+</view>
+<textarea class="textarea"  bindinput='updateMemo1' placeholder='介绍下背景故事，缘起由来等,最多可输入500个字符。' placeholder-class='input-placeholder' maxlength='500'></textarea>
+<view class="item">
+  <view class="title">经典玩法</view>
+  <view class="star">*</view>
+</view>
+<textarea class="textarea"  bindinput='updateMemo2' placeholder='怎么玩？最多可输入500个字符。' placeholder-class='input-placeholder' maxlength='500'></textarea>
+<view class="item">
+  <view class="title">场景介绍</view>
+  <view class="star">*</view>
+</view>
+<textarea class="textarea"  bindinput='updateMemo3' placeholder='说说场景特色、线路风光等,最多可输入500个字符。' placeholder-class='input-placeholder' maxlength='500'></textarea>
+
+<view class="block">
+<button class="btnsmall" bindtap="beforePost">提交</button>
+</view>

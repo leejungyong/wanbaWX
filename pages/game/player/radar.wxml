@@ -1,0 +1,14 @@
+<view class='radar_box'>
+  <view class="title">玩霸指数</view>
+  <view class='txt'>你的综合得分:{{avg}}</view>
+  <view class='txt'>恭喜你,领先于全国{{rate}}%的团队</view>
+  <ec-canvas id="mychart" canvas-id="mychart-graph" ec="{{ ec }}"></ec-canvas>
+  <view>
+    <!-- <image mode='aspectFit' src='https://img.wondfun.com/wanba/img/gamepic/wanba_qrcode.jpg' style="width: 160rpx; height: 160rpx; background-color: #eeeeee"></image>
+    <view class="concern">长按识别</view> -->
+  </view>
+
+</view>
+<!-- <poster id="poster" hide-loading="{{true}}" preload="{{false}}" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+    <button>生成海报</button>
+</poster> -->

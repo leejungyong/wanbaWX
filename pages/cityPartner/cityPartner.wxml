@@ -1,0 +1,45 @@
+<!--pages/cityPartner/cityPartner.wxml-->
+<view class='city_container'>
+  <text class='textforinput'>公司名称</text>
+  <input placeholder='请填写公司全称' class='input' placeholder-style='color:#46607D;'  bindinput='updateCompanyName' value='{{companyName}}'></input>
+  <text class='textforinput'>所在区域</text>
+<picker
+    mode="region"
+    bindchange="bindRegionChange"
+    value="{{region}}"
+    custom-item="{{customItem}}"
+  >
+    <view class="picker">
+     <input placeholder='请选择所在区域' class='input' placeholder-style='color:#46607D;' disabled value='{{address}}'></input>
+    </view>
+</picker>
+  <text class='textforinput'>详细地址</text>
+  <input placeholder='详细地址' class='input' placeholder-style='color:#46607D;'  bindinput='updateAddressDetail' value='{{addressDetail}}'></input>
+  <text class='textforinput'>机构代码</text>
+  <input placeholder='填写机构代码'class='input' placeholder-style='color:#46607D;' bindinput='updateOrgCode'value="{{orgCode}}" ></input>
+  <text class='textforinput'>公司法人</text>
+  <input placeholder='填写法人'class='input' placeholder-style='color:#46607D;'bindinput='updateCorporate' value='{{corporate}}' ></input>
+  <text class='textforinput'>联系电话</text>
+  <input placeholder='填写联系电话'class='input' placeholder-style='color:#46607D;'bindinput='updateTelephone' type='number' maxlength='11' value='{{telephone}}' ></input>
+  <view class='textforinput'>营业执照</view>
+      <view class='image_box clearfix' wx:if="{{image!=''}}">
+        <image src='{{image}}' mode='aspectFill' style='width:100%;height:100%;margin:40rpx 20rpx 0 0;'></image>
+      </view>
+  <view class='upload_input clearfix' bindtap='uploadLicense'>上传</view>
+
+  <button class='bt_apply' bindtap='apply' >{{buttonText}}</button>
+
+</view>
+<view hidden='{{show}}'>
+<view class='mask'></view>
+<view class='toast_box'>
+  <text>{{modalText}}</text>
+  <button class='return' bindtap='clickReturn' >确定</button>
+</view>
+</view>
+
+
+
+
+
+

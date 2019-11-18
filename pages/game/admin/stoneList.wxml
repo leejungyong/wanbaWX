@@ -1,0 +1,92 @@
+<view class="card">
+  <view class="title">
+    宝石池:尚有{{stonesleft.total}}颗宝石未被找到
+  </view>
+  <view class="content">
+    <block wx:if="{{stonesleft.stone1>0}}">
+      力量宝石:{{stonesleft.stone1}}
+    </block>
+    <block wx:if="{{stonesleft.stone2>0}}">
+      时间宝石:{{stonesleft.stone2}}
+    </block>
+    <block wx:if="{{stonesleft.stone3>0}}">
+      空间宝石:{{stonesleft.stone3}}
+    </block>
+    <block wx:if="{{stonesleft.stone4>0}}">
+      心灵宝石:{{stonesleft.stone4}}
+    </block>
+    <block wx:if="{{stonesleft.stone5>0}}">
+      灵魂宝石:{{stonesleft.stone5}}
+    </block>
+    <block wx:if="{{stonesleft.stone6>0}}">
+      现实宝石:{{stonesleft.stone6}}
+    </block>
+     <block wx:if="{{stonesleft.stone7>0}}">
+      风暴宝石:{{stonesleft.stone7}}
+    </block>
+  </view>
+</view>
+
+<view class="card">
+  <view class="title">
+    宝石生成记录：
+  </view>
+  <view class="content">
+    <block wx:for="{{stonesMadehistory}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+    <view style="width:100%;display:block;height:40rpx;">{{item.date}} {{item.event}}</view>
+    </block>
+  </view>
+</view>
+  <block wx:for="{{teamStones}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+  
+  <view class="card" id="{{index}}" bindtap="view">
+    <view class="title">
+         {{item.name}}:拥有{{item.unused}}颗宝石
+      
+      <block wx:if="{{item.detail.length>=0}}">
+           宝石使用记录
+      </block>
+    </view>
+    <view class="content">
+      <block wx:if="{{item.stone1>0}}">
+           力量宝石:{{item.stone1}} 
+      </block>
+      <block wx:if="{{item.stone2>0}}">
+           时间宝石:{{item.stone2}} 
+      </block>
+      <block wx:if="{{item.stone3>0}}">
+        空间宝石:{{item.stone3}} 
+      </block>
+      <block wx:if="{{item.stone4>0}}">
+        心灵宝石:{{item.stone4}} 
+      </block>
+      <block wx:if="{{item.stone5>0}}">
+        灵魂宝石:{{item.stone5}} 
+      </block>
+      <block wx:if="{{item.stone6>0}}">
+        现实宝石:{{item.stone6}} 
+      </block>
+      <block wx:if="{{item.stone7>0}}">
+        风暴宝石:{{item.stone7}} 
+      </block>
+    </view>
+  </view>
+  
+  </block>
+<view class="status">
+  <text class="gold">模式选择：</text>
+
+  <view class="navbar">
+    <text wx:for="{{modes}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item.name}}</text>
+  </view>
+</view>
+<view class="block">
+  <button bindtap="makeStone" class="btnsmall">生成宝石</button>
+ 
+</view>
+<view class="block" wx:if="{{currentTab==1}}">
+ <button bindtap="stoneSetting" class="btnsmall">参数设置</button>
+ </view>
+<view class="block"  wx:if="{{currentTab==0}}">
+ <button bindtap="downStones" class="btnsmall">下载宝石</button>
+ </view>

@@ -1,0 +1,61 @@
+<view class="item">
+  <view class="title">活动名称</view>
+  <view class="star">*</view>
+</view>
+<view class="item">
+  <input class="input" placeholder='建议以公司团队+活动地点作为活动名称，以提高辨识度' placeholder-class='input-placeholder' bindinput='updateTitle'></input>
+</view>
+<view class="item">
+  <view class="title">模式选择</view>
+  
+</view>
+<radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{cats}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+    </label>
+  </radio-group>
+<view class="item">
+  <view class="title">活动日期</view>
+  <view class="star">*</view>
+</view>
+<view class="item">
+
+  <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+    <view class="picker">
+      {{date}}
+    </view>
+  </picker>
+</view>
+<view class="item pad">
+  <view class="title">门派数量</view>
+  <view class="star">*</view>
+</view>
+<view class="item">
+  <slider bindchange="sliderchange" value="{{teamNum}}" min="1" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+</view>
+<view class="tip">门派数量默认上限为6，创建活动后可扩充至最多12个</view>
+<view class="item">
+  <view class="title">封面图</view>
+</view>
+<view class="tip">默认玩霸江湖官方画面，如需修改请自行上传jpg格式图片，最佳尺寸：长500px 宽400px</view>
+<view style="width:90%;margin:10px 5% 0 5%;">
+
+  <view style="text-align:center;">
+   <block wx:if="{{pic}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+        <image src="{{pic}}" style='width:50px;height:40px;' bindtap="preview"></image>   
+       <view bindtap="delPic" class="delpic">删除</view>
+      </view>
+   </block>
+    <view style="width:30%;float:left;padding:3px 3px 3px 0;;">
+      
+        <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseImg'></image>   
+     
+    </view>
+  </view>
+</view>
+
+<view class="block">
+  
+  <button class="btnsmall" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">确定</button>
+</view>

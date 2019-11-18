@@ -1,0 +1,1944 @@
+<?php
+require '../../source/class/class_core.php';
+//require '../../../default/d/source/class/class_core.php';
+$discuz = &discuz_core::instance();
+$discuz->init();
+$arr = json_decode(file_get_contents("php://input"), true);
+
+$act = $_GET['act'];
+switch ($act) {
+
+	case 'indexData':
+		$swiper = DB::fetch_all("SELECT aid,pic,title,summary FROM `wf_portal_article_title` where catid=102 and tag=32");
+		$hot = DB::fetch_all("SELECT aid,pic,title,summary,`from`,`fromurl` FROM `wf_portal_article_title` where catid=104 and tag=2 order by aid desc");
+		//$swiper = DB::fetch_all("SELECT aid,pic,title,summary FROM `wf_portal_article_title` where catid=1 and tag=2");
+		//$hot = DB::fetch_all("SELECT aid,pic,title,summary,`from`,`fromurl` FROM `wf_portal_article_title` where catid=1 and tag=2 order by aid desc");
+
+		echo json_encode(array('swiper' => $swiper, 'hot' => $hot));
+		break;
+	case 'recommandData':
+		$swiper = DB::fetch_all("SELECT aid,pic,title,summary FROM `wf_portal_article_title` where catid=102 and tag=32");
+		$hot = DB::fetch_all("SELECT aid,pic,title,summary,`from`,`fromurl` FROM `wf_portal_article_title` where catid=105 and tag=4 order by aid desc");
+		//$swiper = DB::fetch_all("SELECT aid,pic,title,summary FROM `wf_portal_article_title` where catid=1 and tag=2");
+		//$hot = DB::fetch_all("SELECT aid,pic,title,summary,`from`,`fromurl` FROM `wf_portal_article_title` where catid=1 and tag=2 order by aid desc");
+
+		echo json_encode(array('swiper' => $swiper, 'hot' => $hot));
+		break;
+	case 'fetchContent':
+		$aid = $arr['aid'];
+		$to = $arr['to'];
+		$content = DB::fetch_first("SELECT t.pic,t.title,c.content,t.summary FROM `wf_portal_article_title` t, `wf_portal_article_content` c where t.aid=$aid and t.aid=c.aid");
+		$summary = DB::fetch_first("SELECT t.pic,t.title,c.content,t.summary FROM `wf_portal_article_title` t, `wf_portal_article_content` c where t.aid=$to and t.aid=c.aid");
+		$data = array('content' => $content, 'summary' => $summary);
+		echo json_encode($data);
+		break;
+	case 'actMyInfo':
+		$openid = $arr['openid'];
+		$aid = $arr['aid'];
+		//$data=array('currentaid'=>$aid);
+		//DB::update("wanba_user",$data,"openid='" . $openid . "'");
+		$my = DB::fetch_first("select u.currentaid FROM `wf_wanba_user` u, wf_wanba_act a where a.aid=$aid and u.openid='" . $openid . "'");
+
+		echo json_encode($my);
+		break;
+	case 'joinTeam':
+		$teamid = $arr['teamid'];
+		$roleid = $arr['roleid'];
+		$openid = $arr['openid'];
+		$aid = $arr['aid'];
+		$roleid = ($arr['aid'] == 1) ? 0 : $arr['roleid'];
+		$data = array('currentaid' => $aid, 'currentteamid' => $teamid, 'currentrole' => $roleid, 'lastlogin' => time());
+		DB::update("wanba_user", $data, "openid='" . $openid . "'");
+		echo json_encode(array('msg' => 'success'));
+		break;
+	case 'addUser':
+		$openid = $arr['openid'];
+		$unionid = $arr['unionid'] ? $arr['unionid'] : '';
+		$id = DB::fetch_first("select openid from wf_wanba_user where openid='" . $openid . "'");
+		$data = array('openid' => $openid, 'unionid' => $unionid, 'date' => time());
+		if (!$id) {
+			DB::insert('wanba_user', $data);
+		}
+		break;
+	case 'syncUser':
+		$openid = $arr['openid'];
+		$unionid = $arr['unionid'] ? $arr['unionid'] : '';
+		$avatar = $arr['avatar'];
+		$nickname = $arr['nick'];
+		$nickname = preg_replace('/[\x{1F600}-\x{1F64F}]/u', '', $nickname);
+		$nickname = preg_replace('/[\x{1F300}-\x{1F5FF}]/u', '', $nickname);
+		$nickname = preg_replace('/[\x{1F680}-\x{1F6FF}]/u', '', $nickname);
+		$nickname = preg_replace('/[\x{2600}-\x{26FF}]/u', '', $nickname);
+		$nickname = preg_replace('/[\x{2700}-\x{27BF}]/u', '', $nickname);
+		$nickname = str_replace(array('"', '\''), '', $nickname);
+		$nickname = addslashes(trim($nickname));
+		$id = DB::fetch_first("select openid from wf_wanba_user where openid='" . $openid . "'");
+		$data = array('openid' => $openid, 'unionid' => $unionid, 'avatar' => $avatar, 'nick' => $nickname, 'lastlogin' => time());
+		if ($id) {
+			DB::update("wanba_user", $data, "openid='" . $openid . "'");
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'err'));
+		}
+		break;
+	case 'getActStatus':
+		$aid = $arr['aid'];
+		$data = DB::fetch_first("select status from wf_wanba_act where aid=$aid");
+		$status = ($data) ? $data['status'] : -1;
+		echo json_encode($status);
+		break;
+	case 'actInfo':
+		$openid = $arr['openid'];
+
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$task = DB::fetch_all("SELECT * FROM  `wf_wanba_task`  where aid=$aid order by displayorder");
+		foreach ($task as $k => $v) {
+			$task[$k]['pics'] = DB::fetch_all("select * from   `wf_wanba_pic` where taskid=$v[taskid]  order by displayorder");
+		}
+		$act = DB::fetch_first("SELECT * FROM  `wf_wanba_act`  where aid=$aid");
+		$teams = DB::fetch_all("select * from wf_wanba_team_setting where aid=$aid");
+		// $money = DB::fetch_first("SELECT sum(l.score) money FROM `wf_wanba_user`  u,`wf_wanba_logs`  l where  u.openid= '" . $openid . "' and l.aid=$aid and u.currentteamid=l.teamid and u.currentaid=l.aid");
+
+		// if (is_null($money)) {
+		// 	$money = 0;
+		// } else {
+		// 	$money = ($money) ? $money['money'] : 0;
+		// }
+		//$myteam = DB::fetch_first("SELECT s.*,u.* FROM  `wf_wanba_team_setting` s,  `wf_wanba_user` u WHERE aid =$aid AND openid =  '" . $openid . "'  and u.currentteamid=s.displayorder");
+		$mycurrentaid = DB::result_first("select currentaid FROM `wf_wanba_user`   where  openid='" . $openid . "'");
+		if ($mycurrentaid == 0) {
+			$myteam = array();
+		} else {
+			if ($aid != $mycurrentaid) {
+				$data = array('currentaid' => 0, 'currentteamid' => 0, 'currentrole' => 2);
+				DB::update('wanba_user', $data, "openid='" . $openid . "'");
+				$myteam = array();
+			} else {
+				$myteam = DB::fetch_first("SELECT s.*,u.* FROM  `wf_wanba_team_setting` s,  `wf_wanba_user` u WHERE aid =$aid AND openid =  '" . $openid . "'  and u.currentteamid=s.displayorder");
+			}
+		}
+		if (count($myteam) > 0) {
+			$money = DB::fetch_first("SELECT sum(score) money FROM  `wf_wanba_logs`  where aid=$aid and teamid=$myteam[currentteamid]");
+			if ($money) {
+				$myteam['money'] = $money['money'];
+			} else {
+				$myteam['money'] = 0;
+			}
+			// $myteam['currentrole'] = 0;
+
+		}
+		$data = array('task' => $task, 'myteam' => $myteam, 'act' => $act, 'teams' => $teams);
+		echo json_encode($data);
+
+		break;
+	case 'getTeamSetting':
+		$aid = $arr['aid'];
+		$teamsetting = DB::fetch_all("SELECT * FROM  `wf_wanba_team_setting`  where aid=$aid order by displayorder");
+		$data = array('teamsetting' => $teamsetting);
+		echo json_encode($data);
+
+		break;
+	case 'viewteam':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$myteam = DB::fetch_all("SELECT openid,nick,avatar FROM  `wf_wanba_user`  where currentaid=$aid and currentteamid=$teamid");
+		$data = array('teams' => $myteam);
+		echo json_encode($data);
+
+		break;
+	case 'quitteam':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$openid = $arr['openid'];
+		$data = array('currentaid' => 0, 'currentteamid' => 0, 'currentrole' => 2);
+		DB::update('wanba_user', $data, "currentaid=$aid and currentteamid=$teamid and openid='" . $openid . "'");
+		echo json_encode(array('status' => true));
+		break;
+	case 'iscaptain':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$openid = $arr['openid'];
+		$data = array('currentaid' => $aid, 'currentteamid' => $teamid, 'currentrole' => 0);
+		DB::update('wanba_user', $data, "openid='" . $openid . "'");
+		echo json_encode(array('status' => true));
+		break;
+	case 'listenAddMoneyResult':
+		$openid = $arr['openid'];
+		$aid = $arr['aid'];
+		$token = $arr['token'];
+		$teamid = $arr['teamid'];
+		$data = DB::fetch_first("select token from wf_wanba_logs where aid=$aid and  teamid=$teamid  and  token='" . $token . "'");
+		if ($data) {
+			$status = true;
+			$msg = "成功";
+		} else {
+			$status = false;
+			$msg = "请等待";
+
+		}
+		echo json_encode(array('status' => $status, 'msg' => $msg));
+		break;
+	case 'listenScanResult':
+		$openid = $arr['openid'];
+		$aid = $arr['aid'];
+		$data = DB::fetch_first("select currentrole from wf_wanba_user where currentaid=$aid and  openid='" . $openid . "'");
+		if ($data && $data['currentrole'] == 0) {
+			$status = true;
+			$msg = "恭喜获得队长权限";
+		} else {
+			$status = false;
+			$msg = "请等待";
+
+		}
+		echo json_encode(array('status' => $status, 'msg' => $msg));
+		break;
+	case 'listenTradeResult':
+		$token = $arr['token'];
+		$aid = $arr['aid'];
+		$taskid = $arr['taskid'];
+		$teamid = $arr['teamid'];
+		$score = $arr['score'];
+		$data = DB::fetch_first("select token from wf_wanba_logs where aid=$aid and taskid=$taskid and teamid=$teamid and score=$score and  token='" . $token . "'");
+		if ($data) {
+			$status = true;
+			$msg = "交易成功";
+		} else {
+			$status = false;
+			$msg = "请等待";
+
+		}
+		echo json_encode(array('status' => $status, 'msg' => $msg));
+		break;
+
+	case 'listenAuctionResult':
+		$token = $arr['token'];
+		$aid = $arr['aid'];
+		$taskid = $arr['taskid'];
+		$teamid = $arr['teamid'];
+		$score = 0 - $arr['score'];
+		$data = DB::fetch_first("select token from wf_wanba_logs where aid=$aid and taskid=$taskid and teamid=$teamid and score=$score and  token='" . $token . "'");
+		if ($data) {
+			$status = true;
+			$msg = "交易成功";
+		} else {
+			$status = false;
+			$msg = "请等待";
+
+		}
+		echo json_encode(array('status' => $status, 'msg' => $msg));
+		break;
+	case 'listenCheckTaskResult':
+		$token = $arr['token'];
+		$aid = $arr['aid'];
+		$taskid = $arr['taskid'];
+		$teamid = $arr['teamid'];
+
+		$data = DB::fetch_first("select token,memo,event from wf_wanba_logs where aid=$aid and taskid=$taskid and teamid=$teamid and  token='" . $token . "'");
+		if ($data) {
+			$status = true;
+			$msg = ($data['event'] ? $data['event'] : '教练提交了你的挑战结果，请等待管理员最终判定');
+		} else {
+			$status = false;
+			$msg = "请等待";
+
+		}
+		echo json_encode(array('status' => $status, 'msg' => $msg));
+		break;
+	case 'postAnswer':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$taskid = $arr['taskid'];
+		$score = intval($arr['pvalue']);
+		$date = time();
+		$token = $arr['token'];
+		$openid = $arr['openid'];
+		$memo = $arr['memo'];
+
+		$pass = DB::fetch_first("select * from wf_wanba_pass where  aid=$aid and teamid=$teamid and taskid=$taskid");
+		if ($pass) {
+			if ($pass['pass'] == -2) {
+				$data = array('pass' => 0, 'date' => time());
+				DB::update('wanba_pass', $data, "id=$pass[id]");
+				$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'creator' => $openid, 'date' => $date, 'token' => $token, 'memo' => $memo);
+
+				$id = DB::insert('wanba_logs', $data, 'id');
+				if ($id) {
+					echo json_encode(array('status' => true, 'id' => $id));
+				} else {
+					echo json_encode(array('status' => false, 'msg' => '操作失败'));
+				}
+			} else {
+				echo json_encode(array('status' => false, 'msg' => '该队其他队长已经提交过此任务了'));
+			}
+		} else {
+			$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'date' => time());
+			DB::insert('wanba_pass', $data);
+			$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'creator' => $openid, 'date' => $date, 'token' => $token, 'memo' => $memo);
+
+			$id = DB::insert('wanba_logs', $data, 'id');
+			if ($id) {
+				echo json_encode(array('status' => true, 'id' => $id));
+			} else {
+				echo json_encode(array('status' => false, 'msg' => '操作失败'));
+			}
+		}
+
+		break;
+	case 'queryAnswerstatus':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$taskid = $arr['taskid'];
+		$openid = $arr['openid'];
+		$sessionname = $arr['sessionname'];
+		$sessionvalue = $arr['sessionvalue'];
+		$hassession = DB::fetch_first("select value from wf_wanba_session where name='" . $sessionname . "'");
+
+		if ($hassession) {
+		  //$data=array('value'=>$sessionvalue);
+		  //DB::update('wanba_session',$data,"name='".$sessionname."'");
+		} else {
+			$data = array('value' => $sessionvalue, 'name' => $sessionname);
+			DB::insert('wanba_session', $data);
+		}
+		$q = DB::fetch_first("select value from wf_wanba_session where name='" . $sessionname . "'");
+		$n = $q ? $q['value'] : 0;
+		$pass = DB::fetch_first("select pass from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+		$stone = DB::fetch_first("select stonevar,stonerandom from wf_wanba_act where aid=$aid");
+		$stone['list'] = DB::fetch_all("SELECT * FROM  `wf_wanba_stone` ");
+		$data = array('pass' => $pass, 'stone' => $stone, "sessionvalue" => $n);
+		echo json_encode($data);
+		break;
+	case 'allUpload':
+		$aid = $arr['aid'];
+		//$sql = "SELECT FROM_UNIXTIME(l.date) date,t.aid aid,t.pvalue pvalue,t.name name,t.memo memo,s.name team,s.pic flag,l.id id FROM `wf_wanba_logs` l, `wf_wanba_task` t, `wf_wanba_team_setting` s  where  l.aid=$aid and l.status=0 and l.taskid=t.taskid and l.teamid=s.displayorder and l.aid=s.aid";
+		$sql = "SELECT id passid,aid,teamid,taskid FROM `wf_wanba_pass`   where  aid=$aid and pass=0";
+		$data = DB::fetch_all($sql);
+
+		foreach ($data as $k => $v) {
+			// $score = DB::fetch_first("SELECT FROM_UNIXTIME(l.date) date,t.aid aid,t.pvalue pvalue,t.name name,t.memo memo,s.name team,s.pic flag,l.id id FROM `wf_wanba_logs` l, `wf_wanba_task` t, `wf_wanba_team_setting` s  where  l.aid=$aid and l.status=0 and l.taskid=t.taskid and l.teamid=s.displayorder and l.aid=s.aid");
+			$score = DB::fetch_first("select id logid, FROM_UNIXTIME(date) date from wf_wanba_logs where aid=$aid and teamid=$v[teamid] and taskid=$v[taskid]  order  by id desc");
+			$data[$k]['logid'] = $score['logid'];
+			$data[$k]['date'] = $score['date'];
+			$task = DB::fetch_first("select name,pvalue,owner,ptype,displayorder,mine,memo from wf_wanba_task where taskid=$v[taskid]");
+			$data[$k]['pvalue'] = $task['pvalue'];
+			$data[$k]['name'] = $task['name'];
+			$data[$k]['owner'] = $task['owner'];
+			$data[$k]['ptype'] = $task['ptype'];
+			$data[$k]['displayorder'] = $task['displayorder'];
+			$data[$k]['mine'] = $task['mine'];
+			$data[$k]['memo'] = $task['memo'];
+			$team = DB::fetch_first("select name,pic,color from wf_wanba_team_setting where aid=$aid and displayorder=$v[teamid]");
+			$data[$k]['team'] = $team['name'];
+			$data[$k]['flag'] = $team['pic'];
+			$data[$k]['color'] = $team['color'];
+			//$data[$k]= DB::fetch_first("SELECT FROM_UNIXTIME(l.date) date,t.aid aid,t.pvalue pvalue,t.name name,t.memo memo,s.name team,s.pic flag,l.id id FROM `wf_wanba_logs` l, `wf_wanba_task` t, `wf_wanba_team_setting` s  where  l.aid=$aid and l.status=0 and l.taskid=t.taskid and l.teamid=s.displayorder and l.aid=s.aid");
+
+		}
+		echo json_encode($data);
+		break;
+	case 'viewUploadDetail':
+		$logid = $arr['logid'];
+
+		$sql = "SELECT  memo,id,teamid,taskid  FROM `wf_wanba_logs`  where  id=$logid";
+		$data = DB::fetch_first($sql);
+
+		$data['uploadpic'] = DB::fetch_all("SELECT * FROM  `wf_wanba_log_pic` where logid=$logid");
+		$data['pic'] = DB::fetch_all("SELECT * FROM  `wf_wanba_pic` where taskid=$data[taskid]");
+
+		echo json_encode($data);
+		break;
+	case 'pass':
+
+		$taskid = $arr['taskid'];
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$passid = $arr['passid'];
+		$currentowner = $arr['owner'];
+		$pvalue = $arr['pvalue'];
+		$ptype = $arr['ptype'];
+		$mine = $arr['mine'];
+		$posid = $arr['displayorder'];
+		$creator = $arr['creator'];
+		$currentowner = DB::fetch_first("select owner,mine from wf_wanba_task where taskid=$taskid");
+		
+         //普通点
+		if (intval($ptype) == 0) {
+			//有人占了
+			if ($currentowner && $currentowner[owner] != '') {
+				//如有雷
+				//$msg = ' 很遗憾，' . $posid . '号地已经有人占了';
+				//触雷
+				$mine = $currentowner['mine'];
+				if (intval($mine) > 0) {
+					$money = 2 * $mine;
+					$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => 0 - 2 * intval($mine), 'date' => time(), 'event' => '在' . $posid . '号地触雷，损失' . $money);
+					$id = DB::insert('wanba_logs', $data, 'id');
+					//布雷者加倍
+					$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $currentowner[owner], 'score' => 2 * intval($mine), 'date' => time(), 'event' => '有人踩了' . $posid . '号地雷，你获得了' . $money);
+					$id = DB::insert('wanba_logs', $data, 'id');
+					//将雷设置归零
+					$data = array('mine' => 0);
+					DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+				}
+				$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'date' => time(), 'event' => '完成' . $posid . '号地的任务');
+				$id = DB::insert('wanba_logs', $data, 'id');
+				//写pass通关
+				//$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+
+				$data = array('pass' => 2, 'date' => time());
+				DB::update('wanba_pass', $data, "id=$passid");
+
+
+			} 
+			//未占
+			else {
+			   //写Log
+				$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => $pvalue, 'date' => time(), 'event' => '获得' . $posid . '号地');
+				$id = DB::insert('wanba_logs', $data, 'id');
+			   //更改拥有者
+				$data = array('pvalue' => $pvalue, 'owner' => $teamid);
+				DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+				//写pass通关
+				//$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+
+				$data = array('pass' => 2, 'date' => time());
+				DB::update('wanba_pass', $data, "id=$passid");
+
+
+			}
+		}
+		//拍卖点
+		elseif (intval($ptype) == 1) {
+           //写Log
+			$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => $pvalue, 'date' => time(), 'event' => '获得' . $posid . '号地的拍卖权');
+			$id = DB::insert('wanba_logs', $data, 'id');
+			//更改拥有者
+			if ($currentowner['owner'] == '') {
+				$owner = $teamid;
+			} else {
+				if (strpos(strval($currentowner['owner']), strval($teamid)) !== false) {
+					$owner = $currentowner['owner'];
+
+				} else {
+					$owner = $currentowner['owner'] . ',' . $teamid;
+				}
+			}
+			$data = array('owner' => $owner);
+			DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+				//写pass通关
+
+			$data = array('pass' => 2, 'date' => time());
+			DB::update('wanba_pass', $data, "id=$passid");
+
+		} elseif (intval($ptype) == 2) {
+			//写Log
+			$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => $pvalue, 'date' => time(), 'event' => '占有' . $posid . '号地');
+			$id = DB::insert('wanba_logs', $data, 'id');
+			//更改拥有者
+			$owner = $teamid;
+			$data = array('owner' => $owner);
+			DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+				//写pass通关
+
+			$data = array('pass' => 2, 'date' => time());
+			DB::update('wanba_pass', $data, "id=$passid");
+		} else if (intval($ptype) == 3) {
+            	//有人占了
+			// if ($currentowner && $currentowner[owner] != '') {
+			// 	//如有雷
+			// 	//$msg = ' 很遗憾，' . $posid . '号地已经有人占了';
+			// 	//触雷
+			// 	if (intval($mine) > 0) {
+			// 		$money = 2 * $mine;
+			// 		$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => 0 - 2 * intval($mine),  'date' => time(), 'event' => '在' . $posid . '号地触雷，损失' . $money);
+			// 		$id = DB::insert('wanba_logs', $data, 'id');
+			// 		//布雷者加倍
+			// 		$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $currentowner, 'score' => 2 * intval($mine),  'date' => time(), 'event' => '有人踩了' . $posid . '号地雷，你获得了' . $money);
+			// 		$id = DB::insert('wanba_logs', $data, 'id');
+			// 		//将雷设置归零
+			// 		$data = array('mine' => 0);
+			// 		DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+			// 	}
+			// 	$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid,  'date' => time(), 'event' => '完成' . $posid . '号地的任务');
+			// 	$id = DB::insert('wanba_logs', $data, 'id');
+			// 	//写pass通关
+			// 	//$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+
+			// 	$data = array('pass' => 2, 'date' => time());
+			// 	DB::update('wanba_pass', $data, "id=$passid");
+
+
+			// } 
+			// //未占
+			// else {
+			//    //写Log
+			// 	$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => $pvalue,  'date' => time(), 'event' => '获得' . $posid . '号地');
+			// 	$id = DB::insert('wanba_logs', $data, 'id');
+			//    //更改拥有者
+			// 	$data = array('pvalue' => $pvalue, 'owner' => $teamid);
+			// 	DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+			// 	//写pass通关
+			// 	//$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+
+			// 	$data = array('pass' => 2, 'date' => time());
+			// 	DB::update('wanba_pass', $data, "id=$passid");
+
+
+			// }
+		}
+
+		echo json_encode(array('status' => true));
+		break;
+	case 'deny':
+		$passid = $arr['passid'];
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$taskid = $arr['taskid'];
+		$event = $arr['event'];
+		$pvalue = $arr['pvalue'];
+		$creator = $arr['creator'];
+		
+		//改状态为未通过
+		$data = array('pass' => -2, "checkdate" => time());
+		DB::update("wanba_pass", $data, "id=$passid");
+
+		$data = array('aid' => $aid, 'creator' => $creator, 'teamid' => $teamid, 'taskid' => $taskid, 'status' => 0, 'event' => '挑战失败，理由:' . $event, 'date' => time());
+		DB::insert('wanba_logs', $data);
+
+		echo json_encode(array('status' => true));
+
+		break;
+
+	case 'updateMine':
+		$taskid = $arr['taskid'];
+		$mine = intval($arr['mine']);
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$pvalue = $arr['pvalue'];
+		$money = DB::fetch_first("SELECT  sum(score) money FROM  `wf_wanba_logs`  where aid=$aid and  teamid=$teamid");
+		$money = ($money) ? $money['money'] : 0;
+		$rule = DB::fetch_first("select minenum,minevalue from wf_wanba_act where aid=$aid");
+		$q = DB::fetch_first("SELECT count(mine) num FROM `wf_wanba_task` where owner=$teamid and mine>0 and aid=$aid");
+		$total_mine = $q['num'];
+		$maxmoney = intval($pvalue * $rule['minevalue'] / 100);
+		$hasposted = DB::fetch_first("select mine from wf_wanba_task where aid=$aid  and taskid=$taskid");
+		if ($hasposted && $hasposted['mine'] > 0) {
+			echo json_encode(array('status' => false, 'msg' => '其他队长已经布雷'));
+		} else {
+
+			if ($total_mine >= $rule['minenum']) {
+				echo json_encode(array('status' => false, 'msg' => '你已布了个' . $total_mine . '雷,最多可以同时布' . $rule['minenum'] . '个雷'));
+			} else {
+				if ($mine <= $money) {
+					if ($mine > $maxmoney) {
+						echo json_encode(array('status' => false, 'msg' => '最多可以布' . $maxmoney . '的雷'));
+					} else {
+						$data = array('mine' => $mine);
+						DB::update('wanba_task', $data, "taskid=$taskid");
+		//写入log
+						$task = DB::fetch_first("select * from wf_wanba_task where taskid=$taskid");
+						$data = array('aid' => $task['aid'], 'taskid' => $taskid, 'teamid' => $task['owner'], 'score' => 0 - $mine, 'date' => time(), 'event' => '你在' . $task['displayorder'] . '号地布了一颗' . $mine . '的雷');
+						$id = DB::insert('wanba_logs', $data, 'id');
+						echo json_encode(array('status' => true, 'msg' => '布雷成功'));
+					}
+				} else {
+					echo json_encode(array('status' => false, 'msg' => '钱不够哦,你有' . $money . ',布雷需要' . $mine));
+				}
+			}
+		}
+		break;
+	case 'getMyteamMoney':
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$money = DB::fetch_first("SELECT l.teamid buyer, sum(l.score) money FROM `wf_wanba_user`  u,`wf_wanba_logs`  l where l.aid =$aid and u.openid= '" . $openid . "' and u.currentteamid=l.teamid and u.currentaid=l.aid");
+		$teamname = DB::result_first("select name from wf_wanba_team_setting where id=$money[buyer]");
+		$money['buyer_teamname'] = $teamname;
+		echo json_encode($money);
+		break;
+	case 'dealTrade':
+
+		$price = $arr['price'];
+		$buyer = $arr['buyer'];
+		$buyer_teamname = $arr['buyer_teamname'];
+		$seller = $arr['seller'];
+		$seller_teamname = $arr['seller_teamname'];
+		$taskid = $arr['taskid'];
+		$aid = $arr['aid'];
+		$posid = $arr['posid'];
+		$token = $arr['token'];
+		$arr1 = array(1, 9, 17, 25, 33, 41, 49, 7, 13, 19, 31, 37, 43);
+
+		if (in_array($posid, $arr1)) {
+			echo json_encode(array('status' => false));
+		} else {
+		//减去购买者钱，做log
+			$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $buyer, 'score' => 0 - intval($price), 'date' => time(), 'token' => $token, 'event' => '以' . $price . '的价格从' . $seller_teamname . '购得' . $posid . '号地');
+			$id = DB::insert('wanba_logs', $data, 'id');
+		//给出售者加钱，做log
+			$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $seller, 'score' => $price, 'date' => time(), 'token' => $token, 'event' => $buyer_teamname . '以' . $price . '的价格购得您的' . $posid . '号地');
+			$id = DB::insert('wanba_logs', $data, 'id');
+		 //更新此地块地价
+			$data = array('pvalue' => $price, 'owner' => $buyer);
+			DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+
+			echo json_encode(array('status' => true));
+		}
+		break;
+	case 'dealAuction':
+		$sellprice = $arr['sellprice'];
+		$teamid = $arr['teamid'];
+		$seller_teamname = $arr['seller_teamname'];
+		$taskid = $arr['taskid'];
+		$aid = $arr['aid'];
+		$posid = $arr['posid'];
+		$token = $arr['token'];
+		//减去竞拍队伍钱,插入log
+		$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'token' => $token, 'score' => 0 - intval($sellprice), 'date' => time(), 'event' => $seller_teamname . '以' . $sellprice . '的价格拍得' . $posid . '号地');
+		$id = DB::insert('wanba_logs', $data, 'id');
+		//更改地产所有者
+		$data = array('pvalue' => $sellprice, 'owner' => $teamid);
+		DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+		echo json_encode(array('status' => true));
+		break;
+
+	case 'autoUpdateScore':
+		$n = rand(0, 100);
+		usleep($n * 1000);
+		$taskid = $arr['taskid'];
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$pass = $arr['pass'];
+		$owner = $arr['owner'];
+		$pvalue = $arr['pvalue'];
+		$ptype = $arr['ptype'];
+		$mine = $arr['mine'];
+		$posid = $arr['displayorder'];
+		$currentowner = DB::fetch_first("select owner,mine from wf_wanba_task where taskid=$taskid");
+
+		$hasposted = DB::fetch_first("select pass from wf_wanba_pass where pass>=0 and aid=$aid and teamid=$teamid and taskid=$taskid");
+		if ($hasposted) {
+			$msg = '该队其他队长已经提交过此任务了';
+		} else {
+         //普通点
+			if (intval($ptype) == 0) {
+			//有人占了
+				if ($currentowner && $currentowner[owner] != '') {
+				//如有雷
+					$msg = ' 很遗憾，' . $posid . '号地已经有人占了';
+					$mine = $currentowner['mine'];
+				//触雷
+					if (intval($mine) > 0) {
+						$money = 2 * $mine;
+						$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => 0 - 2 * intval($mine), 'date' => time(), 'event' => '在' . $posid . '号地触雷，损失' . $money);
+						$id = DB::insert('wanba_logs', $data, 'id');
+					//布雷者加倍
+
+						$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $currentowner[owner], 'score' => 2 * intval($mine), 'date' => time(), 'event' => '有人踩了' . $posid . '号地雷，你获得了' . $money);
+						$id = DB::insert('wanba_logs', $data, 'id');
+					//将雷设置归零
+						$data = array('mine' => 0);
+						DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+					}
+					$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'date' => time(), 'event' => '完成' . $posid . '号地的任务');
+					$id = DB::insert('wanba_logs', $data, 'id');
+				//写pass通关
+					$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+					if ($pass) {
+						$data = array('pass' => 2, 'date' => time());
+						DB::update('wanba_pass', $data, "id=$pass[id]");
+					} else {
+						$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'date' => time(), 'pass' => 2);
+						DB::insert('wanba_pass', $data);
+					}
+
+				} 
+			//未占
+				else {
+			   //写Log
+					$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => $pvalue, 'date' => time(), 'event' => '获得' . $posid . '号地');
+					$id = DB::insert('wanba_logs', $data, 'id');
+			   //更改拥有者
+					$data = array('pvalue' => $pvalue, 'owner' => $teamid);
+					DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+				//写pass通关
+					$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+					if ($pass) {
+						$data = array('pass' => 2, 'date' => time());
+						DB::update('wanba_pass', $data, "id=$pass[id]");
+					} else {
+						$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'date' => time(), 'pass' => 2);
+						DB::insert('wanba_pass', $data);
+					}
+					$msg = '获得' . $posid . '号地';
+
+				}
+			}
+		//拍卖点
+			elseif (intval($ptype) == 1) {
+           //写Log
+				$data = array('aid' => $aid, 'taskid' => $taskid, 'teamid' => $teamid, 'score' => $pvalue, 'date' => time(), 'event' => '获得' . $posid . '号地的拍卖权');
+				$id = DB::insert('wanba_logs', $data, 'id');
+			//更改拥有者
+				if ($currentowner['owner'] == '') {
+					$owner = $teamid;
+				} else {
+					if (strpos(strval($currentowner['owner']), strval($teamid)) !== false) {
+						$owner = $currentowner['owner'];
+					} else {
+						$owner = $currentowner['owner'] . ',' . $teamid;
+					}
+				}
+
+
+				$data = array('owner' => $owner);
+
+				DB::update('wanba_task', $data, "aid=$aid and taskid=$taskid");
+				//写pass通关
+				$pass = DB::fetch_first("select * from wf_wanba_pass where aid=$aid and teamid=$teamid and taskid=$taskid");
+				if ($pass) {
+					$data = array('pass' => 2, 'date' => time());
+					DB::update('wanba_pass', $data, "id=$pass[id]");
+				} else {
+					$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'date' => time(), 'pass' => 2);
+					DB::insert('wanba_pass', $data);
+				}
+				$msg = ' 获得' . $posid . '号地的拍卖权';
+			}
+		}
+
+		echo json_encode($msg);
+		break;
+	case 'getLogs':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		if ($teamid == -99) {
+			$sql = " SELECT from_unixtime(date, '%H:%i:%s') date, score, memo, event, id,status FROM `wf_wanba_logs` where aid = $aid and (event<>'' or memo<>'') order by id desc ";
+		} else {
+			$sql = " SELECT from_unixtime(date, '%H:%i:%s') date, score, memo, event, id,status FROM `wf_wanba_logs` where ((teamid = $teamid and aid = $aid) or (status=1 and aid=$aid)) and (event<>'' or memo<>'') order by id desc ";
+		}
+		$data = DB::fetch_all($sql);
+		// foreach ($data as $v) {
+		// 	$key_arrays[] = $v['id'];
+		// }
+		// array_multisort($key_arrays, SORT_DESC, SORT_NUMERIC, $data);
+		echo json_encode($data);
+		break;
+	case 'coachCheckTask':
+		$taskid = $arr['taskid'];
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$pass = $arr['pass'];
+		$openid = $arr['openid'];
+		$token = $arr['token'];
+		$teamname = $arr['teamname'];
+		$posid = $arr['posid'];
+		$date = time();
+		$hasposted = ($posid == 25) ? false : DB::fetch_first(" select pass from wf_wanba_pass where pass >= 0  and and aid = $aid and  teamid = $teamid and taskid = $taskid ");
+		if ($hasposted) {
+			echo json_encode(array('status' => false, 'msg' => '该队其他队长已经提交过此任务了'));
+		} else {
+			if ($pass == -2) {
+				$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'creator' => $openid, 'date' => $date, 'token' => $token, 'event' => '你在' . $posid . '号点的挑战失败');
+				$id = DB::insert('wanba_logs', $data, 'id');
+				$pass = DB::fetch_first(" select * from wf_wanba_pass where aid = $aid and teamid = $teamid and taskid = $taskid ");
+				if ($pass) {
+					$data = array('pass' => -2, 'date' => time());
+					DB::update('wanba_pass', $data, " id = $pass[id] ");
+				} else {
+					$data = array('aid' => $aid, 'pass' => -2, 'teamid' => $teamid, 'taskid' => $taskid, 'date' => time());
+					DB::insert('wanba_pass', $data);
+				}
+			} else if ($pass == 0) {
+				$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'creator' => $openid, 'date' => $date, 'token' => $token, 'memo' => '教练判定' . $teamname . '在' . $posid . '号点的挑战成功');
+
+				$id = DB::insert('wanba_logs', $data, 'id');
+				$pass = DB::fetch_first(" select * from wf_wanba_pass where aid = $aid and teamid = $teamid and taskid = $taskid ");
+				if ($pass) {
+					$data = array('pass' => 0, 'date' => time());
+					DB::update('wanba_pass', $data, " id = $pass[id] ");
+				} else {
+					$data = array('aid' => $aid, 'teamid' => $teamid, 'taskid' => $taskid, 'date' => time());
+					DB::insert('wanba_pass', $data);
+				}
+			}
+
+			if ($id) {
+				echo json_encode(array('status' => true, 'id' => $id));
+			} else {
+				echo json_encode(array('status' => false, 'msg' => '操作失败'));
+			}
+		}
+
+		break;
+	case 'addMoney':
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$teamid = $arr['teamid'];
+		$score = $arr['score'];
+		$teamname = $arr['teamname'];
+		$token = $arr['token'];
+		$data = array('aid' => $aid, 'score' => $score, 'teamid' => $teamid, 'token' => $token, 'date' => time(), 'event' => '获得加分' . $score);
+		$id = DB::insert('wanba_logs', $data, 'id');
+		if ($id) {
+			echo json_encode(array('status' => true, 'msg' => '操作成功', 'id' => $id));
+		} else {
+			echo json_encode(array('status' => false, 'msg' => '操作失败'));
+		}
+		break;
+	case 'updateActStatus':
+		$aid = $arr['aid'];
+		$status = $arr['status'];
+		// $oldStatus=DB::result_first("select status from wf_wanba_act where aid=$aid");
+		// if(($oldStatus==0 || $oldStatus==1) && $status==-1 ){
+        //     echo json_encode(array('status' => false, 'msg' => '操作失败'));
+		// } else if ($oldStatus==2 && $status<$oldStatus){
+		// 	echo json_encode(array('status' => false, 'msg' => '操作失败'));
+		// }else{
+		// 	$data=array('status'=>$status);
+		// 	DB::update('wanba_act',$data,"aid=$aid");
+		// 	echo json_encode(array('status' => true, 'msg' => '操作成功'));
+		// }
+		if ($status == -1) {
+			$event = '管理员更改状态为未开放';
+		} else if ($status == 0) {
+			$event = '管理员更改状态为游戏中';
+		} else if ($status == 1) {
+			$event = '管理员更改状态为游戏结束，即将开始交易拍卖环节';
+		} else if ($status == 2) {
+			$event = '管理员更改状态为交易状态';
+		} else if ($status == 3) {
+			$event = '管理员更改状态为交易结束';
+		} else if ($status == 4) {
+			$event = '管理员更改状态为拍卖状态';
+		} else if ($status == 5) {
+			$event = '管理员更改状态为全场结束';
+		}
+		$data = array('status' => $status);
+		DB::update('wanba_act', $data, "aid=$aid");
+		$data = array('event' => $event, 'status' => 1, date => time(), 'aid' => $aid);
+		DB::insert('wanba_logs', $data);
+		echo json_encode(array('status' => true, 'msg' => '操作成功'));
+		break;
+	case 'postSetting':
+		$aid = $arr['aid'];
+		$pvalue = $arr['pvalue'] ? $arr['pvalue'] : 300;
+		//$pvalue = 300;
+		$gps = intval($arr['gps']);
+		$offset = ($gps > 0) ? $gps : 0;
+		$gps = ($gps > 0) ? 1 : 0;
+		$mineNum = $arr['mineNum'];
+		$mineMoney = $arr['mineMoney'];
+		$data = array('minenum' => $mineNum, 'minevalue' => $mineMoney, 'gpsEnabled' => $gps, 'offset' => $offset);
+		DB::update("wanba_act", $data, "aid=$aid");
+		$data = array('pvalue' => $pvalue);
+		DB::update("wanba_task", $data, "aid=$aid");
+		if ($aid == 11 || $aid == 12) {
+			$data = array('pvalue' => 0);
+			DB::update("wanba_task", $data, "aid=$aid and displayorder=25");
+		}
+		echo json_encode(array('status' => true, 'msg' => '操作成功'));
+		break;
+	case 'postCoach':
+		$aid = $arr['aid'];
+		$coach = $arr['coach'];
+		$data = array('coach' => $coach);
+		DB::update("wanba_act", $data, "aid=$aid");
+		echo json_encode(array('status' => true, 'msg' => '操作成功'));
+		break;
+	case 'topBoard':
+		$aid = $arr['aid'];
+		//$data = DB::fetch_all("SELECT sum(s.score) score,t.name name,t.color color FROM `wf_wanba_logs` s, `wf_wanba_team_setting`  t WHERE s.aid=$aid and t.id=s.teamid group by t.id order by score desc");
+		$data = DB::fetch_all("SELECT sum(score) score,teamid  FROM `wf_wanba_logs` WHERE aid=$aid and teamid>0 group by teamid order by score desc");
+		foreach ($data as $k => $v) {
+			$team = DB::fetch_first("select name,color from `wf_wanba_team_setting` where aid=$aid and displayorder=$v[teamid]");
+			$data[$k]['name'] = $team['name'];
+			$data[$k]['color'] = $team['color'];
+		}
+		echo json_encode(array('list' => $data));
+		break;
+	case 'updateMyStep':
+		$openid = $arr['openid'];
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$step = $arr['step'];
+		$data = array('aid' => $aid, 'openid' => $openid, 'teamid' => $teamid, 'step' => $step, 'date' => date("Y-m-d"));
+		$isExist = DB::fetch_first("select aid from wf_wanba_werun where aid=$aid  and openid='" . $openid . "'");
+		if ($isExist) {
+			if (count($isExist) > 0) {
+				DB::update('wanba_werun', $data, "aid=$aid  and openid='" . $openid . "'");
+			} else {
+				DB::insert('wanba_werun', $data);
+			}
+		} else {
+			DB::insert('wanba_werun', $data);
+		}
+
+
+		$teamstep = DB::result_first("select sum(step) from wf_wanba_werun where teamid=$teamid and aid=$aid and date=CURDATE()");
+		$allstep = DB::result_first("select sum(step) from wf_wanba_werun where aid=$aid and teamid<>0 and date=CURDATE()");
+		$teamsteplist = DB::fetch_all("SELECT teamid,sum(step) step FROM `wf_wanba_werun`   where  aid=$aid and date=CURDATE() and teamid>0 group by teamid order by step desc");
+		foreach ($teamsteplist as $k => $v) {
+			$vars = DB::fetch_first("select name,color from `wf_wanba_team_setting` where aid=$aid and displayorder=$v[teamid]");
+			$teamsteplist[$k]['teamname'] = $vars['name'];
+			$teamsteplist[$k]['color'] = $vars['color'];
+		}
+		echo json_encode(array('mystep' => $step, 'teamstep' => $teamstep, 'allstep' => $allstep, 'teamsteplist' => $teamsteplist));
+		break;
+	case 'updateStone':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$teamname = $arr['teamname'];
+		$stonename = $arr['stoneName'];
+		$sessionname = $arr['sessionname'];
+		$sessionvalue = $arr['sessionvalue'];
+		$stone = $arr['stone'];
+		$stoneIndex = $arr['stoneIndex'];
+		//记录缓存
+		$hassession = DB::fetch_first("select * from wf_wanba_session where name='" . $sessionname . "'");
+		if ($hassession) {
+			$data = array('value' => $sessionvalue);
+			DB::update('wanba_session', $data, "name='" . $sessionname . "'");
+		} else {
+			$data = array('value' => $sessionvalue, 'name' => $sessionname);
+			DB::insert('wanba_session', $data);
+		}
+		//更新宝石池
+		$db = array('stonevar' => $stone);
+		DB::update('wanba_act', $db, "aid=$aid");
+		//更新队伍的宝石数量
+		$col = 'stone' . $stoneIndex;
+		$q = DB::fetch_first("select " . $col . " as f from wf_wanba_team_setting where aid=$aid and displayorder=$teamid");
+		$n = ($q) ? $q['f'] : 0;
+		$n = $n + 1;
+		DB::query("update wf_wanba_team_setting set " . $col . "=" . $n . " where aid=$aid and displayorder=$teamid");
+		$log = array('event' => $teamname . '获得了一颗' . $stonename, 'status' => 1, date => time(), 'aid' => $aid);
+		DB::insert('wanba_logs', $log);
+		break;
+	case 'getStone':
+		$aid = $arr['aid'];
+		$teamid = $arr['teamid'];
+		$teamname = $arr['teamname'];
+		$token = $arr['token'];
+		$stoneIndex = $arr['stone'];
+		$hasStone = DB::fetch_first("select token,path from wf_wanba_stone_list where aid=$aid and token='" . $token . "'");
+		if ($hasStone) {
+		//从宝石池中删除这颗宝石
+			@unlink($hasStone['path']);
+			DB::delete('wanba_stone_list', "aid=$aid and token='" . $token . "'");
+
+			
+		//宝石信息
+			$stoneinfo = DB::fetch_first("select * from wf_wanba_stone where id=$stoneIndex");
+
+		//更新队伍的宝石数量
+			$col = 'stone' . $stoneIndex;
+			$q = DB::fetch_first("select " . $col . " as f from wf_wanba_team_setting where aid=$aid and displayorder=$teamid");
+			$n = ($q) ? $q['f'] : 0;
+			$n = $n + 1;
+			DB::query("update wf_wanba_team_setting set " . $col . "=" . $n . " where aid=$aid and displayorder=$teamid");
+			$log = array('event' => $teamname . '获得了一颗' . $stoneinfo[name], 'status' => 1, date => time(), 'aid' => $aid);
+			DB::insert('wanba_logs', $log);
+			echo json_encode($stoneinfo);
+		}
+		break;
+	case 'getBoxStone':
+		$teamid = $arr['teamid'];
+		$aid = $arr['aid'];
+		$stones = DB::fetch_all("SELECT *  FROM  `wf_wanba_stone`  order by id");
+
+		foreach ($stones as $k => $v) {
+			$field = 'stone' . $v['id'];
+
+			$stones[$k][$field] = DB::result_first("select " . $field . " from `wf_wanba_team_setting`  where aid=$aid and displayorder=$teamid");
+		}
+		echo json_encode($stones);
+		break;
+	case 'useStone2':
+		$teamid = $arr['teamid'];
+		$oldteamid = $arr['teamid'];
+		$aid = $arr['aid'];
+		$stoneid = $arr['stoneid'];
+		$teamname = $arr['teamname'];
+		$myteamname = $arr['myteamname'];
+		$myteamid = $arr['myteamid'];
+		$teamid1 = $arr['teamid1'];
+		$teamid2 = $arr['teamid2'];
+		$taskid1 = $arr['taskid1'];
+		$taskid2 = $arr['taskid2'];
+		$landIdexchange1 = $arr['landIdexchange1'];
+		$landIdexchange2 = $arr['landIdexchange2'];
+		$landid = $arr['landid'];
+		$taskid = $arr['taskid'];
+		// $result = array('msg' => $arr, 'status' => true);
+		// echo json_encode($result);
+		// exit();
+		//判断宝石数量
+        //减去宝石数量
+		$field = 'stone' . $stoneid;
+		$num = DB::result_first("select " . $field . " from wf_wanba_team_setting where aid=$aid and displayorder=$myteamid");
+
+		if ($num > 0) {
+			$num = $num - 1;
+			$arr = array($field => $num);
+			DB::update('wanba_team_setting', $arr, "aid=$aid and displayorder=$myteamid");
+			//判断是否有防御
+			if ($stoneid != 3) {
+				//$teamid = $teamid ? $teamid : $myteamid;
+				if ($teamid) {
+					$blocked = DB::fetch_first("select * from wf_wanba_task where aid=$aid and ptype=0 and owner=$teamid and block=1");
+				} else {
+					$blocked = DB::fetch_first("select * from wf_wanba_task where aid=$aid and ptype=0 and owner=$myteamid and block=1");
+				}
+				if ($blocked) {
+					$msg = '对方正用现实宝石进行防御';
+				//取消对方防御
+					$data = array('block' => 0);
+					if ($teamid) {
+						DB::update('wanba_task', $data, "aid=$aid and ptype=0 and owner=$teamid");
+					} else {
+						DB::update('wanba_task', $data, "aid=$aid and ptype=0 and owner=$myteamid");
+					}
+				//写log
+					if ($teamid) {
+						$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+						DB::insert('wanba_logs', $data);
+						$data = array('aid' => $aid, 'teamid' => $teamid, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+						DB::insert('wanba_logs', $data);
+					} else {
+						$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+						DB::insert('wanba_logs', $data);
+						$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+						DB::insert('wanba_logs', $data);
+					}
+
+					$result = array('msg' => $msg, 'status' => true);
+					echo json_encode($result);
+					exit();
+				} else {
+					switch ($stoneid) {
+						case 1:
+							
+							
+			
+							//改变该地块的占有者
+							$arr = array('owner' => $myteamid);
+							DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid");
+							//写pass通关表
+							$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid and aid=$aid and teamid=$myteamid");
+							if ($isExist) {
+
+								$data = array('pass' => 2, 'date' => time());
+								DB::update('wanba_pass', $data, " id = $isExist[id] ");
+							} else {
+								$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $myteamid, 'taskid' => $taskid, 'date' => time());
+								DB::insert('wanba_pass', $data);
+							}
+							//插入公告
+							$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了力量宝石，抢夺了' . $landid . '号地块');
+							DB::insert('wanba_logs', $data);
+							$msg = '成功抢夺了' . $landid . '号地块';
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+
+
+							break;
+						case 2:
+						  //查出队伍20分钟内的收益,并写log
+							$now = time();
+							$before = $now - 20 * 60;
+							$d = DB::fetch_first("SELECT sum(score) score FROM `wf_wanba_logs`  where  aid=$aid and teamid=$myteamid and date>=$before  and date<=$now");
+
+							if ($d) {
+								$score = $d['score'];
+								if ($score < 0) {
+									$win = 0 - $score;
+									$msg = $teamname . '在最近20分钟内收益是负的，你损失了' . $win;
+								//给自己扣钱
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+									DB::insert('wanba_logs', $data);
+								//插入公告
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了时间宝石');
+									DB::insert('wanba_logs', $data);
+
+								} elseif ($score == 0) {
+									$msg = $teamname . '在最近20分钟内无任何收益';
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了时间宝石，然而一无所获');
+									DB::insert('wanba_logs', $data);
+								} elseif ($score > 0) {
+									$msg = '获得了' . $teamname . '在最近20分钟内的收益' . $score;
+								//给自己加钱
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+									DB::insert('wanba_logs', $data);
+								
+								//插入公告
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，获得了其在最近20分钟内的收益');
+									DB::insert('wanba_logs', $data);
+								}
+							} else {
+								$msg = $teamname . '在最近20分钟内无任何收益';
+								$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，然而一无所获');
+								DB::insert('wanba_logs', $data);
+							}
+
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+							break;
+						case 3:
+						
+						   //改变该地块的占有者
+							$arr = array('owner' => $teamid2);
+							DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid1");
+							$arr = array('owner' => $teamid1);
+							DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid2");
+							//写pass通关表
+							$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid1 and aid=$aid and teamid=$teamid2");
+							if ($isExist) {
+
+								$data = array('pass' => 2, 'date' => time());
+								DB::update('wanba_pass', $data, " id = $isExist[id] ");
+							} else {
+								$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $teamid2, 'taskid' => $taskid1, 'date' => time());
+								DB::insert('wanba_pass', $data);
+							}
+							//插入公告
+							$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了空间宝石');
+							DB::insert('wanba_logs', $data);
+						//通知
+							$data = array('aid' => $aid, 'teamid' => $teamid1, 'date' => time(), 'event' => $myteamname . '使用了空间宝石，成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块');
+							DB::insert('wanba_logs', $data);
+							$data = array('aid' => $aid, 'teamid' => $teamid2, 'date' => time(), 'event' => $myteamname . '使用了空间宝石，成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块');
+							DB::insert('wanba_logs', $data);
+							$msg = '成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块';
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+							break;
+						case 4:
+						
+						//查出对方队伍20分钟内的收益,并写log
+							$now = time();
+							$before = $now - 20 * 60;
+							$d = DB::fetch_first("SELECT sum(score) score FROM `wf_wanba_logs`  where   aid=$aid and  teamid=$oldteamid and date>=$before  and date<=$now");
+
+							if ($d) {
+								$score = $d['score'];
+								if ($score < 0) {
+									$win = 0 - $score;
+									$msg = $teamname . '在最近20分钟内收益是负的，你损失了' . $win;
+								//给自己扣钱
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+									DB::insert('wanba_logs', $data);
+								//给对方加钱
+
+									$data = array('aid' => $aid, 'teamid' => $oldteamid, 'score' => $win, 'date' => time(), 'event' => $myteamname . '对你使用了心灵宝石，由于你在最近20分钟内的收益是负的，你意外获得了财富' . $win);
+									DB::insert('wanba_logs', $data);
+								//插入公告
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，获得了' . $teamname . '在最近20分钟内的收益');
+									DB::insert('wanba_logs', $data);
+
+								} elseif ($score == 0) {
+									$msg = $teamname . '在最近20分钟内无任何收益';
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '对' . $teamname . '使用了心灵宝石，然而一无所获');
+									DB::insert('wanba_logs', $data);
+								} elseif ($score > 0) {
+									$msg = '获得了' . $teamname . '在最近20分钟内的收益' . $score;
+								//给自己加钱
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+									DB::insert('wanba_logs', $data);
+								//给对方扣钱
+									$lost = 0 - $score;
+
+									$data = array('aid' => $aid, 'teamid' => $oldteamid, 'score' => $lost, 'date' => time(), 'event' => $myteamname . '使用了心灵宝石，获得了你在最近20分钟内的收益' . $score);
+									DB::insert('wanba_logs', $data);
+								//插入公告
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，获得了' . $teamname . '在最近20分钟内的收益');
+									DB::insert('wanba_logs', $data);
+								}
+							} else {
+								$msg = $teamname . '在最近20分钟内无任何收益';
+								$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '对' . $teamname . '使用了心灵宝石，然而一无所获');
+								DB::insert('wanba_logs', $data);
+							}
+
+
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+							break;
+						case 5:
+							$msg = '成功使用了灵魂宝石，可以看全局信息3分钟';
+						 //写入失效时间
+							$d = array('godview' => time() + 3 * 60);
+							DB::update("wanba_team_setting", $d, "aid=$aid and displayorder=$myteamid");
+						
+						 //写入log
+							$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '使用了灵魂宝石');
+							DB::insert('wanba_logs', $data);
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+							break;
+						case 6:
+							$msg = '成功使用了现实宝石，正在防御你的地产';
+		
+						
+						 //写入log
+							$data = array('aid' => $aid, 'teamid' => $myteamid, 'taskid' => $taskid, 'date' => time(), 'event' => '使用了现实宝石');
+							DB::insert('wanba_logs', $data);
+						//更新拥有地产的block
+							$data = array('block' => 1);
+
+							DB::update('wanba_task', $data, "aid=$aid and owner=$myteamid and ptype=0");
+
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+							break;
+					}
+				}
+			} else {
+
+				// $block1 = DB::fetch_first("select * from wf_wanba_task where aid=$aid and ptype=0 and owner=$teamid1 and block=1");
+				// $block2 = DB::fetch_first("select * from wf_wanba_task where aid=$aid and ptype=0 and  owner=$teamid2 and block=1");
+				$block1 = DB::fetch_first("select * from wf_wanba_task where aid=$aid and ptype=0 and taskid=$taskid1 and block=1");
+				$block2 = DB::fetch_first("select * from wf_wanba_task where aid=$aid and ptype=0 and  taskid=$taskid2 and block=1");
+				//取消对方防御
+				if ($block1 || $block2) {
+					$msg = '有现实宝石进行防御，这次操作失效了';
+
+					$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+					DB::insert('wanba_logs', $data);
+					if ($block1) {
+						$data = array('block' => 0);
+						if ($teamid1 > 0) {
+							DB::update('wanba_task', $data, "aid=$aid and ptype=0 and owner=$teamid1");
+						}
+						if ($teamid1 > 0) {
+							$data = array('aid' => $aid, 'teamid' => $teamid1, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+							DB::insert('wanba_logs', $data);
+						}
+
+					} else if ($block2) {
+						$data = array('block' => 0);
+						if ($teamid2 > 0) {
+							DB::update('wanba_task', $data, "aid=$aid and ptype=0 and owner=$teamid2");
+						}
+						if ($teamid2 > 0) {
+							$data = array('aid' => $aid, 'teamid' => $teamid2, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+							DB::insert('wanba_logs', $data);
+						}
+					}
+					$result = array('msg' => $msg, 'status' => true);
+					echo json_encode($result);
+					exit();
+				} else {
+					//写pass通关表
+
+					$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid1 and aid=$aid and teamid=$teamid2");
+					if ($isExist) {
+
+						$data = array('pass' => 2, 'date' => time());
+						DB::update('wanba_pass', $data, " id = $isExist[id] ");
+					} else {
+						$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $teamid2, 'taskid' => $taskid1, 'date' => time());
+						DB::insert('wanba_pass', $data);
+					}
+
+					$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid2 and aid=$aid and teamid=$teamid1");
+					if ($isExist) {
+
+						$data = array('pass' => 2, 'date' => time());
+						DB::update('wanba_pass', $data, " id = $isExist[id] ");
+					} else {
+						$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $teamid1, 'taskid' => $taskid2, 'date' => time());
+						DB::insert('wanba_pass', $data);
+					}
+					//插入公告
+					$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了空间宝石');
+					DB::insert('wanba_logs', $data);
+				//通知
+					$data = array('aid' => $aid, 'teamid' => $teamid1, 'date' => time(), 'event' => $myteamname . '使用了空间宝石，成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块');
+					DB::insert('wanba_logs', $data);
+					$data = array('aid' => $aid, 'teamid' => $teamid2, 'date' => time(), 'event' => $myteamname . '使用了空间宝石，成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块');
+					DB::insert('wanba_logs', $data);
+					$msg = '成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块';
+					 //交换地块的占有者
+					if ($teamid1 == 0) {
+						$teamid1 = '';
+					}
+					if ($teamid2 == 0) {
+						$teamid2 = '';
+					}
+					$arr = array('owner' => $teamid2);
+					DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid1");
+					$arr = array('owner' => $teamid1);
+					DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid2");
+
+					$result = array('msg' => $msg, 'status' => true);
+					echo json_encode($result);
+					break;
+				}
+			}
+
+		} else {
+			$msg = '宝石数量不足';
+			$result = array('msg' => $msg, 'status' => true);
+			echo json_encode($result);
+			exit();
+
+		}
+		break;
+	case 'useStone':
+		$aid = $arr['aid'];
+		$actstatus = DB::result_first("select status from `wf_wanba_act` where aid=$aid");
+		if ($actstatus > 0) {
+			$result = array('msg' => '游戏已结束，无法再使用宝石', 'status' => true);
+			echo json_encode($result);
+		} else {
+			$teamid = $arr['teamid'];
+			$oldteamid = $arr['teamid'];
+
+			$stoneid = $arr['stoneid'];
+			$teamname = $arr['teamname'];
+			$myteamname = $arr['myteamname'];
+			$myteamid = $arr['myteamid'];
+			$teamid1 = $arr['teamid1'];
+			$teamid2 = $arr['teamid2'];
+			$taskid1 = $arr['taskid1'];
+			$taskid2 = $arr['taskid2'];
+			$landIdexchange1 = $arr['landIdexchange1'];
+			$landIdexchange2 = $arr['landIdexchange2'];
+			$landid = $arr['landid'];
+			$taskid = $arr['taskid'];
+	 // $result = array('msg' => $arr, 'status' => true);
+	 // echo json_encode($result);
+	 // exit();
+	 //判断宝石数量
+	 //减去宝石数量
+			$field = 'stone' . $stoneid;
+			$num = DB::result_first("select " . $field . " from wf_wanba_team_setting where aid=$aid and displayorder=$myteamid");
+
+			if ($num > 0) {
+				$num = $num - 1;
+				$arr = array($field => $num);
+				DB::update('wanba_team_setting', $arr, "aid=$aid and displayorder=$myteamid");
+		 //判断是否有防御
+				switch ($stoneid) {
+					case 6:
+						$msg = '成功使用了现实宝石，正在防御你的地产';
+						$data = array('aid' => $aid, 'teamid' => $myteamid, 'taskid' => $taskid, 'date' => time(), 'event' => '使用了现实宝石');
+						DB::insert('wanba_logs', $data);
+						//更新拥有地产的block
+						$data = array('block' => 1);
+
+						DB::update('wanba_team_setting', $data, "aid=$aid and displayorder=$myteamid");
+
+						$result = array('msg' => $msg, 'status' => true);
+						echo json_encode($result);
+						break;
+					case 5:
+						$msg = '成功使用了灵魂宝石，可以看全局信息3分钟';
+						 //写入失效时间
+						$d = array('godview' => time() + 3 * 60);
+						DB::update("wanba_team_setting", $d, "aid=$aid and displayorder=$myteamid");
+						
+						 //写入log
+						$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '使用了灵魂宝石');
+						DB::insert('wanba_logs', $data);
+						$result = array('msg' => $msg, 'status' => true);
+						echo json_encode($result);
+
+						break;
+					case 2:
+				   //查出队伍20分钟内的收益,并写log
+						$now = time();
+						$before = $now - 20 * 60;
+						$d = DB::fetch_first("SELECT sum(score) score FROM `wf_wanba_logs`  where  aid=$aid and teamid=$myteamid and date>=$before  and date<=$now");
+
+						if ($d) {
+							$score = $d['score'];
+							if ($score < 0) {
+								$win = 0 - $score;
+								$msg = $teamname . '在最近20分钟内收益是负的，你损失了' . $win;
+					   //给自己扣钱
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+								DB::insert('wanba_logs', $data);
+					   //插入公告
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了时间宝石');
+								DB::insert('wanba_logs', $data);
+
+							} elseif ($score == 0) {
+								$msg = $teamname . '在最近20分钟内无任何收益';
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了时间宝石，然而一无所获');
+								DB::insert('wanba_logs', $data);
+							} elseif ($score > 0) {
+								$msg = '获得了' . $teamname . '在最近20分钟内的收益' . $score;
+					   //给自己加钱
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+								DB::insert('wanba_logs', $data);
+					   
+					   //插入公告
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，获得了其在最近20分钟内的收益');
+								DB::insert('wanba_logs', $data);
+							}
+						} else {
+							$msg = $teamname . '在最近20分钟内无任何收益';
+							$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，然而一无所获');
+							DB::insert('wanba_logs', $data);
+						}
+
+						$result = array('msg' => $msg, 'status' => true);
+						echo json_encode($result);
+						break;
+					case 4:
+						$blocked = DB::fetch_first("select block from `wf_wanba_team_setting`  where aid=$aid and displayorder=$teamid and block=1");
+						if ($blocked) {
+							$msg = '对方正用现实宝石进行防御';
+				         //取消对方防御
+							$data = array('block' => 0);
+							DB::update('wanba_team_setting', $data, "aid=$aid and displayorder=$teamid");
+					     //写log
+							$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+							DB::insert('wanba_logs', $data);
+							$data = array('aid' => $aid, 'teamid' => $teamid, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+							DB::insert('wanba_logs', $data);
+
+
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+							exit();
+						} else {
+                        //查出对方队伍20分钟内的收益,并写log
+							$now = time();
+							$before = $now - 20 * 60;
+							$d = DB::fetch_first("SELECT sum(score) score FROM `wf_wanba_logs`  where   aid=$aid and  teamid=$oldteamid and date>=$before  and date<=$now");
+
+							if ($d) {
+								$score = $d['score'];
+								if ($score < 0) {
+									$win = 0 - $score;
+									$msg = $teamname . '在最近20分钟内收益是负的，你损失了' . $win;
+								//给自己扣钱
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+									DB::insert('wanba_logs', $data);
+								//给对方加钱
+
+									$data = array('aid' => $aid, 'teamid' => $oldteamid, 'score' => $win, 'date' => time(), 'event' => $myteamname . '对你使用了心灵宝石，由于你在最近20分钟内的收益是负的，你意外获得了财富' . $win);
+									DB::insert('wanba_logs', $data);
+								//插入公告
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，获得了' . $teamname . '在最近20分钟内的收益');
+									DB::insert('wanba_logs', $data);
+
+								} elseif ($score == 0) {
+									$msg = $teamname . '在最近20分钟内无任何收益';
+									$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '对' . $teamname . '使用了心灵宝石，然而一无所获');
+									DB::insert('wanba_logs', $data);
+								} elseif ($score > 0) {
+									$msg = '获得了' . $teamname . '在最近20分钟内的收益' . $score;
+								//给自己加钱
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'score' => $score, 'date' => time(), 'event' => $msg);
+									DB::insert('wanba_logs', $data);
+								//给对方扣钱
+									$lost = 0 - $score;
+
+									$data = array('aid' => $aid, 'teamid' => $oldteamid, 'score' => $lost, 'date' => time(), 'event' => $myteamname . '使用了心灵宝石，获得了你在最近20分钟内的收益' . $score);
+									DB::insert('wanba_logs', $data);
+								//插入公告
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了心灵宝石，获得了' . $teamname . '在最近20分钟内的收益');
+									DB::insert('wanba_logs', $data);
+								}
+							} else {
+								$msg = $teamname . '在最近20分钟内无任何收益';
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '对' . $teamname . '使用了心灵宝石，然而一无所获');
+								DB::insert('wanba_logs', $data);
+							}
+
+
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+						}
+						break;
+					case 3:
+						$flag1 = false;
+						$owner1 = DB::fetch_first("select owner from wf_wanba_task where aid=$aid and taskid=$taskid1");
+						$owner2 = DB::fetch_first("select owner from wf_wanba_task where aid=$aid and taskid=$taskid2");
+						if ($owner1) {
+							if ($owner1['owner'] == '') {
+								$owner1 = 0;
+							} else {
+								$owner1 = $owner1['owner'];
+							}
+
+						} else {
+							$owner1 = 0;
+						}
+						if ($owner2) {
+							if ($owner2['owner'] == '') {
+								$owner2 = 0;
+							} else {
+								$owner2 = $owner2['owner'];
+							}
+
+						} else {
+							$owner2 = 0;
+						}
+						if ($owner1 == 0 && $owner2 == 0) {
+							$result = array('msg' => '不能对两块无主之地使用', 'status' => false);
+						//加回宝石
+							$field = 'stone' . $stoneid;
+							$num = DB::result_first("select " . $field . " from wf_wanba_team_setting where aid=$aid and displayorder=$myteamid");
+							$num = $num + 1;
+							$arr = array($field => $num);
+							DB::update('wanba_team_setting', $arr, "aid=$aid and displayorder=$myteamid");
+							echo json_encode($result);
+						} else {
+							$blocked1 = DB::fetch_first("select block from `wf_wanba_team_setting`  where aid=$aid and displayorder=$owner1 and displayorder<>$myteamid and block=1");
+							if ($blocked1) {
+								$msg = '对方正用现实宝石进行防御';
+									//取消对方防御
+								$data = array('block' => 0);
+								DB::update('wanba_team_setting', $data, "aid=$aid and displayorder=$owner1");
+									//写log
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+								DB::insert('wanba_logs', $data);
+								$data = array('aid' => $aid, 'teamid' => $owner1, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+								DB::insert('wanba_logs', $data);
+								$result = array('msg' => $msg, 'status' => true);
+							}
+							$blocked2 = DB::fetch_first("select block from `wf_wanba_team_setting`  where aid=$aid and displayorder=$owner2 and displayorder<>$myteamid and block=1");
+							if ($blocked2) {
+								$msg = '对方正用现实宝石进行防御';
+									//取消对方防御
+								$data = array('block' => 0);
+								DB::update('wanba_team_setting', $data, "aid=$aid and displayorder=$owner2");
+									//写log
+								$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+								DB::insert('wanba_logs', $data);
+								$data = array('aid' => $aid, 'teamid' => $owner2, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+								DB::insert('wanba_logs', $data);
+								$result = array('msg' => $msg, 'status' => true);
+							}
+							if ($blocked1 || $blocked2) {
+								echo json_encode($result);
+							} else {
+                            //写pass通关表
+
+								$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid1 and aid=$aid and teamid=$owner2");
+								if ($isExist) {
+
+									$data = array('pass' => 2, 'date' => time());
+									DB::update('wanba_pass', $data, " id = $isExist[id] ");
+								} else {
+									$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $teamid2, 'taskid' => $taskid1, 'date' => time());
+									DB::insert('wanba_pass', $data);
+								}
+
+								$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid2 and aid=$aid and teamid=$owner1");
+								if ($isExist) {
+
+									$data = array('pass' => 2, 'date' => time());
+									DB::update('wanba_pass', $data, " id = $isExist[id] ");
+								} else {
+									$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $owner1, 'taskid' => $taskid2, 'date' => time());
+									DB::insert('wanba_pass', $data);
+								}
+					           //插入公告
+								$data = array('aid' => $aid, 'teamid' => $owner1, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了空间宝石');
+								DB::insert('wanba_logs', $data);
+				                //通知
+								$data = array('aid' => $aid, 'teamid' => $owner1, 'date' => time(), 'event' => $myteamname . '使用了空间宝石，成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块');
+								DB::insert('wanba_logs', $data);
+								$data = array('aid' => $aid, 'teamid' => $owner2, 'date' => time(), 'event' => $myteamname . '使用了空间宝石，成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块');
+								DB::insert('wanba_logs', $data);
+								$msg = '成功交换了' . $landIdexchange1 . '和' . $landIdexchange2 . '号地块';
+					            //交换地块的占有者
+								if ($owner1 == 0) {
+									$owner1 = '';
+								}
+								if ($owner2 == 0) {
+									$owner2 = '';
+								}
+								$arr = array('owner' => $owner2);
+								DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid1");
+								$arr = array('owner' => $owner1);
+								DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid2");
+
+								$result = array('msg' => $msg, 'status' => true);
+								echo json_encode($result);
+							}
+						}
+						break;
+					case 1:
+						$flag = false;
+						$owner = DB::fetch_first("select owner from wf_wanba_task where aid=$aid and taskid=$taskid");
+						if ($owner && $owner['owner'] != '') {
+							$owner = $owner['owner'];
+							if ($owner == $myteamid) {
+								$result = array('msg' => '不能对自己拥有的地产使用宝石', 'status' => false);
+							//加回宝石
+								$field = 'stone' . $stoneid;
+								$num = DB::result_first("select " . $field . " from wf_wanba_team_setting where aid=$aid and displayorder=$myteamid");
+								$num = $num + 1;
+								$arr = array($field => $num);
+								DB::update('wanba_team_setting', $arr, "aid=$aid and displayorder=$myteamid");
+								$flag = false;
+								echo json_encode($result);
+							} else {
+								$blocked = DB::fetch_first("select block from `wf_wanba_team_setting`  where aid=$aid and displayorder=$owner and block=1");
+								if ($blocked) {
+									$msg = '对方正用现实宝石进行防御';
+										//取消对方防御
+									$data = array('block' => 0);
+									DB::update('wanba_team_setting', $data, "aid=$aid and displayorder=$owner");
+										//写log
+									$data = array('aid' => $aid, 'teamid' => $myteamid, 'date' => time(), 'event' => '对方正用现实宝石进行防御,你的操作失效了');
+									DB::insert('wanba_logs', $data);
+									$data = array('aid' => $aid, 'teamid' => $owner, 'date' => time(), 'event' => '抵御了一次' . $myteamname . '的宝石攻击');
+									DB::insert('wanba_logs', $data);
+									$result = array('msg' => $msg, 'status' => true);
+									$flag = false;
+									echo json_encode($result);
+
+								} else {
+									$flag = true;
+								}
+							}
+						} else {
+							$flag = true;
+						}
+						if ($flag) {
+				             //改变该地块的占有者
+							$arr = array('owner' => $myteamid);
+							DB::update('wanba_task', $arr, "aid=$aid and taskid=$taskid");
+							//写pass通关表
+							$isExist = DB::fetch_first("SELECT id FROM `wf_wanba_pass`  where  taskid=$taskid and aid=$aid and teamid=$myteamid");
+							if ($isExist) {
+
+								$data = array('pass' => 2, 'date' => time());
+								DB::update('wanba_pass', $data, " id = $isExist[id] ");
+							} else {
+								$data = array('aid' => $aid, 'pass' => 2, 'teamid' => $myteamid, 'taskid' => $taskid, 'date' => time());
+								DB::insert('wanba_pass', $data);
+							}
+							//插入公告
+							$data = array('aid' => $aid, 'teamid' => $myteamid, 'status' => 1, 'date' => time(), 'event' => '江湖公告：' . $myteamname . '使用了力量宝石，抢夺了' . $landid . '号地块');
+							DB::insert('wanba_logs', $data);
+							$msg = '成功抢夺了' . $landid . '号地块';
+							$result = array('msg' => $msg, 'status' => true);
+							echo json_encode($result);
+						}
+						break;
+
+				}
+
+			} else {
+				$msg = '宝石数量不足';
+				$result = array('msg' => $msg, 'status' => true);
+				echo json_encode($result);
+				exit();
+
+			}
+		}
+		break;
+
+	case 'sysInit':
+		$aid = $arr['aid'];
+		$sql = "update `wf_wanba_team_setting`  set stone1=0,stone2=0,stone3=0,stone4=0,stone5=0,stone6=0,godview=0  where aid=$aid";
+		DB::query($sql);
+		$sql = "delete FROM `wf_wanba_pass` WHERE aid=$aid";
+		DB::query($sql);
+		$sql = "delete FROM `wf_wanba_logs` WHERE aid=$aid";
+		DB::query($sql);
+		$sql = "update `wf_wanba_task`  set owner=null,gps=0,open=0,mine=0  where aid=$aid";
+		DB::query($sql);
+		$sql = "update  `wf_wanba_user` set `currentaid`=0,`currentteamid`=0,`currentrole`=2  where `currentaid`=$aid";
+		DB::query($sql);
+		$result = array('msg' => '操作成功', 'status' => true);
+		echo json_encode($result);
+		break;
+	case 'convertLatLng':
+		$taskid = $arr['taskid'];
+		$latlng = $arr['latlng'];
+		$sql = "update `wf_wanba_task`  set latlng='" . $latlng . "'  where taskid=$taskid";
+		DB::query($sql);
+		break;
+	case 'getWanba':
+		$myteam = $arr['myteam'];
+		$myteamname = $arr['myteamname'];
+		$aid = $arr['aid'];
+	
+	//公告
+		$data = array('aid' => $aid, 'status' => 1, 'date' => time(), 'event' => '江湖惊现玩霸');
+		DB::insert('wanba_logs', $data);
+		$stones = DB::fetch_first("select stone1,stone2,stone3,stone4,stone5,stone6  from wf_wanba_team_setting where aid=$aid and displayorder=$myteam");
+		$stone1 = $stones['stone1'] - 1;
+		$stone2 = $stones['stone2'] - 1;
+		$stone3 = $stones['stone3'] - 1;
+		$stone4 = $stones['stone4'] - 1;
+		$stone5 = $stones['stone5'] - 1;
+		$stone6 = $stones['stone6'] - 1;
+		$data = array('stone1' => $stone1, 'stone2' => $stone2, 'stone3' => $stone3, 'stone4' => $stone4, 'stone5' => $stone5, 'stone6' => $stone6);
+		DB::update('wanba_team_setting', $data, "aid=$aid and displayorder=$myteam");
+
+		$data = DB::fetch_all("SELECT sum(score) score,teamid  FROM `wf_wanba_logs` WHERE aid=$aid and teamid>0 group by teamid order by score desc");
+		$total = 0;
+		foreach ($data as $k => $v) {
+			$team = DB::fetch_first("select name,color from `wf_wanba_team_setting` where aid=$aid and displayorder=$v[teamid]");
+			// $data[$k]['name'] = $team['name'];
+			// $data[$k]['color'] = $team['color'];
+			if ($v[teamid] != $myteam) {
+				if ($v['score'] > 0) {
+					$score = intval($v['score'] / 2);
+					$total += $score;
+					$lost = 0 - $score;
+					$data = array('aid' => $aid, 'status' => 0, 'teamid' => $v[teamid], 'score' => $lost, 'date' => time(), 'event' => $myteamname . '合成了玩霸，掠夺了你一半的财富，计' . $score);
+					DB::insert('wanba_logs', $data);
+				}
+			}
+		}
+
+		$data = array('aid' => $aid, 'status' => 0, 'teamid' => $myteam, 'score' => $total, 'date' => time(), 'event' => '成功使用了玩霸，掠夺了其他帮派财富共计' . $total);
+		DB::insert('wanba_logs', $data);
+		$result = array('msg' => '恭喜你使用玩霸抢夺了财富' . $total, 'status' => true);
+		echo json_encode($result);
+		break;
+	case 'batchMakeStone':
+		$aid = $arr['aid'];
+		$stones = $arr['stones'];
+		$stone1 = $stones['stone1'];
+		$stone2 = $stones['stone2'];
+		$stone3 = $stones['stone3'];
+		$stone4 = $stones['stone4'];
+		$stone5 = $stones['stone5'];
+		$stone6 = $stones['stone6'];
+		$n = 0;
+		if (intval($stone1) > 0) {
+			for ($i = 0; $i < $stone1; $i++) {
+				$data = array('type' => 1, 'aid' => $aid, 'token' => getRandomString());
+				DB::insert('wanba_stone_list', $data);
+				$n++;
+			}
+		}
+		if (intval($stone2) > 0) {
+			for ($i = 0; $i < $stone2; $i++) {
+				$data = array('type' => 2, 'aid' => $aid, 'token' => getRandomString());
+				DB::insert('wanba_stone_list', $data);
+				$n++;
+			}
+		}
+		if (intval($stone3) > 0) {
+			for ($i = 0; $i < $stone3; $i++) {
+				$data = array('type' => 3, 'aid' => $aid, 'token' => getRandomString());
+				DB::insert('wanba_stone_list', $data);
+				$n++;
+			}
+		}
+		if (intval($stone4) > 0) {
+			for ($i = 0; $i < $stone4; $i++) {
+				$data = array('type' => 4, 'aid' => $aid, 'token' => getRandomString());
+				DB::insert('wanba_stone_list', $data);
+				$n++;
+			}
+		}
+		if (intval($stone5) > 0) {
+			for ($i = 0; $i < $stone5; $i++) {
+				$data = array('type' => 5, 'aid' => $aid, 'token' => getRandomString());
+				DB::insert('wanba_stone_list', $data);
+				$n++;
+			}
+		}
+		if (intval($stone6) > 0) {
+			for ($i = 0; $i < $stone6; $i++) {
+				$data = array('type' => 6, 'aid' => $aid, 'token' => getRandomString());
+				DB::insert('wanba_stone_list', $data);
+				$n++;
+			}
+		}
+		$event = '成功生成了' . $n . '颗宝石';
+		$data = array('aid' => $aid, 'status' => 2, 'date' => time(), 'event' => $event);
+
+		$id = DB::insert('wanba_logs', $data, 'id');
+		$result = array('status' => true, 'msg' => $event);
+		echo json_encode($result);
+		break;
+	case 'downPhotos':
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$dir = 'upload/' . $aid . '/';
+		mkDirs($dir);
+		$zipfilename = $dir . 'photos_' . $aid . ".zip";
+		@unlink($zipfilename);
+		$zip = new ZipArchive();
+		if ($zip->open($zipfilename, ZIPARCHIVE::CREATE) !== true) {
+			exit('无法打开文件，或者文件创建失败');
+		}
+		$path = realpath('./upload/' . $aid . '/');
+		$result = getDir($path);
+		foreach ($result as $k => $v) {
+			$zip->addFile($v, basename($v));
+		}
+		$zip->close(); // 关闭
+		$downurl = "http://www.wondball.com/wanba/api/" . $zipfilename;
+		echo json_encode($downurl);
+		break;
+	case 'downStones':
+		include 'phpqrcode.php';
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$data = DB::fetch_all("select `type`,aid,token from wf_wanba_stone_list where aid=$aid");
+		$dir = 'stones/' . $aid . '/';
+		mkDirs($dir);
+		$zipfilename = $dir . $aid . ".zip"; // 最终生成的文件名（含路径）
+		  // 生成文件
+		@unlink($zipfilename);
+		$zip = new ZipArchive();
+		if ($zip->open($zipfilename, ZIPARCHIVE::CREATE) !== true) {
+			exit('无法打开文件，或者文件创建失败');
+		}
+
+
+
+		foreach ($data as $k => $v) {
+			$str = 't=' . $v['type'] . '&t=' . $v[aid] . '&t=' . $v['token'];
+			$filename = 'stone_' . $v['type'] . '_' . $k . '.png';
+			$path = $dir . $filename;
+			$newfile = fopen($dir . $filename, "w") or die("Unable to open file!");
+			QRcode::png($str, $newfile, 'L', 4);
+			$dt = array('path' => $path);
+			DB::update('wanba_stone_list', $dt, "`type`=$v[type] and aid=$aid and token='" . $v['token'] . "'");
+			$zip->addFile($path, basename($path));
+		}
+		$zip->close(); // 关闭
+		$downurl = "http://www.wondball.com/wanba/api/" . $zipfilename;
+		echo json_encode($downurl);
+		break;
+	case 'stoneState':
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$stone1 = $stone2 = $stone3 = $stone4 = $stone5 = $stone6 = 0;
+		//宝石池情况
+		$stones = DB::fetch_all("select `type` from wf_wanba_stone_list where aid=$aid");
+		foreach ($stones as $k => $v) {
+			if ($v['type'] == 1) {
+				$stone1 += 1;
+			}
+			if ($v['type'] == 2) {
+				$stone2 += 1;
+			}
+			if ($v['type'] == 3) {
+				$stone3 += 1;
+			}
+			if ($v['type'] == 4) {
+				$stone4 += 1;
+			}
+			if ($v['type'] == 5) {
+				$stone5 += 1;
+			}
+			if ($v['type'] == 6) {
+				$stone6 += 1;
+			}
+		}
+		$stonesleft = array('total' => count($stones), 'stone1' => $stone1, 'stone2' => $stone2, 'stone3' => $stone3, 'stone4' => $stone4, 'stone5' => $stone5, 'stone6' => $stone6);
+		//宝石生成记录
+		$stonesMadehistory = DB::fetch_all("select from_unixtime(date, '%H:%i:%s') date, event from wf_wanba_logs where aid=$aid and status=2 order by date desc");
+		//各队的宝石情况
+		$teamStones = DB::fetch_all("select displayorder,name,stone1,stone2,stone3,stone4,stone5,stone6 from wf_wanba_team_setting where aid=$aid");
+		foreach ($teamStones as $k => $v) {
+			$teamStones[$k]['unused'] = $v['stone1'] + $v['stone2'] + $v['stone3'] + $v['stone4'] + $v['stone5'] + $v['stone6'];
+			//$teamStones[$k]['detail']=DB::fetch_all("select * from `wf_wanba_logs`  where aid=$aid and ((teamid=$v[displayorder] and status=0) or status=1) and event like '%使用了__宝石%'");
+			$teamStones[$k]['detail'] = DB::fetch_all("select from_unixtime(date, '%H:%i:%s') date, score, memo, event, id,status from `wf_wanba_logs`  where aid=$aid and ((teamid=$v[displayorder] and status=0) or status=1) and event like '%使用了__宝石%'");
+
+		}
+		$result = array('stonesleft' => $stonesleft, 'teamStones' => $teamStones, 'stonesMadehistory' => $stonesMadehistory);
+
+		echo json_encode($result);
+		break;
+	case 'searchNick':
+		$nick = $arr['nick'];
+		$data = DB::fetch_all("select openid,nick from wf_wanba_user where nick like '%" . $nick . "%'");
+		echo json_encode($data);
+		break;
+	case 'promoteManager':
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$data = array('creator' => $openid);
+		$hasUser = DB::fetch_first("select openid from wf_wanba_user where openid='" . $openid . "'");
+		if ($hasUser) {
+			$n = DB::update('wanba_act', $data, "aid=$aid");
+			if ($n == 1) {
+				$result = array("status" => true, "msg" => "恭喜你成为了管理员");
+			} else {
+				$result = array("status" => false, "msg" => "啊哦，出现了意外，你未获得管理员权限");
+			}
+		} else {
+			$result = array("status" => false, "msg" => "啊哦，出现了意外，你未获得管理员权限");
+		}
+
+		echo json_encode($result);
+		break;
+	case 'shiftManager':
+		$aid = $arr['aid'];
+		$openid = $arr['openid'];
+		$data = array('creator' => $openid);
+		DB::update('wanba_act', $data, "aid=$aid");
+		$result = array('status' => true, 'msg' => '操作成功');
+		echo json_encode($result);
+		break;
+	default:
+		echo json_encode($arr);
+}
+function getRandomString($length = 42)
+{
+	/*
+	 * Use OpenSSL (if available)
+	 */
+	if (function_exists('openssl_random_pseudo_bytes')) {
+		$bytes = openssl_random_pseudo_bytes($length * 2);
+
+		if ($bytes === false)
+			throw new RuntimeException('Unable to generate a random string');
+
+		return substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $length);
+	}
+
+	$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+	return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+}
+
+function mkDirs($dir)
+{
+	if (!is_dir($dir)) {
+		if (!mkDirs(dirname($dir))) {
+			return false;
+		}
+		if (!mkdir($dir, 0777)) {
+			return false;
+		}
+	}
+	return true;
+}
+function getDir($path)
+{
+
+    //判断目录是否为空
+	if (!file_exists($path)) {
+		return [];
+	}
+
+	$fileItem = [];
+
+    //切换如当前目录
+	chdir($path);
+
+	foreach (glob('*.jpg') as $v) {
+		$newPath = $path . DIRECTORY_SEPARATOR . $v;
+		if (is_dir($newPath)) {
+			$fileItem = array_merge($fileItem, getDir($newPath));
+		} else if (is_file($newPath)) {
+
+			$fileItem[] = $newPath;
+		}
+	}
+
+	return $fileItem;
+}
+
+?>

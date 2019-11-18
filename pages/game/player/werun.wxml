@@ -1,0 +1,60 @@
+
+<view class="top">
+<!-- <view class="ring"> -->
+<canvas class="cir" style="width:280px; height:280px;" canvas-id="canvasArc">
+</canvas>
+<view class="cc">
+<view class="half1">
+        <image src="{{imgUrl}}wanba/img/gamepic/yqw_logo.png"></image>
+         </view>
+         <view class="   half2">
+         <view class="top" style="font-size:46px;"><block  wx:if="{{allStep}}">
+         {{allStep}}
+         </block>
+         <block  wx:else>
+         
+         </block>
+         </view>
+          <view class="middle" style="margin-top:60rpx;">总步数</view>
+         <view class="bottom">
+         
+         </view>
+         </view>
+</view>
+</view>
+<!-- </view> -->
+
+<view class="cells">
+<view class="cell"  style="border:#946b25 1px solid;margin-bottom:40rpx;">
+      <view class="rank">
+       
+      </view>
+      <view class="teamname1">
+       <open-data type="userAvatarUrl" class="avatar"></open-data>
+       <open-data type="userNickName" class="txt"></open-data>
+      </view>
+      <view class="step">
+        
+        {{myStep}}
+      </view>
+
+    </view>
+<view wx:for="{{teamsteplist}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+
+    <view class="cell">
+      <view class="rank">
+       {{item.rank}} 
+      </view>
+      <view class="teamname">
+       <span class="span" style="background:{{item.color}}"></span> 
+      <span class="txt"> {{item.teamname}}</span> 
+      </view>
+      <view class="step">
+      
+        {{item.step}}
+        
+      </view>
+
+    </view>
+  </view>
+  </view>

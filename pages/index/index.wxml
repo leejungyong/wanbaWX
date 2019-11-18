@@ -1,0 +1,59 @@
+<view wx:show="{{hot}}">
+
+  <view class='swiper'>
+    <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+      <block wx:for='{{swiper}}' wx:key="{{index}}">
+        <swiper-item bindtap='toWX' id="{{index}}">
+          <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view>
+    <official-account style=""></official-account>
+  </view>
+
+  <view class="table">
+    <text class="list_title" wx:if="{{myjoin.aid}}">我正参加的活动</text>
+    <view class="item" bindtap='join' id="c1" wx:if="{{myjoin.aid}}">
+      <image src="{{cdn}}wanba/api/sharepic/{{myjoin.sharepic ? myjoin.sharepic:'1.jpg'}}-coverw400h200" lazy-load="true" bindload="picLoad" style="width:650rpx; height:350rpx; border-radius: 5px;"></image>
+    </view>
+
+    <text class="list_title">精选线路</text>
+    <block wx:for="{{hot}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+     
+      <view class="item" bindtap='to' id="{{index}}">
+
+
+        <image src="{{item.pic? 'https://www.wondfun.com/wanba/api/routepic/'+item.pic: 'https://www.wondfun.com/wanba/api/sharepic/1.jpg' }}" lazy-load="true" bindload="picLoad" style="width:650rpx; height:350rpx; border-radius: 5px;"></image>
+
+        <view class="mask">
+          <view class="left">
+            <view class="top">
+              {{item.title}}
+            </view>
+            <view class="bottom">
+
+            </view>
+          </view>
+          <view class="right">
+            <!-- <block wx:if="{{item.aid==1}}">
+          免费
+          </block>
+          <block wx:else>
+          ￥99
+          </block> -->
+          </view>
+
+        </view>
+
+      </view>
+
+    </block>
+    <!-- <text class="list_title">Demo展示</text>
+  <view class="item" bindtap='join' id="c2">
+ <image src="{{cdn}}wanba/api/sharepic/{{demo.sharepic ? demo.sharepic:'1.jpg'}}-coverw400h200" lazy-load="true" bindload="picLoad" style="width:100%; height:{{imgheight}}rpx"></image>
+ </view> -->
+  </view>
+
+</view>

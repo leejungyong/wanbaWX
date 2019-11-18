@@ -1,0 +1,65 @@
+
+<view class="celltop">
+  <view class="tleft">
+    <open-data type="userAvatarUrl" class="avatar"></open-data>
+  </view>
+  <view class="tmiddle">
+    <view class="nick">
+      <open-data type="userNickName"></open-data>
+    </view>
+  <view class="memberid"  bindtap='myaccount'>{{mypoint}}玩点</view>
+  </view>
+ 
+</view>
+<view class="txt">
+<view class="cell" bindtap="myact">
+  <image src="{{imgUrl}}wanba/img/myact.png" class="img"></image>
+  <view class="item">我的活动</view>
+  <view class="arrow">></view>
+</view>
+<view class="cell" bindtap="mypoint">
+  <image src="{{imgUrl}}wanba/img/mypos.png" class="img"></image>
+  <view class="item">我的点位</view>
+  <view class="arrow">></view>
+</view>
+<view class="cell" bindtap="myquestion">
+  <image src="{{imgUrl}}wanba/img/myquestion.png" class="img"></image>
+  <view class="item">我的题库</view>
+  <view class="arrow">></view>
+</view>
+<view class="cell" bindtap="myLine">
+  <image src="{{imgUrl}}wanba/img/myroute.png" class="img"></image>
+  <view class="item">我的线路</view>
+  <view class="arrow">></view>
+</view>
+<view class="cell" bindtap="pcAdmin">
+  <image src="{{imgUrl}}wanba/img/pc.png" class="img"></image>
+  <view class="item">电脑端管理</view>
+  <view class="arrow">></view>
+</view>
+<view class="cell" bindtap="cityPartner">
+  <image src="{{imgUrl}}wanba/img/partner.png" class="img"></image>
+  <view class="item">城市合伙人</view>
+  <view class="arrow">></view>
+</view>
+<!-- <view class="cell" bindtap='suggestion'>
+  <image src="{{imgUrl}}wanba/img/suggestion.png" class="img"></image>
+  <view class="item">反馈有奖</view>
+  <view class="arrow">></view>
+</view> -->
+<view class="cell" bindtap='userPlan'>
+  <image src="{{imgUrl}}wanba/img/hand.png" class="img"></image>
+  <view class="item">回馈计划</view>
+  <view class="arrow">></view>
+</view>
+<!-- <view class="cell" bindtap="buykit">
+  <image src="{{imgUrl}}wondfuncity/img/mymoney.png" class="img"></image>
+  <view class="item">玩霸套装</view>
+  <view class="arrow">></view>
+</view> -->
+<!-- <view class="cell" bindtap="mypay">
+  <image src="{{imgUrl}}wondfuncity/img/mymoney.png" class="img"></image>
+  <view class="item">会员服务</view>
+  <view class="arrow">></view>
+</view> -->
+</view>

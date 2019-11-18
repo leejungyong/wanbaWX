@@ -1,0 +1,42 @@
+<view class="top">
+
+  <view class="address">
+
+    {{address}}
+  </view>
+  <view class="confirm">
+    <button bindtap='save'>确定</button>
+  </view>
+</view>
+<view class="latlng">
+  <view class="location">
+    北纬{{lat}},东经{{lng}}
+  </view>
+
+</view>
+
+<map
+      id="myMap"
+      style="width: 100%; height: 80vh;line-height:80vh;;vertical-align: middle;"
+      latitude="{{disLat}}"
+      longitude="{{disLng}}"
+      scale='16'
+      markers="{{marker}}" 
+      bindregionchange="regionChange"
+      show-location
+      enable-3D
+      show-compass
+      enable-rotate
+      enable-overlooking
+    >
+    <cover-view style="height: 60rpx;width:60rpx;margin:0 345rpx 0 345rpx;display:inline-block;vertical-align: middle;line-height:60rpx;">
+  <cover-image style="width:60rpx;height:60rpx;" src="https://img.wondfun.com/wanba/img/gamepic/shizi.png" />
+  </cover-view>
+     <cover-view style="height: 60rpx;width:60rpx; position: fixed;display:flex;right:10rpx;bottom:6%;" bindtap="toMypos">
+  <cover-image style="width:60rpx;height:60rpx;" src="https://img.wondfun.com/wanba/img/icon/me1.png" />
+   </cover-view>
+     
+    </map>
+
+   
+    

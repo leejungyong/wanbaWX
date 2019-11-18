@@ -1,0 +1,139 @@
+
+page{
+  background: #121a21; 
+}
+.swiper image {
+  width: 100%;
+  height: auto;
+}
+
+.navbar{
+  flex: none;
+  display: flex;
+  background: #121a21;
+}
+.navbar .item{
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color: #936b25;
+}
+.navbar .item.active{
+  color:#00a0e9;
+}
+.navbar .item.active:after{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #00a0e9;
+}
+.btn{
+  position: fixed;
+  bottom: 0;
+  width:100%;
+  border-radius: 0;
+  border-top:1px solid #121a21;
+
+  outline: none;
+  color:#00a0e9;
+  background: #1c3043; 
+}
+
+/* .card{
+  width:90%;
+  height:160rpx;
+  margin:10px 5% 0 5%;
+  border:1px solid #46607d;
+  border-radius: 5px;
+  background: #1c3043;
+} */
+.card{
+  width:28%;
+  height:160rpx;
+  margin:16rpx;
+  border:1px solid #46607d;
+  border-radius: 5px;
+  background: #1c3043;
+  float:left;
+  display:inline-block;
+}
+.card .title{
+  color:#946b25;
+  padding-left:25rpx;
+  padding-top:15rpx;
+  font-size:16px;
+  
+}
+.card .date{
+  color:#00acfb;
+  padding-left:25rpx;
+  padding-bottom: 10rpx;
+  font-size:12px;
+  
+}
+.card .menu{
+  margin-top:-30rpx;
+  color:#46607d;
+  padding-right:5rpx;
+  padding-top:30rpx;
+  font-size:14px;
+  float:right;
+  width:80rpx;
+  display: inline;
+}
+ .card .menu .small{
+  font-size:12px;
+}
+
+.txt{
+  width:90%;
+  margin:20rpx 5% 115rpx 5%; 
+}
+
+/* .card .cover{
+  padding:10px 10px 0 10px;
+  float:left;
+  width:170rpx;
+  height:160rpx;
+  display: inline;
+  line-height: 200rpx;
+}
+.card .cover image{
+   width:150rpx;
+  height:120rpx;   
+}
+.card .title{
+  color:#946b25;
+  padding-left:25rpx;
+  padding-top:30rpx;
+  font-size:18px;
+  
+}
+.card .date{
+  color:#00acfb;
+  padding-left:25rpx;
+  padding-top:10rpx;
+  padding-bottom: 10rpx;
+  font-size:12px;
+  
+}
+.card .menu{
+  margin-top:-30rpx;
+  color:#00acfb;
+  padding-right:5rpx;
+  
+  font-size:14px;
+  float:right;
+  width:80rpx;
+  display: inline;
+}
+
+.txt{
+  width:100%;
+  margin:0 0 115rpx 0;
+} */

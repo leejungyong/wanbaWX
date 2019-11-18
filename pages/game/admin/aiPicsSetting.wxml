@@ -1,0 +1,37 @@
+<view class="item">
+<view class="title">智能AI识别图库（实时采集或上传图片，智能识别结果）</view>
+</view>
+<view  class="route">
+    <block wx:for="{{arr}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+
+      <view class="list">
+
+
+        <image src="{{item.pic}}" style="width:650rpx; height:350rpx; border-radius: 5px;"></image>
+
+        <view class="mask">
+          <view class="left">
+          <view class="top">
+         智能识别为：{{item.title}}
+          </view>
+         
+          </view>
+         <view class="right" bindtap='delPic' id="{{index}}">
+          X
+          </view>
+          
+        </view>
+
+      </view>
+
+    </block>
+  </view>
+<view class="view">
+  <view class="block">
+  <button bindtap="aicapture" class="btnsmall">实时采集</button>
+ 
+</view>
+<view class="block">
+ <button bindtap="choosePics" class="btnsmall">上传图片</button>
+ </view>
+ </view>

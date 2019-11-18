@@ -1,0 +1,33 @@
+page {
+ background: #121a21;
+}
+.content{
+  width:630rpx;
+  height:100rpx;
+  margin:50rpx 60rpx 50rpx 60rpx;
+  
+  display: inline-block;
+  color:#1989c3;
+  font-size: 16px;
+}
+.txt{
+  
+}
+
+.block{
+  width:100%;
+  display: table;
+  vertical-align: middle;
+  float:left;
+  margin-top:60rpx;
+}
+
+ .btnsmall{
+  width:50%;
+  margin:0 25% 0 25%;
+  border:1px solid #00a0e9;
+  color:#00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}

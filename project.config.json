@@ -1,0 +1,123 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"uglifyFileName": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.7.0",
+	"appid": "wx13a69e8d86bf8f77",
+	"projectname": "%E7%8E%A9%E9%9C%B8%E6%B1%9F%E6%B9%96",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "玩家主界面",
+					"pathName": "pages/game/splash",
+					"query": "aid=1426",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "管理页面",
+					"pathName": "pages/game/admin/main",
+					"query": "aid=79",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "创建活动",
+					"pathName": "pages/my/mypoint/selectPos",
+					"query": "aid=1",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "小程序扫码",
+					"pathName": "pages/shop/userPlan",
+					"query": "scene=79",
+					"scene": 1047
+				},
+				{
+					"id": 4,
+					"name": "新用户1分钱",
+					"pathName": "pages/shop/newUserDiscount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "转让管理员",
+					"pathName": "pages/game/admin/promoteManager",
+					"query": "aid=79",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "4999卡",
+					"pathName": "pages/shop/buy99Discount",
+					"query": "from=oO4Qc5HvEkmEHmU142TxtMNY6CmE",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "销售历史",
+					"pathName": "pages/my/myaccount/myaccount",
+					"query": "aid=79",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "相册",
+					"pathName": "pages/game/player/album",
+					"query": "aid=497&teamid=1&act_status=0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "9999",
+					"pathName": "pages/shop/buy9999",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

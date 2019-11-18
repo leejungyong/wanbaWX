@@ -1,0 +1,26 @@
+
+<import src="../../wxParse/wxParse.wxml"/> 
+<view wx:if="{{content}}">
+  <image src="{{content.pic ? content.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" bindload="picLoad" style="width:100%; height:{{imgheight }}rpx"></image>
+
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+
+
+  <view hidden="{{currentTab!==0}}" class="txt">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+
+  <view hidden="{{currentTab!==1}}" class="txt">
+   <template is="wxParse" data="{{wxParseData:summary.nodes}}"/> 
+  <!-- <rich-text nodes="{{memo2}}"></rich-text> -->
+  
+  </view>
+  
+  
+ <view  style="width:50%;margin:30px 25% 30px 25%;text-align:center;">
+   <button type="primary" bindtap='call'>   商务热线</button>
+ </view>
+
+</view>

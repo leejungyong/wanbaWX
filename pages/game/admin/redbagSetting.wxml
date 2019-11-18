@@ -1,0 +1,25 @@
+<view class="item">
+  <view class="title">红包总额</view>
+
+  <view class="star" wx:if="{{sum}}">(已摇出{{sum}})</view>
+</view>
+<view class="item">
+   <input class="input" value="{{total}}" placeholder='0表示无' placeholder-class='input-placeholder' bindinput='updateTotal'></input>
+</view>
+<view class="item">
+  <view class="title">单个红包随机金额</view>
+  
+</view>
+<view class="item">
+   <input class="input" value="{{rand}}" placeholder='以符号|分割，如5|10|20表示红包面值可能为5、10或者20' placeholder-class='input-placeholder' bindinput='updateRand'></input>
+</view>
+
+
+<view class="block" style="clear:both;">
+  <button class="btnsmall" bindtap="back">   取消</button>
+</view>
+<view class="block">
+  <button class="btnsmall" bindtap="confirm">   确定</button>
+</view>
+
+

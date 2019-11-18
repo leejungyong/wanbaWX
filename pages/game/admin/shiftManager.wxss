@@ -1,0 +1,37 @@
+page {
+ background: #121a21;
+}
+
+.block{
+  width:90%;
+  
+  color:#1989c3;
+}
+.input{
+  margin:10px 10% 0 10%;
+  background:transparent;
+  border:1px solid #24435d;
+  width:80%;
+  height:30px;
+  
+  color:#946b25;
+  text-align: center;
+  line-height: 30px;
+}
+.input-placeholder{
+    color:#89b6db;
+    font-size:14px;
+  }
+
+.item{
+  width:80%;
+  margin:0 10% 0 10%;
+  color:#946b25;
+ 
+}
+
+
+
+
+
+ 

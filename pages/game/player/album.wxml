@@ -1,0 +1,81 @@
+<view class='mask_big' wx:if="{{showBigImage}}">
+  <view class='time_box'>{{dateTime}}</view>
+  <view class='closeSign' bindtap='closeImage'>×</view>
+  <swiper class='swiper' current='{{current}}' bindchange='changePic' easing-function='linear'>
+
+    <block>
+    <swiper-item>
+        <view ></view>
+    </swiper-item>
+      <swiper-item>
+        <image src='{{imgurl}}' lazy-load class='bigimage' mode='widthFix'></image>
+      </swiper-item>
+      <swiper-item>
+        <view></view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class='bottom_box'>
+    <view bindtap='great' style='display:inline-block;'>
+      <image src='{{imgUrl}}wanba/img/gamepic/xin.png' class='heart'></image>
+    </view>
+    <view wx:if="{{greatNum>0}}" style="display:inline-block;position:relative;top:-10rpx;left:10rpx;"> {{greatNum}}</view>
+
+    <view bindtap='downLoadPic' class='download'> <image src='{{imgUrl}}wanba/img/gamepic/download.png' class='heart'></image></view>
+  </view>
+</view>
+
+<view>
+  <view class="bg_head">
+
+    <image src="{{imgUrl}}wanba/api/sharepic/{{cover}}-360.180" bindload="imageLoad" style="width:100%; height:{{imgheight}}rpx"></image>
+    <view class="mask">
+      <view class="total">
+        <view class='imageBox'>
+          <image src="{{cdn}}/wanba/img/gamepic/photos.png" style="width:16px;height:16px;"></image>
+        </view>
+        <text> {{total}}</text>
+
+      </view>
+      <!-- <view class="total">
+        <view class='imageBox'>
+          <image src="{{cdn}}/wanba/img/gamepic/view.png" style="width:16px;height:16px;"></image>
+        </view>
+        <text>{{click}}</text>
+      </view> -->
+      <view class="totalbtn">
+        <view style='display:inline-block;position:relative;top:8rpx;'>
+          <image src="{{cdn}}/wanba/img/gamepic/share.png" style="width:16px;height:16px;"></image>
+        </view>
+        <view style='display:inline-block;position:relative;top:3rpx;'>
+          <button open-type='share' class="btn-share">分享</button>
+        </view>
+
+      </view>
+    </view>
+  </view>
+  <!-- <view  class="navbar">
+ <text wx:for="{{teams}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item.name}}</text>
+</view> -->
+  <scroll-view scroll-x="true" class="scroll-view-demo">
+    <view class="item {{currentTab==index ? 'active' : ''}}" wx:for="{{teams}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="navbarTap">
+      {{item.name}}
+    </view>
+  </scroll-view>
+
+  <view class="list">
+    <view class='image_box'>
+      <block wx:for="{{list}}" wx:key="{{idx}}" wx:for-index="idx" wx:for-item="it">
+        <image src="{{it.url}}-200_200" class="avatar" lazy-load bindtap="toBigImage" id="{{idx}}"></image>
+      </block>
+    </view>
+  </view>
+
+  <view style='position:fixed;bottom:0;left:0;width:100%;height:20rpx;'></view>
+
+
+  <button class="btn" bindtap="upload" wx:if="{{teamid && act_status==0 && !uploadlimited}}">
+    上传照片
+  </button>
+</view>

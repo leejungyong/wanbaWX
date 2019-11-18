@@ -1,0 +1,38 @@
+<view>
+
+  <view class='swiper'>
+    <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+      <block wx:for='{{swiper}}' wx:key="{{index}}">
+        <swiper-item bindtap='toWX' id="{{index}}">
+          <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="navbar">
+    <view wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</view>
+  </view>
+  <view hidden="{{currentTab!==0}}" class="route">
+    即日起至2019.12.30，邀请好友体验，双方都可获得好礼。（限新用户首单）。
+   </view>
+  <view hidden="{{currentTab!==1}}" class="route">
+    搜索关注”玩霸江湖“公众号，即可获取全套玩霸江湖PPT方案大礼包。
+    <official-account></official-account>
+  </view>
+  <view hidden="{{currentTab!==2}}" class="route">
+    推荐原创活动线路到平台，一经采纳即可获得好礼。
+  </view>
+  <view hidden="{{currentTab!==3}}" class="route">
+    期待您的意见和建议，一经采纳即可获得好礼。
+  </view>
+<block wx:if="{{currentTab==0}}">
+<button class="btn" open-type="share">邀请好友</button>
+</block>
+<block wx:elif="{{currentTab==2}}">
+<button class="btn" bindtap="postRoute">推荐线路</button>
+</block>
+<block wx:elif="{{currentTab==3}}">
+<button class="btn" bindtap="feedback">我要反馈</button>
+</block>
+</view>

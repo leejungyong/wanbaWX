@@ -1,0 +1,22 @@
+<block wx:if="{{type=='sale'}}">
+  <view class='list_box'>
+    <view class='recordItem' wx:for="{{list}}" wx:key="{{index}}">
+      <view class='up_text'>
+        <text>{{item.title}}</text>
+        <text class='fr clearfix' style="width:180rpx">{{item.date}}</text>
+      </view>
+    </view>
+  </view>
+</block>
+
+<block wx:elif="{{type=='client'}}">
+ <view class='list_box'>
+    <view class='recordItem' wx:for="{{list}}" wx:key="{{index}}">
+      <view class='up_text'>
+        <text style='display:inline-block;width:80rpx;'>{{index+1}}</text>
+        <text style='display:inline-block;width:160rpx;'>{{item.nick}}</text>
+        <text class='fr clearfix' style="width:240rpx">{{item.tel}}</text>
+      </view>
+    </view>
+  </view>
+</block>

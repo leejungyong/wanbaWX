@@ -1,0 +1,36 @@
+@import "../../wxParse/wxParse.wxss"; 
+page{
+  background: #121a21;
+}
+.navbar{
+  flex: none;
+  display: flex;
+  background: #121a21;
+}
+.navbar .item{
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color:#936B25;
+}
+.navbar .item.active{
+  color: #00a0e9;
+}
+.navbar .item.active:after{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1rpx;
+  background: #00a0e9;
+}
+.txt{
+  width:90%;
+  margin:0 5% 0 5%;
+  padding:0 5px;
+  color:#353535;
+  font-size:12pt;
+}

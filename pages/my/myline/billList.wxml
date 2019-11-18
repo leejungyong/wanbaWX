@@ -1,0 +1,19 @@
+<view class='date_box'>
+<view style='display:inline-block;width:100rpx;' bindtap='chooseType'>{{type}}</view>
+  <picker wx:if="{{showDate}}" style='display:inline-block;' bindchange='bindDateChange' value='{{date}}' mode="date" fields="month">
+    <view>
+      {{date}}
+      <view class='triangle'></view>
+    </view>
+  </picker>
+</view>
+
+<view class='list_box'>
+  <view class='card' wx:for='{{list}}' wx:key='{{index}}'>
+    <view style='display:inline-block;'>
+      <view class='title'>{{item.title}}</view>
+      <view class='date'>{{item.date}}</view>
+    </view>
+    <view class='right'>{{item.nick}}</view>
+  </view>
+</view>

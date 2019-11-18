@@ -1,0 +1,49 @@
+page{
+  background: #121a21;
+}
+.cells{
+margin-top:50rpx;
+}
+.cell{
+  padding-top:15rpx;
+  width:90%;
+  height:80rpx;
+  margin:0 5% 0 5%;
+  color:#1a90d3;
+  font-size:12px;
+   border: 1px solid;
+  border-image: linear-gradient(90deg,#121a21 0, #24435d 25%, #1a93d0 50%, #24435d 75%, #121a21 100%) 0 0 30 0;
+}
+.time {
+  width:13%;
+  float:left;
+  text-align: center;
+  font-size:12px;
+  overflow:hidden;
+}
+
+.event{
+  width:87%;
+  float:left;
+  text-align: center;
+  overflow:hidden;
+}
+.event_left{
+  width:86%;
+  float:left;
+ text-align: left;
+ padding-left:1%;
+ overflow:hidden;
+}
+
+.head{
+  color:#946b25;
+  font-size: 16px;
+}
+.sys_event{
+  color:#946b25;
+  font-size: 12px;
+}
+.team_event{
+
+}

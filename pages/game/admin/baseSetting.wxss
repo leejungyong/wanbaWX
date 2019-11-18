@@ -1,0 +1,141 @@
+page{
+  background: #121a21; 
+}
+
+.item{
+  width:90%;
+  margin:40rpx 5% 40rpx 5%;
+  color:#936b25;
+  height:40rpx;
+  line-height: 60rpx;
+}
+.title{
+  display:inline-block;
+  line-height: 60rpx;
+}
+.star{
+  color:#f00;
+  display:inline-block;
+  line-height: 60rpx;
+}
+.input{
+  border-radius: 8rpx;
+  margin:20rpx 0 20rpx 0;
+  background:#1c3043;
+  border:1px solid #00a0e9;
+  width:98%;
+  height:60rpx;
+  color:#00a0e9;
+  text-align: left;
+  line-height: 60rpx;
+  font-size:14px;
+  padding-left: 10rpx;
+}
+.input_text{
+  border-radius: 8rpx;
+  margin:20rpx 0 20rpx 0;
+  background:#1c3043;
+  border:1px solid #00a0e9;
+  width:100%;
+  height:60rpx;
+  color:#00a0e9;
+  text-align: left;
+  line-height: 60rpx;
+  font-size:14px;
+}
+.input-placeholder{
+    color:#46607d;
+    font-size:14px;
+    padding-left: 20rpx;
+  }
+.pad{
+  padding-top:40rpx;
+}
+  .picker{
+    border-radius: 8rpx;
+  width:97%;
+  border:1px solid #00a0e9;
+  color:#46607d;
+  font-size:14px;
+  background: #1c3043;
+  padding-left: 20rpx;
+}
+.block{
+  width:50%;
+  display: table;
+  vertical-align: middle;
+  float:left;
+  margin-top:60rpx;
+}
+.tip{
+  width:90%;
+  margin:0 5% 0 5%;
+  color:#46607d;
+  font-size:12px;
+  padding-left: 40rpx;
+}
+.orderteam{
+   width:90%;
+  margin:0 5% 0 5%;
+  color:#00a0e9;
+  font-size:14px;
+  padding-left: 40rpx;
+  text-decoration: underline;
+}
+ .btnsmall{
+  width:70%;
+  margin:0 15% 20px 15%;
+  border:1px solid #00a0e9;
+  color:#00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+.delpic{
+  color:#00a0e9;
+  font-size:14px; 
+}
+.clearfix::after{
+  content: '.';
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+.clearfix{
+  zoom: 1;
+}
+.radio-group
+{
+  width:90%;
+  margin:40rpx 5% 40rpx 5%;
+  
+   color:#1989c3;
+   display: flex;
+  flex-wrap: wrap;  
+  justify-content : flex-start;
+}
+.radio{
+   width:33%;
+   padding-top:10px;
+}
+.theme_box .theme {
+  float: left;
+  color: #00a0e9;
+  width: 90rpx;
+  height: 90rpx;
+  border: 2rpx solid #00a0e9;
+  border-radius: 10rpx;
+  margin-left: 60rpx;
+  text-align: center;
+  font-size: 32rpx;
+  padding: 10rpx 10rpx;
+   background:#1c3043;
+}
+.themetip{
+  color:#46607d;
+  font-size:12px;
+  display: inline-block;
+  width: 440rpx;
+  margin: 20rpx 0 0 30rpx;
+}

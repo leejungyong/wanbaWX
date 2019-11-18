@@ -1,0 +1,33 @@
+<view class='panel_root'>
+  <view class='view_top' animation="{{animation1}}">
+    <image class='img_top' src='{{img_url}}'></image>
+    <view class='win_line_top' style="display:{{bar_state==1?'block':'none'}}"></view>
+  </view>
+  <view class='view_bottom' animation="{{animation2}}">
+    <view class='win_line_bottom' style="display:{{bar_state==1?'block':'none'}}"></view>
+    <image class='img_bottom' src='{{img_url}}'></image>
+    <view class='panel_bottom'>
+      <view class='panel_content' style="display:{{bar_state==0?'block':'none'}}">
+        <view class='panel_loading' style="display:{{hasResult==0?'block':'none'}}">
+          <image class='img_loading' src='{{loading}}'></image>
+          <text class='text_lable'>正在加载任务，请稍候</text>
+        </view>
+        <view class='panel_result' style="display:{{hasResult==1?'block':'none'}}">
+         <view class="tip">{{txt}}
+         </view>
+          <block wx:if="{{todoFlag==-1}}">
+          <button  bindtap="todo" class="btn">接受任务</button>
+          </block>
+          <block wx:elif="{{!open}}">
+          <button  class="btn">暂未开放</button>
+          </block>
+          <block wx:else>
+          <button  class="btn">待完成</button>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+  <audio src="{{audio1}}" id="myAudio"></audio>

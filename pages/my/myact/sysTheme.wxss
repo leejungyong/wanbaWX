@@ -1,0 +1,46 @@
+/* pages/my/myact/sysTheme.wxss */
+page {
+    background: #121a21;
+}
+
+.swiper image {
+    width: 100%;
+    height: auto;
+}
+
+.list-box {
+    padding: 30rpx 40rpx;
+}
+
+.list-box .theme {
+    background: #1C3043;
+    border:2rpx solid #46607D; 
+    margin-bottom:20rpx;
+    border-radius:10rpx;
+    padding: 20rpx 0;
+}
+.theme .title{
+  display: inline-block;
+position:relative;
+top:-30rpx;
+left:40rpx;
+color:#00ACFB;
+font-size:30rpx;
+width: 400rpx;
+}
+.detail{
+  color:#00ACFB;
+  font-size:30rpx;
+  float:right;
+  margin-right:40rpx;
+}
+.imgbox{
+    border-right: 2rpx dashed #46607D;
+    width:230rpx;
+    display: inline-block;
+    text-align: center;
+}
+.imgbox image{
+   width: 140rpx;
+   height:100rpx;
+}

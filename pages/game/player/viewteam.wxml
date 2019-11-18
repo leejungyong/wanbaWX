@@ -1,0 +1,29 @@
+ <view class="bg_head">
+  
+  <image src="{{imgUrl}}wanba/img/gamepic/logo_big.png" mode="aspectFit" class="logo"></image>
+</view>
+
+<view class="list"> 
+  <view class="name"> 
+共有{{list.length}}名成员
+</view>
+  <block wx:for="{{list}}"  wx:key="{{index}}">
+  <!-- <view class="member"> -->
+  <!-- <view class="avatar_view"> -->
+  <block wx:if="{{role==0}}">
+  <text wx:if="{{item.currentrole==0}}" style="color:#00a0e9;font-size:12px;position:absolute;width:0;height:0;border-style:solid;border-width:16rpx;border-color: #00a0e9 transparent transparent #00a0e9 ;margin-left:20rpx;margin-top:20rpx;"></text>
+  <image src="{{item.avatar}}" class="avatar" id="{{index}}" bindtap="kickoff"></image>
+  </block>
+  <block wx:else>
+  <text wx:if="{{item.currentrole==0}}" style="color:#00a0e9;font-size:12px;position:absolute;width:0;height:0;border-style:solid;border-width:16rpx;border-color: #00a0e9 transparent transparent #00a0e9 ;margin-left:20rpx;margin-top:20rpx;"></text>
+<image wx:if="item.currentrole==0" src="{{item.avatar}}" class="avatar"></image>
+  <image wx:else src="{{item.avatar}}" class="avatar" id="{{index}}" bindtap="kickoff"></image>
+  </block>
+  <!-- </view> -->
+  <!-- <span class="nick">{{item.nick}}</span> -->
+  <!-- </view> -->
+  </block>
+  
+</view>
+
+ 

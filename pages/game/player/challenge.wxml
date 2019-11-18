@@ -1,0 +1,34 @@
+<view class="bg_head">
+
+  <image src="{{imgUrl}}/wanba/img/gamepic/logo_big.png" mode="aspectFit" class="logo"></image>
+</view>
+
+<view class="memo">
+  <text style="color:#121a21;">您的回答：</text>
+  <textarea placeholder="   输入任务完成情况，上传照片" auto-focus bindinput="updateMemo" class="textarea" placeholder-class="placeholder" />
+  <view style="width:90%;margin:10px 5% 0 5%;">
+
+    <view style="text-align:center;">
+      <block wx:for="{{pics}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+        <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+          <image src='{{item}}' style='width:50px;height:50px;'></image>
+        </view>
+      </block>
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;;">
+        <block wx:if="{{!pics || (pics.length>0 && pics.length<9)}}">
+          <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='selectType'></image>
+        </block>
+
+      </view>
+
+
+    </view>
+    <video style="width:90%;margin:5px 5% 5px 5%;" wx:if="{{videos}}" id="myVideo" src="{{videos}}" controls></video>
+
+  </view>
+
+
+</view>
+<view class="btn">
+  <image src="https://img.wondfun.com/wanba/img/gamepic/submit_btn.png" class="btn-image" mode="aspectFit" bindtap='post'></image>
+</view>

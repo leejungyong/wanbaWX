@@ -1,0 +1,124 @@
+
+
+page{
+  background: #121a21; 
+}
+
+.item{
+  width:90%;
+  margin:40rpx 5% 40rpx 5%;
+  color:#936b25;
+  height:40rpx;
+  line-height: 60rpx;
+}
+.title{
+  display:inline-block;
+  line-height: 60rpx;
+}
+.star{
+  color:#f00;
+  display:inline-block;
+  line-height: 60rpx;
+}
+.input{
+  border-radius: 8rpx;
+  margin:20rpx 0 20rpx 0;
+  background:#1c3043;
+  border:1px solid #00a0e9;
+  width:650rpx;
+  height:60rpx;
+  color:#00a0e9;
+  text-align: left;
+  line-height: 60rpx;
+  font-size:14px;
+    padding-left: 20rpx;
+}
+.input-placeholder{
+    color:#46607d;
+    font-size:14px;
+    padding-left: 20rpx;
+  }
+.pad{
+  padding-top:40rpx;
+}
+  .picker{
+    border-radius: 8rpx;
+  width:100%;
+  border:1px solid #00a0e9;
+  color:#46607d;
+  font-size:14px;
+  background: #1c3043;
+  padding-left: 20rpx;
+}
+.block{
+  width:100%;
+  display: table;
+  vertical-align: middle;
+  float:left;
+  margin-top:60rpx;
+}
+.tip{
+  width:90%;
+  margin:0 5% 0 5%;
+  color:#46607d;
+  font-size:12px;
+  padding-left: 40rpx;
+}
+ 
+   .btnsmall{
+   width:50%;
+  margin:0 25% 0 25%;
+  border:1px solid #00a0e9;
+  color:#00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+
+.item1{
+  width:90%;
+  margin:-30rpx 5% 0 5%;
+  color:#936b25;
+  height:80rpx;
+  /* background:#f00; */
+  
+}
+.w{
+  width:550rpx;
+  display: inline-block;
+  float:left;
+}
+
+.btn{
+
+  width:60rpx;
+  height:60rpx;
+  border:1px solid #00a0e9;
+  color:#00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  margin-top:22rpx;
+  float:right;
+  padding:5rpx 0rpx 0rpx 0rpx;
+  line-height: 50rpx;
+}
+.taglist{
+  width:90%;
+  margin: 0 5% 0 5%;
+}
+.taglist .tag{
+  color:#24435d;
+  font-size: 14px;
+  display: inline-block;
+  margin-right:20rpx;
+  border:1px solid #24435d;
+  padding:5rpx;
+  border-radius: 5rpx;
+  
+}
+    .delpic{
+  color:#00a0e9;
+  font-size:14px; 
+}

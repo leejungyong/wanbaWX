@@ -1,0 +1,11 @@
+page {
+ 
+}
+image{
+  width:250px;
+}
+.qrcode{
+  text-align: center;
+  margin-top:20rpx;
+  margin-bottom: 20rpx;
+}

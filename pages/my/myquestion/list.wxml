@@ -1,0 +1,60 @@
+<view class='swiper'>
+  <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+    <block wx:for='{{swiper}}' wx:key="{{index}}">
+      <swiper-item bindtap='to' id="{{index}}">
+        <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+
+<view class="txt">
+
+  <block wx:for='{{list}}' wx:key="{{index}}">
+
+    <view class="card">
+      <view class="title">
+        {{item.memo}}
+      </view>
+      <view class="date">
+        {{item.answer}}
+      </view>
+      <view class="menu" bindtap='delQuestion' id="{{index}}">
+        删除
+      </view>
+       <view class="menu" bindtap='exportData' id="{{index}}">
+        导出
+      </view>
+      <view class="menu" bindtap='editQuestion' id="{{index}}">
+        编辑
+      </view>
+      <block wx:if="{{item.applystatus==-2}}">
+      <view class="menu" bindtap='postSysQuestion' id="{{index}}">
+        推荐
+      </view>
+      </block>
+      <block wx:elif="{{item.applystatus==-1}}">
+      <view class="menu" bindtap='postSysQuestion' id="{{index}}">
+        推荐
+      </view>
+      </block>
+      <block wx:elif="{{item.applystatus==0}}">
+      <view class="menu" id="{{index}}">
+        审核中
+      </view>
+      </block>
+      <block wx:elif="{{item.applystatus==1}}">
+      <view class="menu" id="{{index}}">
+        已推荐
+      </view>
+      </block>
+    </view>
+  </block>
+  <block wx:if="{{list.length==0}}">
+      <view class="nodatalist">亲，赶快创建你的题库哦！</view>
+</block>
+</view>
+
+
+<button class="btn" bindtap="new">创建题目</button>

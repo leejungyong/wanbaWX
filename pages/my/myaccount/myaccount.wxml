@@ -1,0 +1,53 @@
+<view class="celltop">
+  <view class="tleft">
+    <open-data type="userAvatarUrl" class="avatar"></open-data>
+  </view>
+  <view class="tmiddle">
+    <view class="nick">
+      <open-data type="userNickName"></open-data>
+     <view class="memberid">{{mypoint}}玩点</view>
+    </view>
+  
+  </view>
+   
+  
+ 
+</view>
+<view class='pick_box'>
+<picker bindchange='bindTypeChange' value='{{index}}' range='{{typeArray}}' >
+  <view class='picker'>
+  {{typeArray[index]}}
+  <view class='triangle'></view>
+  </view>
+</picker>
+</view>
+<view class='date_box'>
+
+  <picker bindchange='bindDateChange' value='{{date}}' mode="date" fields="month" style="display:inline;">
+    <view>
+    {{date}}
+      <view class='triangle'></view>
+    </view>
+  </picker>
+</view>
+
+
+<view class='list_box'>
+  <view class='recordItem' wx:for="{{list}}" wx:key="{{index}}" >
+  <view class='up_text'>
+    <text>{{item.event}}</text>
+    <text class='fr clearfix' style='margin-right:140rpx;'>{{item.date}}</text>
+  </view>
+  <view class='down_text'>
+  <text class='fr clearfix' style='margin-right:140rpx;' > {{item.tradeno}}</text>
+  </view>
+  </view>
+ 
+
+</view>
+<view class='tip_text' wx:if="{{list.length==0}}">没有查询到记录</view>
+
+
+
+
+

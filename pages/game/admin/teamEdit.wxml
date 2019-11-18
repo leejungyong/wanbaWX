@@ -1,0 +1,23 @@
+<view class='box' >
+  <view class='memo'>门派分类</view>
+  <input placeholder='请填写门派分类名称4个字' class='typeinput' placeholder-style='color:#46607D;' bindinput='changeType' value='{{teamObj.name}}' maxlength='4'></input>
+  <view class='memo'>门派描述</view>
+  <textarea placeholder='介绍文字150字以内' class='memoinput' placeholder-style='color:#46607D;' bindinput='changeMemo' value='{{teamObj.desc}}'> </textarea>
+  <view class='memo'>门派颜色</view>
+   <view class='color-box' style='background:{{teamObj.color}}' bindtap='showPicker'></view>
+   <color-picker class="color-picker" colorData="{{colorData}}" rpxRatio="{{rpxRatio}}" bindchangecolor="onChangeColor" wx:if='{{showColorPicker}}' data-idx='picker'></color-picker>
+  <view class='memo'>门派图片</view>
+  <view style='color:#46607d;font-size:24rpx;'>推荐门派图片尺寸为宽343px *高500px</view>
+  <view style='float:left;  margin:20px 20rpx 20rpx 0;' wx:if="{{img!=''}}">
+    <image src='{{img}}' mode='widthFix' style='width:160rpx;height:200rpx;'></image>
+  </view>
+  <view class='add-pic' bindtap='uploadPic'>
+    +
+  </view>
+    <view class='button-box'>
+    <button class='btn' bindtap='saveEdit'>保存</button>
+    <button class='btn' bindtap='delete' style='margin-left:60rpx;' wx:if='{{actmode<2}}'>删除</button>
+  </view>
+
+</view>
+

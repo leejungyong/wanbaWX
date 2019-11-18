@@ -1,0 +1,15 @@
+<view class="item" style="height:100rpx;font-size:16px;">
+<view class="title">设置提示语，帮助玩家找到宝石。提示语将在AR交互场景以Toast形式按一定频次浮现。</view>
+</view>
+
+
+<view class='input_box'>
+  <input class='tel_input'  bindinput='updateTip' value='{{tip}}'placeholder='请输入提示语' placeholder-style="color:#46607d;"></input>
+  <button class='add_tel' bindtap='addTip'>添加</button>
+</view>
+<view class='list_box' wx:if="tipsList.length>0">
+  <view wx:for="{{tipsList}}" wx:key="{{index}}" class='tel_item'>
+  {{item}}
+  <text style='font-size:30rpx;float:right;' bindtap='deleteTip' data-idx='{{index}}'>×</text>
+  </view>
+</view>

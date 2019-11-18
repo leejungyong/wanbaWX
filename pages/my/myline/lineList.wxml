@@ -1,0 +1,41 @@
+<!--pages/my/myline/lineList.wxml-->
+<view class='top'>
+  <view class='headPo'>
+    <open-data type='userAvatarUrl'></open-data>
+  </view>
+  <view class='nick'>
+    <open-data type="userNickName" lang="zh_CN"></open-data>
+    <view class='text'>
+      账户:{{amount}}
+    </view>
+  </view>
+
+  <view class='right'>
+    <view class='apply' bindtap="toApplyRecord">申请</view>
+    <view class='bill' bindtap='toBill'>账单</view>
+  </view>
+</view>
+
+<view >
+<block wx:if='{{list.length==0}}'>
+<view style='text-align:center;margin-top:200rpx;font-size:32rpx;color:#46607d;'>您现在还没有线路记录哦！</view>
+
+</block>
+<block wx:else>
+<view class='list_box'>
+  <view class='card' bindtap='toLineBill' wx:for="{{list}}" wx:key="{{index}}" data-idx='{{index}}'>
+    <view class='cover'>
+      <image src="{{uploadUrl}}wanba/api/routepic/{{item.sharepic}}-100.100"></image>
+    </view>
+    <view style='float:left;padding:0 20rpx;'>
+      <view class='title'>{{item.title}}</view>
+      <view class='date'>{{item.date}}</view>
+    </view>
+
+    <view class='num'>{{item.buy_count}}次</view>
+  </view>
+</view>
+  
+</block>
+</view>
+

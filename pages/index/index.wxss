@@ -1,0 +1,116 @@
+page {
+  background: #121a21;
+}
+
+.swiper image {
+  width: 100%;
+  height: auto;
+}
+
+.table {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.table .item {
+  width: 90vw;
+  margin: 20rpx 0 0 50rpx;
+}
+
+.table .item  image {
+  width: 100vw;
+  border-radius: 5px;
+}
+
+.cat {
+  width: 90vw;
+  height: 80rpx;
+  margin: 20px 5vw 20px 5vw;
+  color: #946b25;
+  display: block;
+  /* background: #f00; */
+  border-bottom: 1px solid #46607d;
+  /* display: flex;
+  flex-wrap: wrap;  
+  justify-content : center; */
+}
+
+.catname {
+  text-align: center;
+  width: 25%;
+  display: inline-block;
+  margin-left: -5rpx;
+}
+
+.catname1 {
+  text-align: center;
+  width: 25%;
+  display: inline-block;
+  margin-right: 5rpx;
+}
+
+.catleft {
+  text-align: left;
+  width: 25%;
+  display: inline-block;
+}
+
+.catright {
+  text-align: right;
+  width: 25%;
+  display: inline-block;
+}
+
+.list_title {
+  padding: 50rpx;
+  color: #946b25;
+}
+
+.mask {
+  width: 650rpx;
+  color: #fff;
+  background-color: rgba(18, 18, 18, 0.8);
+  position: relative;
+  float: left;
+  margin-top: -104rpx;
+}
+
+.mask .left {
+  width: 80%;
+  float: left;
+  display: inline;
+  overflow: hidden;
+}
+
+.mask .left .top {
+  color: #936b25;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  font-size: 16px;
+  overflow:hidden;
+}
+
+.mask .left .bottom {
+  color: #00a0e9;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 12px;
+  margin-left: 20rpx;
+  margin-top: -15rpx;
+}
+
+.mask .right {
+  color: #936b25;
+  line-height: 100rpx;
+  width: 20%;
+  float: left;
+  display: inline;
+}
+
+.item_hot {
+  width: 90vw;
+  margin: 0 5vw 0 5vw;
+  height: 175px;
+}

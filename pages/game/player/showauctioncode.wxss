@@ -1,0 +1,99 @@
+page {
+  background: #121a21;
+}
+
+
+.box {
+  width: 100vw;
+  height: 100vh;
+  background: #121a21;
+  position: relative;
+  text-align: center;
+}
+
+.child {
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 900rpx;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  padding:20px;
+  display: inline-block;
+  /* background: #0f0; */
+  float:left;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  padding: 20px 2px 20px 20px;
+  display: inline-block;
+  /* background: #0f0; */
+  float: left;
+}
+
+.team {
+  float: left;
+  height: 88px;
+  width: 100px;
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* background: #00f; */
+}
+
+.nick {
+  float: left;
+  width: 100px;
+  height: 44px;
+  line-height: 44px;
+  display: block;
+  /* margin-left:-40px; */
+  color: rgba(0, 0, 0, 0.3);
+  clear: both;
+  overflow: hidden;
+}
+
+.teamname {
+  float: left;
+  width: 100px;
+  height: 44px;
+  line-height: 44px;
+  display: block;
+  margin-top: -20px;
+  color: #946b25;
+  overflow: hidden;
+}
+.tip {
+clear: both;
+  position: relative;
+  top:60%;
+  font-size:14px;
+  color: #ccc;
+  height: 50px;
+  text-align: center;
+  width: 80%;
+  margin: 0 10% 0 10%;
+  /* background-color: #00f; */
+  z-index:999;
+  display: block;
+}

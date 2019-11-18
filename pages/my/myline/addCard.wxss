@@ -1,0 +1,43 @@
+/* pages/my/myline/addCard.wxss */
+page{
+    background: #0C1319;
+    color: #00ACFB;
+    font-size: 32rpx;
+}
+
+.info_box{
+  height: 300rpx;
+  background: #121A21;
+    margin-top: 20rpx;
+}
+.info_box .detail{
+  height: 185rpx;
+  border-bottom: 2rpx solid #2B4F71;
+  padding:25rpx 50rpx;
+}
+.info_box .tip{
+  color: red;
+  font-size: 28rpx;
+  text-align: center;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.info_box .detail input{
+  display: inline-block;
+}
+.info_box .detail text{
+    position:relative;
+top:-11rpx;
+}
+.info_box .detail .text{
+   margin-bottom: 45rpx;
+}
+
+.btn{
+  width: 600rpx;
+color:#00ACFB;
+border:2rpx solid #00ACFB;
+border-radius:10rpx;
+background:#1C3043;
+margin-top: 20rpx;
+}

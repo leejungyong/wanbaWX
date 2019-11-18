@@ -1,0 +1,23 @@
+
+<view class="info">
+<view class="img">
+<image src="https://img.wondfun.com/wanba/img/99_share-2-1.jpg" class="image"></image>
+</view>
+
+</view>
+<view class="detail">
+◎  本卡为团建软件《玩霸江湖》专用。
+</view>
+<view class="detail">
+◎  使用本卡可额外获得一次本人的免费使用机会，并获得赠送给你的好友（仅限新用户）一次免费使用机会（价值共计1998元）。
+</view>
+
+<view class="detail">
+ ◎  有效期限：截止至2019.12.31。
+</view>
+<view class="detail">
+◎  本卡最终解释权归玩霸江湖所有。服务热线：13738005036
+</view>
+<view class="block" wx:if="{{isNewUser}}">
+  <button class="btnsmall" bindtap="useDiscount">立即使用</button>
+</view>

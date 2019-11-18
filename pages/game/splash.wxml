@@ -1,0 +1,31 @@
+
+<view class="container">
+
+<image src="{{imgUrl}}wanba/img/gamepic/splash_bg1.jpg" class="bg-image"></image>
+
+<block wx:if="{{btnShow}}">
+
+<button  hidden="{{btnShow}}"  class="btn" bindtap="start"></button> 
+
+
+</block>
+<block wx:else>
+<block wx:if="{{getUserInfo}}">
+
+<button   class="btn" bindtap="start"></button> 
+
+</block>
+<block wx:else>
+
+<button  class="btn" open-type="getUserInfo" bindgetuserinfo="auth"></button> 
+
+<view class="coach_txt" bindtap="coach">教练</view>
+
+</block>
+</block>
+
+</view>
+
+
+
+

@@ -1,0 +1,47 @@
+/* pages/my/myline/bankCard.wxss */
+page{
+    background: #0C1319;
+    color: #00ACFB;
+    font-size: 32rpx;
+}
+
+.list_box{
+  padding: 0 20rpx;
+}
+.card{
+  height:50rpx;
+  border:2rpx solid #46607D;
+  background:#1C3043;
+  border-radius:10rpx;
+  padding:40rpx;
+  margin-top:20rpx;
+}
+.card .cover{
+  width: 100rpx;
+  height: 100rpx;
+  float: left;
+}
+.card .cover image{
+  max-height:100%;
+  max-width:100%;
+}
+.card .name{ 
+}
+.card .type{
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+.card .card_num{
+  float:right;
+  margin-right:10rpx;
+}
+
+.add_box{
+   height:150rpx;
+  border:2rpx solid #46607D;
+  background:#1C3043;
+  border-radius:10rpx;
+  margin-top: 20rpx;
+  line-height: 150rpx;
+  text-align: center;
+}

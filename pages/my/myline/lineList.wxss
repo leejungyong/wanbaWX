@@ -1,0 +1,79 @@
+/* pages/my/myline/lineList.wxss */
+
+page {
+  background: black;
+  color: #00a0e9;
+}
+
+.top {
+  background: #121a21;
+  padding: 45rpx 50rpx;
+  height: 85rpx;
+}
+
+.headPo {
+  width: 80rpx;
+  height: 80rpx;
+  /* display: inline-block; */
+  float: left;
+}
+
+.nick {
+  /* display: inline-block; */
+  float: left;
+  margin-left: 15rpx;
+  margin-top: -10rpx;
+}
+.text{
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+.right{
+  float: right;
+}
+.apply{
+  color: #936B25;
+  display:inline-block;
+position:relative;
+top:-10rpx;
+font-size:32rpx;
+}
+.bill{
+  font-size:32rpx;
+}
+
+.list_box{
+  padding: 20rpx 30rpx;
+}
+
+.card{
+  height: 100rpx;
+  border:2rpx solid #46607D;
+  background:#1C3043;
+  border-radius:10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+.card .cover{
+  width: 100rpx;
+  height: 100rpx;
+  float: left;
+}
+.card .cover image{
+  max-height:100%;
+  max-width:100%;
+}
+.card .title{
+  font-size: 32rpx;
+  color:#936B25;
+}
+.card .date{
+  font-size: 28rpx;
+  margin-top:15rpx;
+}
+.card .num{
+  float: right;
+  margin-right:20rpx;
+  font-size:30rpx;
+  margin-top:50rpx;
+}

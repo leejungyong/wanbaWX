@@ -1,0 +1,87 @@
+
+page{
+background: #0c1319; 
+}
+.celltop {
+  background-color: #121a21;
+  width: 750rpx;
+  height: 90px;
+  color: #00a0e9;
+}
+.cell {
+  background-color: #121a21;
+  width: 100vw;
+  height: 28px;
+  padding:10px;
+  vertical-align: center;
+  font-size:14pt;
+  display:inline-block;
+  line-height: 28px;
+  margin:0 0 8rpx 0;
+  color:#00a0e9;
+}
+.nick {
+   width:400rpx;
+  float: left;
+  height: 80rpx;
+  padding-top:30rpx;
+  font-size: 25px;
+  overflow: hidden;
+}
+.memberid{
+  font-size:12px;
+}
+.viptag{
+  width:64px;height:64px;float:right;padding-right:25px;font-weight: bolder;color:#946b25;margin-top:-10px;
+}
+.img{
+  width:24px;height:24px;float:left;padding-left: 10px;
+}
+.arrow{
+  width:30px;height:30px;float:right;display: inline-block;padding-right: 15px;
+}
+.item{
+  height:30px;float:left;padding-left:10px;font-size:16px;
+}
+
+.tleft{
+  width:200rpx;
+  height:160rpx;
+  float:left;
+ 
+}
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  margin:0 25rpx 0 55rpx;
+  float: left;
+  padding:20rpx 0 20rpx 0;
+}
+.tmiddle{
+  width:400rpx;
+  height:160rpx;
+  float:left;
+}
+.tright{
+  width:150rpx;
+  height:160rpx;
+  font-size:14px;
+  float:left;
+  line-height: 160rpx;
+  vertical-align: middle;
+ color:#946b25;
+ display:inline-block;
+}
+.mypoint {
+   width:430rpx;
+ height: 80rpx;
+  float: left;
+ color: #946b25;
+  display: block;
+  margin-top:0rpx;
+  font-size:12px;
+}
+.txt {
+  width: 100%;
+  margin: 20rpx 0 115rpx 0;
+}

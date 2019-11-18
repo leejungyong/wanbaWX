@@ -1,0 +1,25 @@
+
+page{
+  background: #0c1319; 
+  
+}
+.container{
+  background: #0c1319; 
+  width:700rpx;
+  margin:0 25rpx 0 25rpx;
+}
+text{
+  color:#1989c3;
+  font-size:11px;
+}
+.btn{
+  position: fixed;
+  bottom: 0;
+   height: 80rpx;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  background-color: #1C3043 ;
+  color:rgba(0, 172, 251, 1);
+  border: 2rpx solid  #00A0E9;
+  width:100%;
+}

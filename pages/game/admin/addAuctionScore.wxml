@@ -1,0 +1,20 @@
+<view class="section section_gap">
+  <text class="section__title">三连</text>
+  <view class="body-view">
+    <slider bindchange="slider1change" value="{{num1}}" max="{{maxNum}}" show-value  backgroundColor="#1c3043"   activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view>
+  <text class="section__title">五连    </text>
+  <view class="body-view">
+    <slider bindchange="slider2change" value="{{num2}}" max="{{maxNum}}" show-value backgroundColor="#1c3043"   activeColor="#1989c3" block-color="#00a0e8" block-size="20"  />
+  </view>
+  <text class="section__title">  七连</text>
+  <view class="body-view">
+    <slider bindchange="slider3change" value="{{num3}}" max="{{maxNum}}" show-value  backgroundColor="#1c3043"   activeColor="#1989c3" block-color="#00a0e8" block-size="20"  />
+  </view>
+
+</view>
+<view style='color:#946b25;padding-left:50rpx;font-size:16px;'>{{name}}连线加分{{total}}
+</view>
+<view class="block">
+<button bindtap="postScore" class="btnsmall">  确定</button>
+</view>

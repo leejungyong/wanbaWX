@@ -1,0 +1,174 @@
+page{
+  background: #121a21;
+}
+.bg_head{
+  height:300rpx;
+  
+}
+.bg_head .mask{
+  height:80rpx;
+  position: relative;
+  margin-top: -80rpx;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+}
+.bg_head .mask .total{
+  padding:10rpx;
+  color:#00a0e9;
+  font-size:12px;
+  /* margin-right: 8rpx; */
+  width: 140rpx;
+  height: 70rpx;
+}
+.bg_head .mask .totalbtn .btn-share{
+  
+ border:none;
+  width:60px;
+  height:30px;
+  background:transparent;
+  font-size:12px;
+  color:#00a0e9;
+  margin-top:0rpx;
+  margin-left:-25rpx;
+  display:inline;
+}
+.btn-share::after {
+  border: none
+}
+.imageBox{
+display:inline-block;
+width:25%;
+position:relative;
+top:7rpx;
+}
+.name{
+
+  color:#946b25;
+  width:100%;
+  text-align: center;
+  padding-top:20px;
+  padding-bottom: 20px;
+}
+.list{
+  
+  width:720rpx;
+  margin: 0 15rpx 0 15rpx;
+ padding-bottom:20rpx;
+}
+
+.mask_big{
+position:fixed;
+top:0;
+height:100%;
+background:#121a21;
+width:100%;
+z-index:999;
+color: #00a0e9;
+}
+.swiper{
+  width: 100%;
+  /* height: 1020rpx;
+  padding-bottom: 20rpx; */
+  position:absolute;
+  top:70rpx;
+  left:0;
+  bottom:90rpx;
+  height:auto;
+}
+.closeSign{
+  /* display: inline-block; */
+  color: #00a0e9;
+  float:right;
+  /* margin-right:10px; */
+  font-size:25px;
+  width: 10%;
+}
+.time_box{
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 80%;
+  color: #00a0e9;
+  padding-left: 40rpx;
+  display: inline-block;
+}
+.bottom_box{
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #00a0e9;
+  position:fixed;
+bottom:0;
+left:0;
+ padding-left: 40rpx;
+ font-size: 40rpx;
+}
+.heart{
+  width: 64rpx;
+  height: 64rpx;
+}
+.bigimage{
+       /* max-height:100%; */
+       position: absolute;
+       left: 0;
+       right: 0;
+       top: 0;
+       bottom: 0;
+       margin: auto;
+       width: 100%;
+}
+.avatar{
+  width:220rpx;
+  height:220rpx;
+  padding:3rpx;
+}
+
+
+.scroll-view-demo {
+  width: 100%;
+  /* margin:0 5% 0 5%; */
+  white-space: nowrap;
+}
+ .scroll-view-demo .item {
+    width: 135rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    display: inline-block;
+    color: #946b25;
+    margin-left: 15rpx;
+    margin-right: 15rpx;
+  }
+ .scroll-view-demo  .item.active{
+  color:#00a0e9;
+}
+.image_box{
+  display: flex;
+ padding: 0 18rpx 0 26rpx;
+ flex-wrap:wrap;
+}
+.btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0;
+  border-top: 1px solid #121a21;
+  outline: none;
+  color: #00a0e9;
+  background: #1c3043;
+}
+
+.download{
+  float: right;
+  margin-right:70rpx;
+}
+
+.bg{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-image: url(https://img.wondfun.com/wanba/img/small_loading.gif);
+  background-position: center center;
+  background-size: 60rpx 60rpx;
+  background-repeat: no-repeat;
+}

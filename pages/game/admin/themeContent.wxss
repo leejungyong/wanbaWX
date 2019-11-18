@@ -1,0 +1,82 @@
+/* pages/my/myact/themeDetail.wxss */
+page {
+    background: #121a21;
+    color: #936B25;
+    font-size: 34rpx;
+}
+.box{
+    padding: 100rpx 60rpx;
+}
+.list-box{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  /* justify-content:space-between; */
+}
+.team{
+margin-right:20rpx;
+margin-left:30rpx;
+
+}
+.team .pic-box image{
+  width: 160rpx;
+}
+.team .title{
+  text-align: center;
+  padding: 20rpx 0;
+}
+.add{
+  width: 170rpx;
+  height: 250rpx;
+  background-color: rgba(28, 48, 67, 1);
+  border: 2rpx solid rgba(0, 172, 251, 1);
+  color:  #00A0E9 ;
+  line-height: 250rpx;
+  text-align: center;
+  font-size: 70rpx;
+  border-radius: 10rpx;
+  margin-left: 30rpx;
+}
+
+.info .memo{
+  color: rgba(70, 96, 125, 1);
+  font-size: 25rpx;
+  text-align: left;
+  margin-top: 10rpx;
+}
+
+.bottom{
+  height: 100rpx;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+
+.collect{
+  display: inline-block;
+  width: 140rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: rgba(28, 45, 62, 1);
+  text-align: center;
+  color: #00A0E9;
+}
+.consult{
+  display: inline-block;
+  width: 140rpx;
+    height: 100rpx;
+  line-height: 100rpx;
+  background-color: rgba(28, 45, 62, 1);
+  text-align: center;
+  color: #00A0E9;
+}
+.use{
+  display: inline-block;
+  width:470rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color:#273F53;
+  text-align: center;
+}

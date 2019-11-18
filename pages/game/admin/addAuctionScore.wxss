@@ -1,0 +1,38 @@
+page {
+ background: #121a21;
+}
+.section{
+  width:90%;
+  margin:10px 5% 40px 5%;
+}
+
+.section__title{
+color:#946b25;
+font-size:16px;
+padding-left:10rpx;
+
+}
+.body-view{
+  color:#946b25;
+}
+.block{
+  width:50%;
+  margin:0 25% 0 25%;
+  display: table;
+  vertical-align: middle;
+  float:left;
+  margin-top:60rpx;
+}
+
+ .btnsmall{
+  width:70%;
+  margin:0 15% 0 15%;
+  border:1px solid #00a0e9;
+  color:#00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+.blue{
+  color:#00a0e9;
+}

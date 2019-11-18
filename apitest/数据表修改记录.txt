@@ -1,0 +1,19 @@
+数据表修改记录
+wf_wanba_act
+date  改为时间戳形
+新增 teamNum字段
+新增 template字段
+删除未用多余字段，字段int 类型调整优化
+
+新建 表 wf_wanba_point
+
+CREATE TABLE `wondfun`.`wf_wanba_point` ( `pointid` INT NOT NULL COMMENT '点位id' , `pmemo` VARCHAR(100) NOT NULL COMMENT '点位描述' , `poi` VARCHAR(100) NOT NULL COMMENT 'gps坐标' , `latlng` VARCHAR(100) NOT NULL COMMENT '腾讯坐标' , `name` VARCHAR(20) NOT NULL COMMENT '点位名称' , `creator` VARCHAR(50) NOT NULL COMMENT '创建者' , `type` TINYINT NOT NULL COMMENT '点位类型 0-用户 1-系统' , `cat` VARCHAR(100) NOT NULL COMMENT '点位分类' ) ENGINE = InnoDB;
+索引
+ponitid  name creator type  cat
+新增address lastpost字段
+
+新建 表 wf_wanba_question
+
+CREATE TABLE `wondfun`.`wf_wanba_question` ( `questionid` INT NOT NULL AUTO_INCREMENT COMMENT '题目编号' , `memo` VARCHAR(100) NOT NULL COMMENT '题干' , `qtype` TINYINT NOT NULL COMMENT '题目类型' , `answer` VARCHAR(100) NOT NULL COMMENT '答案' , `creator` VARCHAR(50) NOT NULL COMMENT '创建者' , `lastpost` INT NOT NULL COMMENT '最后更新' , `cat` VARCHAR(50) NOT NULL COMMENT '分类' , `sys` TINYINT NOT NULL COMMENT '是否系统问题' , `url` VARCHAR(100) NOT NULL COMMENT '音频地址' , `media` TINYINT NOT NULL COMMENT '是否有音频' , PRIMARY KEY (`questionid`)) ENGINE = InnoDB;
+ALTER TABLE `wf_wanba_question` ADD `tag` VARCHAR(100) NOT NULL COMMENT '自定义标签' AFTER `media`;
+新增displayorder字段

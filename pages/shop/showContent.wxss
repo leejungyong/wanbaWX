@@ -1,0 +1,68 @@
+@import "../../wxParse/wxParse.wxss"; 
+page{
+  background: #121a21;
+}
+.navbar{
+  flex: none;
+  display: flex;
+  background: #121a21;
+  height:45px;
+}
+.navbar .item{
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color:#936B25;
+}
+.navbar .item.active{
+  color: #00a0e9;
+}
+.navbar .item.active:after{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1rpx;
+  background: #00a0e9;
+}
+.txt{
+  width:90%;
+  margin:20rpx 5% 100rpx 35rpx;
+  /* padding:0 5px; */
+  color:#00a0e9;
+  font-size:12pt;
+  /* margin-bottom: 100rpx; */
+}
+.tabbar{
+  position: fixed;
+  height:100rpx;
+  width:100%;
+  bottom:0;
+  background: rgb(34, 75, 110);
+  font-size:20px;
+}
+.tabbar .t{
+  float:left;
+  height:100rpx;
+  line-height: 100rpx;
+  vertical-align: middle;
+  text-align: center;
+}
+.tabbar .t .left{
+  width:33%;
+  float:left;
+  
+}
+.icon{
+  width:64rpx;
+  height:64rpx;
+  padding:18rpx 0 18rpx 0;
+}
+.btn::after{
+  outline: none;
+  border-radius: 0;
+  border:none;
+}

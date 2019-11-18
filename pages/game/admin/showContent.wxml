@@ -1,0 +1,83 @@
+<import src="../../../wxParse/wxParse.wxml" />
+<view wx:if="{{content}}">
+  <image src="{{content.sharepic ? 'https://www.wondfun.com/wanba/api/routepic/'+ content.sharepic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" bindload="picLoad" style="width:100%; height:{{imgheight}}rpx"></image>
+
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+ 
+
+  <view hidden="{{currentTab!==0}}" class="txt">
+    <template is="wxParse" data="{{wxParseData:memo1.nodes}}" />
+  </view>
+
+  <view hidden="{{currentTab!==1}}" class="txt">
+    <template is="wxParse" data="{{wxParseData:memo2.nodes}}" />
+
+  </view>
+  <view hidden="{{currentTab!==2}}" class="txt">
+    <template is="wxParse" data="{{wxParseData:memo3.nodes}}" />
+  </view>
+
+  <view hidden="{{currentTab!==3}}">
+    <map id="myMap" style="width: 100%; height:650rpx;" latitude="{{lat}}" longitude="{{lng}}" scale='16' markers="{{marker}}" bindmarkertap="showMarker" show-location enable-3D show-compass enable-rotate enable-overlooking>
+      <cover-view style="height: 60rpx;width:60rpx; position: fixed;display:flex;right:10rpx;bottom:16%;" bindtap="includePoints">
+        <cover-image style="width:60rpx;height:60rpx;" src="https://img.wondfun.com/wanba/img/gamepic/scale.png" />
+      </cover-view>
+      <!-- <cover-view style="height: 60rpx;width:60rpx; position: fixed;display:flex;right:10rpx;bottom:10%;" bindtap="toMypos">
+  <cover-image style="width:60rpx;height:60rpx;" src="https://img.wondfun.com/wanba/img/icon/me1.png" />
+   </cover-view> -->
+    </map>
+
+  </view>
+
+  <!-- <view class="tabbar">
+    <view class="t">
+      <view class="left" bindtap="routeFav" style="background:rgb(27,45,62)">
+        <block wx:if="{{content.fav==0}}">
+          <image src="{{cdn}}wanba/img/gamepic/fav0.png" class="icon"></image>
+        </block>
+        <block wx:elif="{{content.fav==1}}">
+          <image src="{{cdn}}wanba/img/gamepic/fav1.png" class="icon"></image>
+        </block>
+      </view>
+      <view class="left" bindtap="call" style="color:#00a0e9;background:rgb(38,62,83)">
+        咨询
+      </view>
+      <view class="left" >
+       <button class="btn" open-type="share" style="color:#00a0e9;background:rgb(38,62,83);border-radius:0rpx;line-height:50px;font-size:20px;border-left:1rpx solid #1b2d3e;" >分享</button> 
+      </view>
+    </view>
+    <view class="t" style="color:#936B25;" bindtap="useRoute" wx:if="{{content.price==0}}">
+      立即使用
+    </view>
+    <view class="t" style="color:#936B25;" wx:else>
+      <button class="btn" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">￥{{content.price}} 立即购买</button>
+    </view>
+  </view> -->
+<view class="tabbar">
+    <view class="t" style='width:60%'> 
+      <view class="left" bindtap="routeFav" style="background:rgb(27,45,62)">
+        <block wx:if="{{content.fav==0}}">
+          <image src="{{cdn}}wanba/img/gamepic/fav0.png" class="icon"></image>
+        </block>
+        <block wx:elif="{{content.fav==1}}">
+          <image src="{{cdn}}wanba/img/gamepic/fav1.png" class="icon"></image>
+        </block>
+      </view>
+      <view class="left" bindtap="call" style="color:#00a0e9;background:rgb(38,62,83)">
+        咨询
+      </view>
+      <view class="left" >
+       <button class="btn" open-type="share" style="color:#00a0e9;background:rgb(38,62,83);border-radius:0rpx;line-height:50px;font-size:20px;border-left:1rpx solid #1b2d3e;" >分享</button> 
+      </view>
+    </view>
+        <view class="t" style="color:#936B25;" bindtap="useRoute" wx:if="{{content.price==0}}">
+      立即使用
+    </view>
+    <view class="t" style="color:#936B25;" wx:else>
+      <button class="btn" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">￥{{content.price}} 立即购买</button>
+    </view>
+
+  </view>
+</view>

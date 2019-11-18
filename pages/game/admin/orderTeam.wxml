@@ -1,0 +1,27 @@
+
+<view class="info">
+<view class="img">
+<image src="https://img.wondfun.com/wanba/img/card1.jpg" class="image"></image>
+</view>
+<view class="title">
+<view class="t_left">门派特权卡</view>
+<view class="t_right">￥100</view>
+</view>
+</view>
+<view class="detail">
+此门派特权卡可增加门派数量
+</view>
+<view class="num">
+购买数量
+</view>
+<view class="detail">
+  <slider bindchange="sliderchange" value="{{teamNum}}" min="1" max="{{limit}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+</view>
+<view class="num">
+可扩充至{{teamTotal}}个门派,需支付￥{{pay}}
+</view>
+
+<view class="block">
+  <button class="btnsmall" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">立即购买</button>
+  <!-- <button class="btnsmall" bindtap='updateTeamNum'>立即购买</button> -->
+</view>

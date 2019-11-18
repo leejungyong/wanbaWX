@@ -1,0 +1,33 @@
+<view class="section section_gap">
+
+  <text class="section__title">未设置AI智能识别，有{{param2}}‱几率获得宝石</text>
+  <view class="item">
+   <input class="input" value="{{param2}}" placeholder='请设置0-1000之间的数值' placeholder-class='input-placeholder' bindinput='updateParam2'></input>
+</view>
+  <!-- <view class="body-view">
+    <slider bindchange="slider2change" value="{{param2}}" max="10000" min="0" step="1" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view> -->
+  <text class="section__title">红包总额/所有队伍得分占比超过{{param1}}%，则停止发红包</text>
+  <view class="body-view">
+    <slider bindchange="slider1change" value="{{param1}}" max="30" min="0" step="1" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view>
+  <text class='section__title'>单个红包金额设置</text>
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+    <block wx:if="{{array[index]}}">
+    {{array[index]}}
+    </block>
+    <block wx:else>
+    请设置红包
+    </block>
+   
+    </view>
+  </picker>
+</view>
+<view class="block">
+  <button bindtap="aiPicsSetting" class="btnsmall">AI智能设置</button>
+
+</view> 
+<view class="block">
+  <button bindtap="tipsSetting" class="btnsmall">提示语设置</button>
+</view>

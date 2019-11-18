@@ -1,0 +1,44 @@
+<view class='swiper'>
+  <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+    <block wx:for='{{swiper}}' wx:key="{{index}}">
+      <swiper-item bindtap='to' id="{{index}}">
+        <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class='txt'>
+    <block wx:for="{{cat}}" wx:key="{{index}}" >
+    <view class='card'>
+      <view class='title' bindtap='catList' id='{{index}}'>
+       {{item.catname}}
+      </view>
+      <view class='date' bindtap='catList' id='{{index}}'>
+      {{item.lastpost}}
+      </view>
+      <!-- <view class="menu" style="font-size:12px;padding-top:35rpx;" bindtap="exportPos" id="{{index}}">导出</view> -->
+      <view class="menu" style="font-size:12px;padding-top:35rpx;">{{item.num}}点位</view>
+    </view>
+    </block>
+</view>
+
+
+
+<!-- <view class="txt">
+  <block wx:for='{{list}}' wx:key="{{index}}" >
+
+    <view class="card" bindtap="import" id="{{index}}">
+       
+      <view class="title">
+        {{item.name}}
+
+      </view>
+      <view class="date">
+        {{item.address}}
+      </view>
+      
+    </view>
+  </block>
+</view> -->
+

@@ -1,0 +1,46 @@
+<wxs module="filter" src="./log.wxs">
+</wxs>
+<view class="cells">
+  <view class="cell">
+    <view class="time head">时间</view>
+    <view class="event head">事件</view>
+    <view class="win head">收益</view>
+    <view class="money head">财富</view>
+  </view>
+  <view wx:for="{{list}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+
+
+    <view class="cell   {{item.status==1 ? 'sys_event' :'team_event'}}">
+      <view class="time">{{item.date}} </view>
+      <view class="event_left">
+
+
+        {{item.event ? item.event:item.memo}}
+
+      </view>
+      <view class="win">
+      <block wx:if="{{item.status==0}}">
+        {{item.score}}
+        </block>
+        </view>
+      <view class="money">
+
+        <block wx:if="{{index==list.length-1}}">
+          <block wx:if="{{item.status==0}}">
+            {{item.score}}
+          </block>
+        </block>
+        <block wx:else>
+          <block wx:if="{{item.status==0}}">
+            {{filter.count(list,index)}}
+          </block>
+        </block>
+      </view>
+
+
+
+
+    </view>
+  </view>
+
+</view>

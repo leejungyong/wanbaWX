@@ -1,0 +1,48 @@
+/* pages/cityPartner/saleDetail.wxss */
+page{
+  background: #121a21;
+}
+.list_box{
+  padding: 20rpx;
+}
+.recordItem{
+border-radius: 10rpx;
+background-color: rgba(28, 48, 67, 1);
+border: 2rpx solid rgba(70, 96, 125, 1);
+padding: 24rpx 40rpx;
+margin-bottom: 10rpx;
+}
+.up_text{
+  color: #936B25;
+  font-size: 30rpx;
+}
+.down_text{
+  color: #00ACFB;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+.recordItem1{
+  height: 80rpx;
+  color: #00ACFB;
+  background-color: rgba(28, 48, 67, 1);
+  border-radius: 10rpx;
+  border: 2rpx solid rgba(70, 96, 125, 1);
+  margin-bottom: 6rpx;
+  line-height:80rpx;
+  font-size:30rpx;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.clearfix{
+  zoom: 1;
+}
+.clearfix::after{
+  content: '';
+  clear: both;
+  display: block;
+  height: 0;
+}

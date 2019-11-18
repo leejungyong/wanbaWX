@@ -1,0 +1,97 @@
+.modal-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+.modal-body {
+  position: relative;
+  top: 10%;
+  width: 100%;
+  margin-top: -25px;
+  display: flex;
+}
+
+.showWanba {
+  border: 0;
+  width: 450rpx;
+  height: 900rpx;
+  margin: 30% 150rpx 0 150rpx;
+  flex: 1;
+  text-align: center;
+}
+
+.showStone {
+  border: 0;
+  width: 650rpx;
+  height: 700rpx;
+  margin: 30% 50rpx 0 50rpx;
+  flex: 1;
+  text-align: center;
+}
+
+.wanbapic {
+  width: 450rpx;
+  height: 821rpx;
+}
+
+.showFocus {
+  display: flex;
+justify-content: center; 
+align-items: center;
+  
+ 
+  
+}
+
+.scanpic {
+  display: flex;
+justify-content: center; 
+align-items: center;
+ 
+  position: relative;
+  z-index: 999;
+  /* animation: move 5s ease-in-out infinite;
+  -webkit-animation: move 5s ease-in-out infinite; */
+}
+
+/* @keyframes move {
+  from {
+    top: 0;
+  }
+
+  to {
+    top: 400rpx;
+  }
+} */
+
+/* @-webkit-keyframes move {
+  from {
+    top: 0;
+  }
+
+  to {
+    top: 400rpx;
+  }
+} */
+
+.focuspic {
+  width: 200px;
+  height: 200px;
+}
+
+.crypic {
+  width: 619rpx;
+  height: 808rpx;
+}
+
+.closeimg {
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  top: 80%;
+  left: 50%;
+}

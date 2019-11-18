@@ -1,0 +1,161 @@
+
+
+
+<view class="item">
+<view class="title">点位名称</view>
+<view class="star">*</view>
+</view>
+<view class="item">
+<input class="input w" value="{{name}}" placeholder='点位名称' placeholder-class='input-placeholder' bindinput='updateName'></input>
+<view class="btn" bindtap='importPos'>+</view>
+</view>
+<view class="item">
+<view class="title">点位描述</view>
+
+</view>
+<view class="item">
+<input class="input" value="{{pmemo}}" placeholder='点位描述' placeholder-class='input-placeholder' bindinput='updatePmemo'></input>
+</view>
+<view class="item">
+<view class="title">经纬度</view>
+<view class="star">*</view>
+</view>
+<view class="item">
+<input class="input w" value="{{poi}}" placeholder='请设置经纬度' disabled placeholder-class='input-placeholder' bindtap='selectPos'></input>
+<view class="btn" bindtap='selectPos'>+</view>
+</view>
+<view class="item">
+<view class="title">点位是否开放</view>
+
+</view>
+<view class="item">
+<radio-group class="radio-group" bindchange="updateOpenSetting">
+    <label class="radio" wx:for="{{openSetting}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+    </label>
+  </radio-group>
+</view>
+<view class="item">
+<view class="title">点位类型</view>
+
+</view>
+<view class="item">
+<radio-group class="radio-group" bindchange="updatePosSetting">
+    <label class="radio1" wx:for="{{posSetting}}" wx:key="index">
+    <block   wx:if="{{cat==2}}">
+      <radio value="{{item.value}}" checked="{{item.checked}}"  />
+      </block>
+      <block wx:else>
+      <radio value="{{item.value}}" checked="{{item.checked}}"  disabled />
+      </block>
+      {{item.name}}
+    </label>
+  </radio-group>
+</view>
+<view class="item">
+<view class="title">点位价格</view>
+</view>
+<view class="item">
+<block wx:if="{{ptype==1}}">
+<input class="input" value="{{pvalue}}" placeholder='请输入点位价格' placeholder-class='input-placeholder' bindinput='updatePvalue' disabled></input>
+</block>
+<block wx:else>
+<input class="input" value="{{pvalue}}" placeholder='请输入点位价格' placeholder-class='input-placeholder' bindinput='updatePvalue'></input>
+</block>
+</view>
+<view class="item" style="margin-top:20rpx;">
+<view class="title">点位GPS开关</view>
+<view class="desc">（设为开则即便全局GPS关，点位仍受GPS限制）</view>
+</view>
+<view class="item"  style="margin-top:-20rpx;">
+<radio-group class="radio-group"bindchange="updateGpsSetting">
+    <label class="radio" wx:for="{{gpsSetting}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+    </label>
+  </radio-group>
+</view>
+<button class="importtask" bindtap="taskList">导入任务</button>
+<view class="item">
+  <view class="title">问题类型</view>
+  <view class="star">*</view>
+</view>
+
+<block wx:if="{{ptype==2}}">
+
+  <view class="item">
+    <input class="input" placeholder='请选择问题类型' value="教练提交管理员判定" placeholder-class='input-placeholder' disabled></input>
+  </view>
+
+</block>
+<block wx:elif="{{ptype==3}}">
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{qarr1}}">
+  <view class="item">
+    <input class="input" placeholder='请选择问题类型' value="{{qtype}}" placeholder-class='input-placeholder' disabled></input>
+  </view>
+</picker>
+</block>
+<block wx:else>
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{qarr}}">
+  <view class="item">
+    <input class="input" placeholder='请选择问题类型' value="{{qtype}}" placeholder-class='input-placeholder' disabled></input>
+  </view>
+</picker>
+</block>
+<block wx:if="{{poiInfo.memo}}">
+<view class="item">
+<view class="title">问题描述</view>
+<view class="star">*</view>
+</view>
+
+<textarea class="textarea" value="{{poiInfo.memo}}" bindinput='updateMemo'></textarea>
+<block  wx:if="{{poiInfo.pics.length>0}}">
+<view class="item">
+<view class="title">配图</view>
+</view>
+</block>
+  <view style="width:90%;margin:10px 5% 0 5%;">
+
+    <view style="text-align:center;">
+      <block wx:for="{{poiInfo.pics}}"  wx:for-index="index" wx:key="index" wx:for-item="item" >
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;" >
+        <image src="{{item.url}}" style='width:50px;height:50px;' bindtap="preview" id="{{index}}"></image>   
+       
+      </view>
+      </block>
+      
+      </view>
+      </view>
+<block wx:if="{{poiInfo.media==1}}">
+<view class="item">
+<view class="title">音频</view>
+</view>
+</block>
+<view wx:if="{{poiInfo.media==1}}" style="width:50%;margin:30px 25% 10px 25%;text-align:center;">
+      <button type="primary" bindtap="play">{{btnTxt}}</button>
+    </view>
+ <view wx:if="{{poiInfo.media==2}}" style="width:100%;text-align:center;">
+    <video id="myVideo" src="{{poiInfo.url}}" controls></video>
+  </view>
+<view class="item" style="clear:both;" wx:if="{{index!=0 && index!=5}}">
+<view class="title">答案</view>
+<view class="star">*</view>
+</view>
+<view class="item"  wx:if="{{index!=0 && index!=5}}" >
+<input class="input" value="{{poiInfo.answer}}" placeholder-class='input-placeholder' bindinput='updateAnswer'></input>
+</view>
+</block>
+<view class="item" style="clear:both;">
+<view class="title">回答正确提示信息</view>
+</view>
+<view class="item">
+<input class="input" value="{{tip1}}" placeholder='' placeholder-class='input-placeholder' bindinput='updateTip1'></input>
+</view>
+<view class="item">
+<view class="title">回答错误提示信息</view>
+</view>
+<view class="item">
+<input class="input" value="{{tip2}}" placeholder='' placeholder-class='input-placeholder' bindinput='updateTip2'></input>
+</view>
+<view class="block">
+<button class="btnsmall" bindtap="save">保存</button>
+</view>

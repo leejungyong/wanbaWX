@@ -1,0 +1,13 @@
+<view class="content">
+请复制网址后，在电脑端浏览器打开并扫码登录
+
+
+</view>
+
+<view class="block" wx:if="{{flag}}">
+  <button bindtap="copyUrl" class="btnsmall">复制网址</button>
+ 
+</view>
+<view class="block" wx:if="{{!flag}}">
+ <button bindtap="scan" class="btnsmall">   扫码登录</button>
+ </view>

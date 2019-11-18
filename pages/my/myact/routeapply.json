@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "推荐线路",
+  "navigationBarBackgroundColor": "#000000",
+  "enablePullDownRefresh": true,
+  "navigationBarTextStyle": "white"
+}

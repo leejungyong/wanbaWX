@@ -1,0 +1,19 @@
+<view class="box">
+
+  <view class="child">
+
+
+    <open-data type="userAvatarUrl" class="avatar"></open-data>
+
+    <view class="team">
+      <open-data type="userNickName" class="nick"></open-data>
+
+      <view class="teamname">{{teamname}}</view>
+    </view>
+
+    <canvas hidden="{{canvasHidden}}" style="width:{{width}}px;height:{{height}}px;" class="img" canvas-id="mycanvas" />
+    <view class="tip">
+      <text> {{msg}}</text>
+    </view>
+  </view>
+</view>

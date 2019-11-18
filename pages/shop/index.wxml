@@ -1,0 +1,118 @@
+<view>
+  <view class='swiper'>
+    <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+      <block wx:for='{{swiper}}' wx:key="{{index}}">
+        <swiper-item bindtap='toWX' id="{{index}}">
+          <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+    <text style='color:#946b25;width:150rpx;line-height:80rpx;text-align:center;' bindtap='showSide'>搜索</text>
+  </view>
+
+  <view hidden='{{currentTab!==0}}' class='route'>
+    <block wx:for='{{list}}' wx:key="{{index}}">
+
+      <view class="item" bindtap='to' id="{{index}}">
+
+
+        <image src="{{item.sharepic? item.sharepic: 'https://www.wondfun.com/wanba/api/sharepic/1.jpg' }}" lazy-load="true" bindload="picLoad" style="width:650rpx; height:350rpx; border-radius: 5px;"></image>
+
+        <view class="mask">
+          <view class="left">
+            <view class="top">
+              {{item.title}}
+            </view>
+            <view class="bottom">
+
+            </view>
+          </view>
+          <view class="right">
+            <!-- <block wx:if="{{item.price==0}}">
+              免费
+            </block>
+            <block wx:else>
+              ￥{{item.price}}
+            </block> -->
+          </view>
+
+        </view>
+
+      </view>
+    </block>
+  </view>
+
+  <view hidden="{{currentTab!==1}}" class="route">
+    <block wx:for='{{list}}' wx:key="{{index}}">
+
+      <view class="item" bindtap='to' id="{{index}}">
+
+
+        <image src="{{item.sharepic? item.sharepic: 'https://www.wondfun.com/wanba/api/sharepic/1.jpg' }}" lazy-load="true" bindload="picLoad" style="width:650rpx; height:350rpx; border-radius: 5px;"></image>
+
+        <view class="mask">
+          <view class="left">
+            <view class="top">
+              {{item.title}}
+            </view>
+            <view class="bottom">
+
+            </view>
+          </view>
+          <view class="right">
+            <!-- <block wx:if="{{item.price==0}}">
+              免费
+            </block>
+            <block wx:else>
+              ￥{{item.price}}
+            </block> -->
+          </view>
+
+        </view>
+
+      </view>
+    </block>
+  </view>
+ 
+
+
+  <view style='display:{{display}}; font-size:32rpx;'>
+    <view class='bg' style='display:{{display}}' bindtap='hideSide'></view>
+    <view class="side" style='display:{{display}};translate:{{translate}}'>
+      <view class='filterbox'>
+        <view>城市
+        </view>
+        <view style='padding-left:32rpx;margin-top:20rpx;'>
+          <view wx:for="{{cityList}}" wx:key="{{index}}" class="minicard {{item.checked?'choose':''}} " data-idx='{{index}}' bindtap='chooseCity'>
+            {{item.name}}
+          </view>
+        </view>
+
+      </view>
+
+      <view class='filterbox'>
+        <view>类别</view>
+        <view style='padding-left:32rpx;margin-top:10rpx;'>
+          <view wx:for="{{typeList}}" wx:key="{{index}}" class="minicard {{item.checked? 'choose':''}}" data-idx='{{index}}' bindtap='chooseType'>
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+
+      <view style='margin-top:20rpx;padding-left:20rpx'>
+        <view>关键词</view>
+        <view style='padding-left:32rpx;margin-top:20rpx;'>
+          <input class='keySearch' placeholder='请输入关键字' placeholder-style='color:#3a6996' bindinput='changeKeyWord' value='{{keyword}}'></input>
+        </view>
+        <button class='f_button' bindtap='resetButton'>重置</button>
+        <button class='f_button' bindtap='sureButton'>确定</button>
+      </view>
+
+    </view>
+  </view>
+
+</view>

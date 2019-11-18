@@ -1,0 +1,100 @@
+<view class="item">
+  <view class="title">活动名称</view>
+  <view class="star">*</view>
+</view>
+<view class="item">
+  <input class="input" value="{{title}}" placeholder='请输入活动名称' placeholder-class='input-placeholder' bindinput='updateTitle' ></input>
+</view>
+<view class="item">
+  <view class="title">模式选择</view>
+  
+</view>
+<radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{cats}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+    </label>
+  </radio-group>
+<view class="item">
+  <view class="title">活动日期</view>
+  <view class="star">*</view>
+</view>
+
+<view class="item">
+
+  <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+    <view class="picker">
+      {{date}}
+    </view>
+  </picker>
+</view>
+<view class="item">
+  <view class="title">自定义文字标语</view>
+</view>
+<view class="item">
+  <input class="input_text"  placeholder='请输入文字' placeholder-class='input-placeholder' bindinput='updateText' value='{{text}}' maxlength='11' ></input>
+</view>
+<view class='item'>
+  <view class='title'>门派主题</view>
+  <view class='star'>*</view>
+</view>
+<view class='theme_box' style='margin-bottom:-20rpx'>
+  <view class='theme'>{{themeName}}</view>
+  <view class='themetip'>帮派系统默认为神兽套餐，如需其它套餐 请点击
+    <text style='color:#936B25;font-size:28rpx;margin-left:40rpx;' bindtap='toTheme'>更多套餐>>></text> </view>
+</view>
+
+<view class="item pad">
+  <view class="title">门派数量</view>
+  <view class="star">*</view>
+</view>
+<view class="item" style='margin-left:0;'>
+  <slider bindchange="sliderchange" value="{{teamNum}}" min="1" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+</view>
+<view class="orderteam" bindtap="orderTeam" wx:if="{{maxNum<12}}">门派数量不够？点击提升</view>
+
+
+<view class="item">
+  <view class="title">封面图</view>
+</view>
+<view class="tip order" style='margin-left:0;'>默认玩霸江湖官方画面，如需修改请自行上传jpg格式图片，最佳尺寸：长500px 宽400px</view>
+<view style="width:90%;margin:10px 5% 0 5%;">
+
+  <view >
+   <block wx:if="{{pic}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+        <image src="{{pic}}" style='width:50px;height:40px;' bindtap="preview"></image> 
+       <view bindtap="delPic" class="delpic">删除</view>
+      </view>
+   </block>
+    <view style="width:30%;float:left;padding:3px 3px 3px 0;;">
+      
+        <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseImg'></image>
+     
+    </view>
+  </view>
+</view>
+
+<view class="item" style='clear:both;'>
+  <view class="title">自定义logo</view>
+</view>
+<view class="tip" style='margin-left:0;'>请上传1:1比例jpg图片，推荐尺寸长200px宽200px</view>
+<view style="width:90%;margin:10px 5% 70px 5%;">
+
+  <view >
+   <block wx:if="{{picLogo}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;" class='clearfix'>
+        <image src="{{picLogo}}" style='width:50px;height:40px;' bindtap="previewLogo"></image> 
+       <view bindtap="delPicLogo" class="delpic">删除</view>
+      </view>
+   </block>
+    <view style="width:30%;float:left;padding:3px 3px 3px 0;" class='clearfix'>
+        <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseImgLogo'></image>
+    
+    </view>
+  </view>
+</view>
+
+
+<view class="block">
+  <button class="btnsmall" bindtap="save">保存</button>
+</view>

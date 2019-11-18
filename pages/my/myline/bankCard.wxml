@@ -1,0 +1,16 @@
+<view class='list_box'>
+  <view class='card' bindtap='toCashOut' wx:for='{{cardList}}' wx:key="{{index}}" data-idx='{{index}}'>
+    <!-- <view class='cover'>
+      <image src="{{uploadUrl}}wanba/api/sharepic/1.jpg"></image>
+    </view> -->
+    <view style='float:left;padding:0 10px;'>
+      <view class='name'>{{item.bank}}</view>
+      <!-- <view class='type'>储蓄卡</view> -->
+    </view>
+    <view class='card_num'>{{item.cardno}}</view>
+  </view>
+</view>
+
+<view style='padding: 0 20rpx;'>
+  <view class='add_box' bindtap='toAddCard'>＋  添加银行卡</view>
+</view>

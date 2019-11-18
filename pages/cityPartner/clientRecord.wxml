@@ -1,0 +1,10 @@
+
+
+<view class='list_box'>
+  <view class='recordItem' wx:for="{{saleList}}" wx:key="{{index}}">
+    <view class='up_text'>
+      <text>{{item.title}}</text>
+      <text class='fr clearfix' style="width:180rpx">{{item.date}}</text>
+    </view>
+  </view>
+</view>

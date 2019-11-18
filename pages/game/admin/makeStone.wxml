@@ -1,0 +1,56 @@
+<view class="section section_gap">
+  <block wx:if="{{cat==0 || cat==2}}">
+    <text class="section__title">力量宝石</text>
+    <view class="body-view">
+      <slider bindchange="slider1change" value="{{stone1}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+    </view>
+  </block>
+  <text class="section__title">时间宝石</text>
+  <view class="body-view">
+    <slider bindchange="slider2change" value="{{stone2}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view>
+  <block wx:if="{{cat==0 || cat==2}}">
+    <text class="section__title"> 空间宝石</text>
+    <view class="body-view">
+      <slider bindchange="slider3change" value="{{stone3}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+    </view>
+  </block>
+  <text class="section__title">心灵宝石</text>
+  <view class="body-view">
+    <slider bindchange="slider4change" value="{{stone4}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view>
+  <block wx:if="{{cat==0 || cat==2}}">
+    <text class="section__title">灵魂宝石</text>
+    <view class="body-view">
+      <slider bindchange="slider5change" value="{{stone5}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+    </view>
+  </block>
+
+  <text class="section__title">现实宝石</text>
+  <view class="body-view">
+    <slider bindchange="slider6change" value="{{stone6}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+  </view>
+
+  <block wx:if="{{cat==0 || cat==2}}">
+    <text class="section__title">风暴宝石</text>
+    <view class="body-view">
+      <slider bindchange="slider7change" value="{{stone7}}" max="{{maxNum}}" show-value backgroundColor="#1c3043" activeColor="#1989c3" block-color="#00a0e8" block-size="20" />
+
+    </view>
+  </block>
+  <view>
+
+  </view>
+</view>
+<!-- <view class="section section_gap">
+  <view class="body-view">
+    <checkbox-group class="checkbox-group" bindchange="toggle">
+      <label class="checkbox">
+        <checkbox value="{{posFlag}}" checked="{{posFlag}}" />宝石关联点位分布
+      </label>
+    </checkbox-group>
+  </view>
+</view> -->
+<view class="block">
+  <button bindtap="batchMakeStone" class="btnsmall">批量生成</button>
+</view>

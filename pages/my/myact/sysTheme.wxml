@@ -1,0 +1,20 @@
+<!--pages/my/myact/sysTheme.wxml-->
+<view class='swiper'>
+  <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
+    <block wx:for='{{swiper}}' wx:key="{{index}}">
+      <swiper-item bindtap='to' id="{{index}}">
+        <image src="{{item.pic ? item.pic :'https://img.wondfun.com/wanba/img/swiper.jpg'}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class="list-box" >
+    <view class="theme" wx:for="{{list}}" wx:key="{{index}}">
+        <view class="imgbox">
+            <image src="{{url}}{{item.pic}}" mode='widthFix'/>
+        </view>
+        <view class='title'> {{item.title}} <text class='detail' bindtap='toDetailPage' data-idx='{{index}}' >详情</text></view>
+     
+    </view>
+</view>

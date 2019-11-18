@@ -1,0 +1,75 @@
+page{
+  background: #121a21;
+  font-size: 32rpx;
+}
+
+.box{
+  padding: 60rpx;
+}
+.memo{
+  color: #936B25;
+}
+.typeinput{
+  width: 600rpx;
+  height: 66rpx;
+  border-radius: 10rpx;
+  background-color: rgba(28, 48, 67, 1);
+  border: 1px solid rgba(0, 160, 233, 1);
+  padding-left: 30rpx;
+  margin: 10rpx 0;
+  color: #46607D;
+}
+.memoinput{
+  width: 570rpx;
+  height: 370rpx;
+  border-radius:10rpx;
+  background-color: rgba(28, 48, 67, 1);
+  border: 1px solid rgba(0, 160, 233, 1);
+  padding:20rpx 30rpx;
+  margin: 10rpx 0;
+  color: #46607D;
+}
+.memo::after{
+  content: '*';
+  color: red;
+}
+
+.add-pic{
+  width: 125rpx;
+  height: 120rpx;
+  line-height: 120rpx;
+  border-radius: 10rpx;
+  background-color: rgba(28, 48, 67, 1);
+  text-align: center;
+  border: 2rpx solid rgba(0, 160, 233, 1);
+  color: #00A0E9;
+  font-size: 70rpx;
+  margin: 20rpx 0;
+  float: left;
+}
+
+.color-box{
+  width: 120rpx;
+  height: 80rpx;
+  border-radius:10rpx;
+  /* background-color: rgba(0, 172, 251, 1); */
+  margin: 20rpx 0;
+}
+.button-box{
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  margin-top: 30rpx;
+}
+.button-box .btn{
+  width:200rpx;
+  height:66rpx;
+  font-size:32rpx;
+  color:#00a0e9;
+  background:#1c3043;
+  border:2rpx solid #00a0e9;
+  line-height:66rpx;
+  display: inline-block;
+}
+
+

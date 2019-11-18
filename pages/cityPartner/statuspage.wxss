@@ -1,0 +1,138 @@
+/* pages/statusPage/statuspage.wxss */
+
+/* .container{
+  background-color: #121a21;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  
+} */
+page{
+  background-color: #121a21;
+}
+  .content{
+    background: #121A21;
+    padding:50rpx 0 0 0;
+    font-size:30rpx;
+  }
+  .title{
+    padding-left: 60rpx;
+    color:#936B25;
+    font-size: 36rpx;
+  }
+  .memo{
+    color: rgba(0, 172, 251, 1);
+    font-size: 30rpx;
+    font-family: SourceHanSansSC-regular;
+    padding: 20rpx 64rpx 90rpx 64rpx;
+  }
+  .bt_next{
+    margin-top: 50rpx;
+    width: 232rpx;
+    height: 76rpx;
+      font-size: 30rpx;
+    line-height: 76rpx;
+    background-color: #1C3043 ;
+    color:rgba(0, 172, 251, 1);
+    border: 2rpx solid  #00A0E9;
+  }
+.common{
+  margin-top: 400rpx;
+  text-align: center;
+}
+.audit_text{
+  font-size: 30rpx;
+  color:#936B25;
+}
+
+.bt_common{
+  width: 232rpx;
+  height: 76rpx;
+  font-size: 30rpx;
+  line-height: 76rpx;
+  background-color: #1C3043 ;
+  color:rgba(0, 172, 251, 1);
+  border: 2rpx solid  #00A0E9;
+  margin-top: 76rpx;
+}
+.bt_invite{
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #1C3043 ;
+  color:rgba(0, 172, 251, 1);
+  border-top: 2rpx solid  #0c1319;
+  width:100%;
+  border-radius: 0;
+}
+.swiperpic image{
+  width: 100%;
+  height: auto;
+}
+.tab_box{
+  width: 92%;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 30rpx;
+}
+.title_sel{
+  color: #00ACFB;
+  width:50%;
+  text-align:center;
+  border-bottom: 1rpx solid #00ACFB;
+}
+.title_unsel{
+  width:50%;
+  text-align:center;
+  color:#936B25 ;
+  /* border-bottom: 1rpx solid #46607D ; */
+}
+
+.recordItem{
+  height: 80rpx;
+  background-color: rgba(28, 48, 67, 1);
+  border-radius: 6rpx 6rpx 6rpx 4rpx;
+  border: 1px solid rgba(70, 96, 125, 1);
+  margin-bottom: 6rpx;
+  line-height:80rpx;
+  padding: 0 20rpx;
+}
+
+.salebox{
+  border-radius:10rpx;
+  background-color:rgba(28, 48, 67, 1);
+  border:2rpx solid rgba(70, 96, 125, 1);
+  font-size:30rpx;
+  padding:16rpx 100rpx 16rpx 36rpx;
+  margin-bottom:16rpx;
+  width:570rpx;
+}
+.history_btn{
+  width: 232rpx;
+  height: 80rpx;
+  border-radius: 6rpx;
+  background-color: rgba(28, 48, 67, 1);
+  border: 2rpx solid rgba(0, 160, 233, 1);
+  color: #00ACFB;
+  font-size: 30rpx;
+  margin-top: 80rpx;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.clearfix{
+  zoom: 1;
+}
+.clearfix::after{
+  content: '';
+  clear: both;
+  display: block;
+  height: 0;
+}

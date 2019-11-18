@@ -1,0 +1,63 @@
+<view style="padding-bottom:200rpx;">
+<view class="item">
+  <view class="title">问题类型</view>
+  <view class="star">*</view>
+</view>
+
+
+<!-- <picker bindchange="bindPickerChange" value="{{index}}" range="{{qarr}}"> -->
+  <view class="item">
+    <input class="input" value="{{qarr[qtype]}}" placeholder-class='input-placeholder' disabled></input>
+  </view>
+<!-- </picker> -->
+
+<view class="item">
+  <view class="title">问题描述</view>
+  <view class="star">*</view>
+</view>
+
+<textarea class="textarea" value="{{memo}}"disabled></textarea>
+<view class="item" wx:if="{{pics.length>0}}">
+  <view class="title">图片</view>
+</view>
+<view style="width:90%;margin:10px 5% 0 5%;">
+
+  <view>
+    <block wx:if="{{pics.length>0}}" wx:for='{{pics}}' wx:key="{{index}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+        <image src="{{item.url}}" style='width:50px;height:40px;' bindtap="preview"></image>   
+        <!-- <view bindtap="delPic" class="delpic" id="{{index}}">删除</view> -->
+      </view>
+    </block>
+    <!-- <block wx:if="{{!pics || pics.length<9}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+
+        <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseImg'></image>   
+
+      </view>
+    </block> -->
+  
+  </view>
+</view>
+<view class="item" style="clear:both;"  wx:if="{{url!=''}}">
+  <view class="title">视频</view>
+  <view style="width:90%;margin:10px 5% 0 5%;">
+      <video style="width:90%;margin:20px 5% 20px 5%;" wx:if="{{url}}"
+    id="myVideo"
+    src="{{url}}"
+   controls
+  ></video>
+  </view>
+   <!-- <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseV'></image>  -->
+</view>
+<view class="item" style="clear:both;"  wx:if="{{answer!=''}}">
+  <view class="title">答案</view>
+  <view class="star">*</view>
+</view>
+<view class="item" wx:if="{{answer!=''}}">
+  <input class="input" value="{{answer}}" placeholder-class='input-placeholder' disabled></input>
+</view>
+</view>
+
+  <button class="btn" bindtap="apply">使用</button>
+

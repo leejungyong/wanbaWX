@@ -1,0 +1,20 @@
+<block wx:for='{{list}}' wx:key="{{index}}">
+  <block wx:if="{{item.total}}">
+    <view class="card">
+    <view class="title">
+    {{item.name}}  获得加分{{item.total}}
+    </view>
+    
+      
+    </view>
+    </block>
+    <block wx:else>
+    <view class="card" bindtap="addAuctionScore" id="{{index}}">
+    <view class="title">
+    {{item.name}} 结算 
+    </view>
+    
+      
+    </view>
+    </block>
+  </block>

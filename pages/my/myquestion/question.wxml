@@ -1,0 +1,62 @@
+<view style="padding-bottom:200rpx;">
+<view class="item">
+  <view class="title">问题类型</view>
+  <view class="star">*</view>
+</view>
+
+
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{qarr}}">
+  <view class="item">
+    <input class="input" placeholder='请选择问题类型' value="{{qtype}}" placeholder-class='input-placeholder' disabled></input>
+  </view>
+</picker>
+
+<view class="item">
+  <view class="title">   问题描述</view>
+  <view class="star">*</view>
+</view>
+
+<textarea class="textarea" value="{{memo}}" bindinput='updateMemo'></textarea>
+<view class="item">
+  <view class="title">上传配套图片</view>
+</view>
+<view style="width:90%;margin:10px 5% 0 5%;">
+
+  <view>
+    <block wx:if="{{pics}}" wx:for='{{pics}}' wx:key="{{index}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+        <image src="{{item}}" style='width:50px;height:40px;' bindtap="preview"></image>   
+        <view bindtap="delPic" class="delpic" id="{{index}}">删除</view>
+      </view>
+    </block>
+    <block wx:if="{{!pics || pics.length<9}}">
+      <view style="width:30%;float:left;padding:3px 3px 3px 0;">
+
+        <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseImg'></image>   
+
+      </view>
+    </block>
+  
+  </view>
+</view>
+<view class="item" style="clear:both;">
+  <view class="title">上传配套视频</view>
+  <view style="width:90%;margin:10px 5% 0 5%;">
+      <video style="width:90%;margin:20px 5% 20px 5%;" wx:if="{{videos}}"
+    id="myVideo"
+    src="{{videos}}"
+   controls
+  ></video>
+  </view>
+   <image src="{{imgUrl}}wondfuncity/img/camera.jpg" style='width:50px;height:50px;' bindtap='chooseV'></image> 
+</view>
+<view class="item" style="clear:both;" wx:if="{{index!=0 && index!=5}}">
+  <view class="title">答案</view>
+  <view class="star">*</view>
+</view>
+<view class="item" wx:if="{{index!=0 && index!=5}}">
+  <input class="input" placeholder='请设置答案' value="{{answer}}" placeholder-class='input-placeholder' bindinput='updateAnswer'></input>
+</view>
+</view>
+
+  <button class="btn" bindtap="save">保存</button>

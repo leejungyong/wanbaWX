@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "查看队伍",
+  "navigationBarBackgroundColor": "#000000",
+  "enablePullDownRefresh": true,
+  "navigationBarTextStyle": "white"
+}

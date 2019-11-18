@@ -1,0 +1,153 @@
+/* pages/my/myline/cashOut.wxss */
+page{
+    background: #0C1319;
+    color: #00ACFB;
+    font-size: 32rpx;
+}
+.top {
+  background: #121a21;
+  padding: 45rpx 50rpx;
+  height: 85rpx;
+}
+
+.headPo {
+  width: 80rpx;
+  height: 80rpx;
+  /* display: inline-block; */
+  float: left;
+}
+
+.nick {
+  /* display: inline-block; */
+  float: left;
+  margin-left: 15rpx;
+  margin-top: -10rpx;
+}
+.text{
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+.nav_box{
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  background: #121A21;
+}
+.nav_item{
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  color: #936B25;
+}
+.active{
+  border-bottom: 2rpx solid #00ACFB;
+  color: #00ACFB;
+}
+/* .info_box{
+  height: 300rpx;
+  background: #121A21;
+    margin-top: 20rpx;
+}
+.info_box .detail{
+  height: 185rpx;
+  border-bottom: 2rpx solid #2B4F71;
+  padding:25rpx 50rpx;
+}
+.info_box .tip{
+  color: red;
+  font-size: 28rpx;
+  text-align: center;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.info_box .detail input{
+  display: inline-block;
+}
+.info_box .detail text{
+    position:relative;
+top:-11rpx;
+}
+.info_box .detail .text{
+   margin-bottom: 10rpx;
+} */
+.place{
+  color: #233D55 ;
+  font-size: 30rpx;
+}
+
+.card_box{
+  background: #121A21;
+  height: 150rpx;
+  line-height: 150rpx;
+  margin-top: 20rpx;
+  padding: 0 40rpx;
+}
+.card_box .cover{
+  width: 100rpx;
+  height: 100rpx;
+  float: left;
+  margin:24rpx;
+}
+.card_box .cover image{
+  max-height:100%;
+  max-width:100%;
+}
+.cash_box{
+  background: #121A21;
+  height: 200rpx;
+  margin-top: 20rpx;
+  padding: 20rpx 40rpx;
+}
+.cash_box .text{
+  margin-bottom: 30rpx;
+}
+.cash_box .big{
+  font-size: 40rpx;
+
+}
+.cash_box .big input{
+  display: inline-block;
+  position:relative;
+ top:10rpx;
+}
+.bt_box{
+  margin-top: 20rpx;
+}
+.submit_bt{
+  color: #00ACFB;
+  border: 2rpx solid #00ACFB;
+  border-radius: 10rpx;
+  background: #1C3043;
+  width:660rpx;
+}
+
+.list_box{
+  padding: 20rpx 0;
+}
+.list_box .item{
+  background: #121A21;
+  padding: 30rpx 40rpx;
+  height: 100rpx;
+  margin-bottom:20rpx;
+}
+.list_box .item .left{
+  float: left;
+}
+
+.right{
+  float: right;
+  color: #936B25; 
+}
+
+.bottom{
+    position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  text-align:center;
+  height:90rpx;
+  line-height:90rpx;
+  background: #1c3043;
+  font-size: 36rpx;
+}

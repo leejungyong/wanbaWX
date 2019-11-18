@@ -1,0 +1,51 @@
+<camera device-position="back" flash="off" mode="normal" frame-size="large" binderror="error" style="width: 100%; height: 100vh;">
+
+ 
+<!-- <view-cover class="scanpic"  animation="{{moveData}}">
+<cover-image src="https://img.wondfun.com/wanba/img/gamepic/scan2.png"  class="focuspic" />
+    </view-cover>
+    <view-cover class="showFocus">
+      <cover-image src="https://img.wondfun.com/wanba/img/gamepic/scan1.png" class="focuspic" />
+      </view-cover> -->
+
+
+
+  <!-- 玩霸龙龙形象 -->
+
+
+  <view-cover class="modal-body" wx:if="{{showWanba}}" bindtap="closeWanba">
+
+    <view-cover class="showWanba" bindtap="closeWanba">
+      <cover-image src="https://img.wondfun.com/wanba/img/gamepic/long1.png" class="wanbapic" bindtap="closeWanba" />
+
+    </view-cover>
+
+  </view-cover>
+
+  <!-- 得到宝石 -->
+
+
+  <view-cover class="modal-body" wx:if="{{showCatchStone}}">
+
+    <view-cover class="showStone">
+    <block wx:if="{{rewardtype==1}}">
+      <cover-image src="https://img.wondfun.com/wanba/img/gamepic/catchstone_{{stoneSelected}}.jpg" class="crypic" bindtap="hideStone"  />
+     </block>
+     <block wx:elif="{{rewardtype==2}}">
+      <cover-image src="https://img.wondfun.com/wanba/img/redbag/{{stoneSelected}}.jpg" class="crypic" bindtap="hideStone"  />
+     </block>
+    </view-cover>
+  </view-cover>
+  <!-- 未得到宝石 -->
+
+
+  <view-cover class="modal-body" wx:if="{{showMissStone}}">
+    <view-cover class="showStone">
+      <cover-image src="https://img.wondfun.com/wanba/img/gamepic/missstone.jpg" class="crypic" bindtap="hideStone"  />
+      <!-- <cover-image src="https://img.wondfun.com/wanba/img/gamepic/close.png" class="closeimg" bindtap="hideStone" /> -->
+    </view-cover>
+
+  </view-cover>
+
+</camera>
+ <audio src="{{audio}}" id="myAudio"></audio>

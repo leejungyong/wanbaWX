@@ -1,0 +1,28 @@
+
+<view class="info">
+<view class="img">
+<image src="https://img.wondfun.com/wanba/img/card_999.jpg" class="image"></image>
+</view>
+<view class="title">
+<view class="t_left">特惠卡</view>
+<view class="t_right">￥9999</view>
+</view>
+</view>
+<view class="detail">
+◎  本卡为团建软件《玩霸江湖》专用。
+</view>
+<view class="detail">
+◎  本卡售卖价格9999元（有20次分享次数和系统赠送20次分享次数）。
+</view>
+<view class="detail">
+◎  本卡一经售出系统自动充值到购买产品账号内。
+</view>
+<view class="detail">
+◎  本卡是一次性充值卡，一经购买用户不得以任何理由要求退款，本卡不挂失。
+</view>
+<view class="detail">
+◎  本卡最终解释权归玩霸江湖所有。服务热线：13738005036
+</view>
+<view class="block">
+  <button class="btnsmall" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">立即购买</button>
+</view>

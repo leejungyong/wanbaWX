@@ -1,0 +1,172 @@
+page {
+ background: #121a21;
+}
+
+.table {
+ 
+ 
+  /* margin-top: 5%; */
+  width: 700rpx;
+  padding: 0 25rpx 0 25rpx;
+  text-align: center;  
+}
+
+
+.table .point {
+  text-align: center;
+  padding: 0;
+ 
+}
+
+.table .point .poi {
+  /* position: relative; *//* border-right: 2rpx; */
+  /* display: table-cell; */
+
+  width: 90rpx;
+  height: 90rpx;
+  float: left;
+  margin: 1rpx;
+  font-size: 24rpx;
+  /* background: #ff0; */
+  text-align: center;
+  border: 1rpx solid #00a0e8;
+  color: #fff;
+}
+
+.status{
+  padding-top:10px;
+  display: block;
+  width:90%;
+  margin:0 5% 0 5%;
+  color:#fff;
+  font-size:14px;
+  clear:both;
+}
+.radio-group
+{
+  padding-top:10px;
+  width:100%;
+   color:#1989c3;
+   display: flex;
+  flex-wrap: wrap;  
+  justify-content : flex-start;
+}
+.radio{
+   width:33%;
+   padding-top:10px;
+  /* float:left; */
+   
+}
+.block{
+  width:50%;
+  float:left;
+   display: table;
+   vertical-align: middle;
+   /* background: #f00; */
+  color:#1989c3;
+}
+
+.txt{
+  display: table-cell;
+  
+  height:30px;
+  line-height: 30px;
+  
+  text-align: center;
+}
+.input{
+  margin:0 10% 0 10%;
+  background:transparent;
+  border:1px solid #24435d;
+  width:80%;
+  height:30px;
+  
+  color:#946b25;
+  text-align: center;
+  line-height: 30px;
+}
+.input-placeholder{
+    color:#89b6db;
+  }
+.gold{
+  color:#946b25;
+}
+.padding{
+margin-top:20px;
+height:30px;
+}
+.btn{
+  
+  margin:0 10% 0 10%;
+  background:transparent;
+  border:1px solid #1989c3;
+  width:80%;
+  height:30px;
+  border-radius: 0;
+  color:#1989c3;
+  text-align: center;
+  line-height: 30px;
+  font-size:14px;
+}
+.post{
+  width:60%;
+  margin: 10px 20% 0 20%;
+  display: table;
+   vertical-align: middle;
+   padding-top: 20px;
+}
+.border{
+  width:90%;
+  margin: 10px 5% 10px 5%;
+  border:1px solid #24435d;
+  padding-bottom: 10px;
+}
+
+  .textarea{
+    width:98%;
+    border:1px solid #1989c3;
+    margin-top:10px;
+    margin-bottom:10px;
+    color:#1989c3;
+    }
+
+    .navbar{
+  flex: none;
+  display: flex;
+  background: #121a21;
+}
+.navbar .item{
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color: #666;
+}
+.navbar .item.active{
+  color:#00a0e9;
+}
+.navbar .item.active:after{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #00a0e9;
+}
+.checkbox-group
+{
+  padding-top:10px;
+  width:100%;
+   color:#1989c3;
+   display: flex;
+  flex-wrap: wrap;  
+  justify-content : flex-start;
+}
+.checkbox{
+   width:25%;
+   padding-top:10px;
+  /* float:left; */
+   
+}

@@ -1,0 +1,34 @@
+<!-- <view class='nav_box'>
+  <text wx:for='{{navbar}}' data-idx='{{index}}' class="nav_item {{currentTab==index?'active':''}}" bindtap='changeTab'>{{item}}</text>
+</view> -->
+
+<!-- <block wx:if="{{currentTab==0}}"> -->
+  <view class='card_box'>
+    <text>{{cardName}}({{num4}})</text>
+  </view>
+  <view class='cash_box'>
+    <view class='text'>申请金额</view>
+    <view class='text big'>￥
+  <input type='number' placeholder-style='color:#46607d;' bindinput='cashNum' placeholder='最大可申请金额为{{canWithdraw}}'></input>
+    </view>
+    <view class='text'>账户金额：{{accountBalance}}元</view>
+  </view>
+
+  <view class='bt_box'>
+    <button class='submit_bt' bindtap='submitApply'>提交申请</button>
+  </view>
+<!-- </block> -->
+
+
+<!-- <block wx:elif="{{currentTab==1}}">
+  <view class='list_box'>
+    <view class='item' wx:for='{{recordlist}}' wx:key='{{index}}'>
+    <view class='left'>
+          <view class='text'>申请金额：{{item.cash}}</view> 
+          <view class='text'style="margin-top:20rpx;">{{item.date}}</view>
+    </view>
+<view class='right'>{{item.status}}</view>
+    </view>
+  </view>
+</block> -->
+

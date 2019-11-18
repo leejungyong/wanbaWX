@@ -1,0 +1,5 @@
+<view class="qrcode"> 
+<image src="{{img}}"></image>
+</view>
+<!-- <button>下载图片到手机相册</button> -->
+<button open-type='share' type='primary'>邀请朋友参加活动</button>

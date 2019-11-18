@@ -1,0 +1,29 @@
+<view class="bg_head">
+
+  <image src="{{imgUrl}}wanba/img/gamepic/logo_big.png" mode="aspectFit" class="logo"></image>
+</view>
+<view class="content">
+
+  <view class="task_title">
+       问题
+  </view>
+  <view class="task_memo">
+    {{question}}
+ </view>
+
+<text style="color:#121a21;font-size:10px;">您的回答：</text>
+        <input placeholder='请输入回答' class="input" bindinput="updateAnswer" placeholder-class='input-placeholder'></input>
+        <view class="btn-view">
+          <image src="https://img.wondfun.com/wanba/img/gamepic/submit_btn.png" class="btn-image" mode="aspectFit" bindtap="checkAnswer"></image>
+        </view>
+
+ 
+</view>
+
+<view class="slogan">
+  ——◆ {{slogan}} ◆——
+</view>
+
+
+
+

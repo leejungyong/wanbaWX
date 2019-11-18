@@ -1,0 +1,22 @@
+<view class='box'>
+  <view class='memo'>门派分类</view>
+  <input placeholder='请填写门派分类名称4个字' class='typeinput' placeholder-style='color:#46607D;' bindinput='changeType' value='{{teamObj.name}}'></input>
+  <view class='memo'>门派描述</view>
+  <textarea placeholder='介绍文字150字以内' class='memoinput' placeholder-style='color:#46607D;' bindinput='changeMemo' value='{{teamObj.desc}}'> </textarea>
+  <view class='memo'>门派颜色</view>
+  <color-picker class="color-picker" colorData="{{colorData}}" rpxRatio="{{rpxRatio}}" bindchangecolor="onChangeColor"></color-picker>
+  <!-- <view class='color-box'></view> -->
+  <view class='memo'>门派图片</view>
+  <view style='float:left;  margin: 20rpx 0;'>
+    <image src='{{teamObj.pic}}' mode='widthFix' style='width:160rpx;'></image>
+  </view>
+  <view class='add-pic' bindtap='uploadPic'>
+    +
+  </view>
+    <view>
+    <button bindtap='saveEdit'>保存</button>
+    <button bindtap='delete'>删除</button>
+  </view>
+
+</view>
+

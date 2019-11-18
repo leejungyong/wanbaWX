@@ -1,0 +1,168 @@
+<!-- <wxs module="filter" src="./main.wxs">
+</wxs> -->
+
+<view class='lands-box'>
+  <view class="table">
+
+    <block wx:for="{{lands}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+       <block wx:if="{{act_status==0}}">
+        <block wx:if="{{(item.owner[0]==myteam.currentteamid || filter.owner(item.owner,myteam.currentteamid)>-1) && (myteam.currentrole==0)}}">
+            <block wx:if="{{item.ptype==1}}">
+              <view class="poi green {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}" style="background:{{myteam.color}}">
+                <view class="center">
+                  <text class="txt"> {{item.displayorder}}</text>
+                </view>
+              </view>
+            </block>
+            <block wx:elif="{{item.ptype==3}}">
+              <view class="poi {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}" style="border: 1rpx solid #fff;background:{{myteam.color}}">
+                <view class="center">
+                  <text class="txt"> {{item.displayorder}}</text>
+                </view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="poi blue {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}" style="background:{{myteam.color}}">
+                <view class="center">
+                  <text class="txt"> {{item.displayorder}}</text>
+                </view>
+              </view>
+            </block>
+          </block>
+
+          <block wx:else>
+
+            <block wx:if="{{item.ptype==2}}">
+              <block wx:if="{{item.owner[0]==myteam.currentteamid &&  (myteam.roleid==0 || act.canlook==1)}}">
+                <view class="poi oranger {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}" style="background:{{myteam.color}}">
+                  <view class="center">
+                    <text class="txt"> G</text>
+                  </view>
+                </view>
+              </block>
+              <block wx:else>
+                <view class="poi oranger {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}">
+                  <view class="center">
+                    <text class="txt"> G</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+
+            <block wx:else>
+              <block wx:if="{{item.ptype==1}}">
+                <view class="poi green {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}">
+                  <view class="center">
+                    <text class="txt">{{item.displayorder}}</text>
+                  </view>
+                </view>
+              </block>
+              <block wx:elif="{{item.ptype==3}}">
+                <view class="poi {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}" style="border: 1rpx solid #fff;">
+                  <view class="center">
+                    <text class="txt">{{item.displayorder}}</text>
+                  </view>
+                </view>
+              </block>
+              <block wx:elif="{{item.ptype==0}}">
+                <view class="poi blue {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" bindtap="choose" id="{{index}}">
+                  <view class="center">
+                    <text class="txt">{{item.displayorder}}</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+
+          </block>
+       </block>
+      <block wx:elif="{{act_status==5}}">
+
+        <block wx:if="{{item.ptype==2}}">
+          <view class="poi oranger {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" id="{{index}}" style="background:{{teams[item.owner-1].color}}" bindtap='choose'>
+            <view class="center">
+              <text class="txt">G</text>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <!--被占领-->
+          <block wx:if="{{item.owner.length>0}}">
+            <block wx:if="{{item.owner.length==1}}">
+              <block wx:if="{{item.ptype==1 && item.isSold==0}}">
+               <view class="poi green" id="{{index}}">
+                  <span style="background:{{teams[item.owner-1].color}};" class="span">
+                    </span>
+                </view>
+              </block>
+              <block wx:elif="{{item.ptype==1 && item.isSold>0}}">
+                <view class="poi green {{item.checked==1?'check_color':''}} {{item.checked==2?'no_color':''}}" id="{{index}}" style="background:{{teams[item.owner-1].color}}" bindtap='choose'>
+                  <view class="center">
+                    <text class="txt">{{item.displayorder}}</text>
+                  </view>
+                </view>
+              </block>
+              <block wx:else>
+                <view class="poi blue {{item.checked==1?'check_color':''}} {{item.checked==2?'normal_color':''}}" id="{{index}}" style="background:{{teams[item.owner-1].color}}" bindtap='choose'>
+                  <view class="center">
+                    <text class="txt">{{item.displayorder}}</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+             <!--多人占领-->
+            <block wx:else>
+              <block wx:if="{{item.ptype==1}}">
+                <view class="poi green" id="{{index}}">
+                  <block wx:for="{{item.owner}}" wx:for-index="idx" wx:key="idx" wx:for-item="it">
+
+                    <span style="background:{{teams[it-1].color}};" class="span">
+                    </span>
+
+                  </block>
+
+                  <text class="txt1">{{item.displayorder}}</text>
+
+                </view>
+              </block>
+              <block wx:else>
+
+                <view class="poi blue" id="{{index}}">
+                  <view class="center">
+                    <text class="txt">{{item.displayorder}}</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+          </block>
+          <!--未被占领-->
+          <block wx:else>
+            <block wx:if="{{item.ptype==1}}">
+              <view class="poi green" id="{{index}}" style="background:{{teams[item.owner-1].color}}">
+                <view class="center">
+                  <text class="txt"> {{item.displayorder}}</text>
+                </view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="poi blue" id="{{index}}" style="background:{{teams[item.owner-1].color}}">
+                <view class="center">
+                  <text class="txt"> {{item.displayorder}}</text>
+                </view>
+              </view>
+            </block>
+          </block>
+        </block>
+      </block>
+    </block>
+
+  </view>
+</view>
+<!-- 
+<view style='color:white;height:160rpx;'>
+<text wx:for='{{showarr}}'>{{item}}  </text>
+</view> -->
+<button class='btn-sure' bindtap='confirm'>
+  确定连线
+</button>
+<audio src="{{audio}}" id="myAudio"></audio>
+<!-- <button bindtap='cancel'></button> -->

@@ -1,0 +1,4 @@
+<textarea class="textarea"  bindinput='updateTxt' placeholder='请留下您的宝贵意见,最多可输入100个字符。'></textarea>
+<view class="block">
+<button class="btnsmall" bindtap="save">提交</button>
+</view>

@@ -1,0 +1,59 @@
+page{
+  background: #121a21; 
+}
+.swiper image {
+  width: 100%;
+  height: auto;
+}
+
+
+
+.navbar {
+  flex: none;
+  display: flex;
+  background: #121a21;
+}
+
+.navbar .item {
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color: #936b25;
+  
+}
+
+.navbar .item.active {
+  color: #00a0e9;
+}
+
+.navbar .item.active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #00a0e9;
+}
+
+
+.route {
+  width: 650rpx;
+  margin: 50rpx;
+  color: #00a0e9;
+}
+.item{
+  
+}
+.btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0;
+  border-top: 1px solid #121a21;
+  outline: none;
+  color: #00a0e9;
+  background: #1c3043;
+}

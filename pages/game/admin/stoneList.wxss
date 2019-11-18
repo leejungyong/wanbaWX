@@ -1,0 +1,102 @@
+page {
+  background-color: #121a21;
+}
+
+.card {
+  width: 90%;
+  margin: 10px 5% 0 5%;
+  border: 1px solid #3a6996;
+  border-radius: 5px;
+  background: #1c3043;
+}
+
+.card .title {
+  color: #946b25;
+  padding-left: 10rpx;
+  padding-top: 10rpx;
+  font-size: 18px;
+}
+
+.card .content {
+  color: #00acfb;
+  padding-left: 10rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  font-size: 16px;
+}
+
+.btnView {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.btn {
+  width: 100%;
+  background: #1c3043;
+  font-size: 20px;
+  color: #00acfb;
+  border-top: 1px solid #121a21;
+  border-radius: 0;
+}
+
+.block {
+  width: 50%;
+  display: table;
+  vertical-align: middle;
+  float: left;
+  margin-top: 60rpx;
+}
+
+.btnsmall {
+  width: 70%;
+  margin: 0 15% 0 15%;
+  border: 1px solid #00a0e9;
+  color: #00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+
+ .navbar {
+  flex: none;
+  display: flex;
+  background: #121a21;
+}
+
+ .navbar .item {
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+  color: #666;
+}
+
+ .navbar .item.active {
+  color: #00a0e9;
+}
+
+.navbar .item.active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #00a0e9;
+}
+
+.status {
+  padding-top: 10px;
+  display: block;
+  width: 90%;
+  margin: 0 5% 0 5%;
+  color: #fff;
+  font-size: 14px;
+  clear: both;
+}
+
+ .gold {
+  color: #946b25;
+}

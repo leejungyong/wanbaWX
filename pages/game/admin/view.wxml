@@ -1,0 +1,100 @@
+<view style="margin:-20px 0;width:100%;height:100vh;">
+
+  <view class="question">
+
+    <view style="padding:5px 10px 5px 10px;">
+      <view>
+        <text class="gold">{{taskArr.displayorder}}号点位 {{taskArr.name}}</text>
+      </view>
+      <view wx:if="{{taskArr.memo}}">
+        <text style="font-size:10pt">{{taskArr.memo}}</text>
+      </view>
+    </view>
+  </view>
+ 
+  <block wx:if="{{task.pic.length>0}}" >
+  <block wx:if="{{task.pic.length==1}}">
+  <view style="width:90%;margin:0 5% 0 5%;">
+          <image src="{{task.pic[0].url}}" style="height:100px;" mode="aspectFit" bindtap="previewImg" id="{{index}}" />
+        </view>
+  </block>
+  <block wx:else>
+  <swiper  previous-margin="0px" next-margin="150px" style="width:90%;margin:20px 5% 0px 5%;">
+    <block wx:for="{{task.pic}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+       <swiper-item style="display: table;height:100px;">
+        <view>
+          <image src="{{item.url}}" style="height:100px;display: table-cell;" mode="aspectFit"  bindtap="previewImg" id="{{index}}" />
+        </view>
+      </swiper-item>
+    </block>
+  </swiper> 
+  </block>
+  </block>
+  <block wx:if="{{taskArr.media==2}}">
+  <view  style="width:100%;text-align:center;">
+    <video id="myVideo" src="{{taskArr.url}}" controls></video>
+  </view>
+  </block>
+
+
+  <view class="question">
+
+    <view style="padding:5px 10px 5px 10px;">
+      <view>
+      <span style="background:{{taskArr.color}};height:14px;width:14px;display:inline-block;"></span>
+        <text class="gold"> {{taskArr.team}}的回答：</text>
+      </view>
+      <view>
+        <text style="font-size:10pt">{{task.memo}}</text>
+      </view>
+
+
+    </view>
+
+  </view>
+<block wx:if="{{task.uploadpic.length>0}}" >
+  <swiper  previous-margin="0px" next-margin="150px" style="width:90%;margin:20px 5% 20px 5%;">
+    <block wx:for="{{task.uploadpic}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+
+      <swiper-item style="display: table;height:100px;">
+
+        <view>
+          <image src="{{uploadUrl}}wanba/api/upload/{{item.url}}" style="height:100px;display: table-cell;" mode="aspectFit"  bindtap="preview" id="{{index}}" />
+        </view>
+      </swiper-item>
+
+    </block>
+
+  </swiper>
+</block>
+<block wx:if="{{task.uploadvideo.length>0}}">
+ <video style="width:90%;margin:20px 5% 20px 5%;"
+    id="myVideo"
+    src="{{cdn}}wanba/api/video/{{task.uploadvideo[0].url}}"
+   controls
+  ></video>
+  
+</block>
+  <view style="width:90%;margin:30px 5% 10px 5%;text-align:center;">
+
+    <button type="primary" style="display:inline-block;width:100px;" bindtap="pass">通过</button>
+    <button type="warn" style="display:inline-block;width:100px;margin-left:20px;" bindtap="deny">驳回</button>
+
+  </view>
+
+ 
+</view>
+  <view class="modal-box" hidden="{{flag}}" catchtouchmove="preventTouchMove">
+
+    <view class="modal-body">
+
+      <view class="modal-content">
+       
+     <input placeholder='   输入驳回理由' class="input" bindinput="updateTxt" placeholder-class='input-placeholder'></input>
+     <view class="modal-btn">
+     <image src="https://img.wondfun.com/wanba/img/gamepic/cancel_btn.png" class="cancel_btn" bindtap='hide'></image>
+     <image src="https://img.wondfun.com/wanba/img/gamepic/confirm_btn.png" class="cancel_btn" style='padding-left:5px;' bindtap='denyTask'></image>
+      </view>
+     </view>
+    </view>
+  </view>

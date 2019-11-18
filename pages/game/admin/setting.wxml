@@ -1,0 +1,65 @@
+<view class="table">
+  <view class="point">
+    <block wx:for="{{lands}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+    <block wx:if="{{item.ptype==3}}">
+        <view class="poi orange" bindtap="poiSetting" id="{{index}}" style="border: 1rpx solid #fff;background:{{item.taskid && item.memo ? '#946b25':'transparent'}};">
+          {{item.displayorder}} </view>
+      </block>
+      <block wx:if="{{item.ptype==2}}">
+        <view class="poi orange" bindtap="poiSetting" id="{{index}}" style="border: 1rpx solid #ed6c00;background:{{item.taskid && item.memo ? '#946b25':'transparent'}};">
+          G </view>
+      </block>
+      <block wx:if="{{item.ptype==0}}">
+        <view class="poi" bindtap="poiSetting" id="{{index}}" style="background:{{item.taskid && item.memo ? '#946b25':'transparent'}};"> {{item.displayorder}}</view>
+      </block>
+      <block wx:if="{{item.ptype==1}}">
+        <view class="poi" bindtap="poiSetting" id="{{index}}" style="border: 1rpx solid #fff100;background:{{item.taskid && item.memo ? '#946b25':'transparent'}};"> {{item.displayorder}}</view>
+      </block>
+    </block>
+  </view>
+</view>
+
+
+
+
+  <view class="block padding">
+    <button class='btn' bindtap="baseSetting">基础信息</button>
+  </view>
+  <view class="block padding">
+    <button class='btn' bindtap="configSetting">全局参数</button>
+  </view>
+ 
+ 
+
+  <view class="block padding">
+    <button class='btn' bindtap="coachSetting">教练设置</button>
+  </view>
+  <view class="block padding">
+    <button class='btn' bindtap="stoneSetting">宝石设置</button>
+  </view>
+  <!-- <view class="block padding">
+    <button class='btn' bindtap="redbagSetting">红包设置</button>
+  </view> -->
+  <view class="block padding">
+    <button class='btn' bindtap="importTemplate">套用线路</button>
+  </view>
+  <view class="block padding">
+    <button class='btn' bindtap="albumAdmin">相册设置</button>
+  </view> 
+   <view class="block padding">
+    <button class='btn' bindtap="pcAdmin">电脑端管理</button>
+  </view> 
+     <view class="block padding">
+    <button class='btn' bindtap="theme">门派自定义</button>
+  </view> 
+   <view class="block padding" wx:if="{{act.aid==1 || act.isshared==1}}">
+    <button class='btn-share' open-type="share">转让管理员</button>
+    </view>
+  <view class="block padding" wx:if="{{act.aid==1}}">
+    <button class='btn' bindtap="sysInit">清空数据</button>
+  </view> 
+
+
+
+
+

@@ -1,0 +1,61 @@
+
+
+
+<view style="width:100%;clear:both;padding-top:50px;"> 
+<view class="left">
+<image class="img_left" src="https://img.wondfun.com/wanba/img/gamepic/left_arrow.png"   mode="aspectFit" bindtap='pre' />
+</view>
+<swiper class="swiper" indicator-dots="{{swiper.indicatorDots}}"
+  autoplay="{{swiper.autoplay}}" interval="{{swiper.interval}}" duration="{{swiper.duration}}" current='{{swiper.current}}' circular="true" previous-margin="110rpx" next-margin="110rpx" bindchange='bindchange'>
+
+  <block wx:for="{{swiper.teams}}" wx:for-index="index" wx:key="index" wx:for-item="item" class="swiper">
+    <swiper-item>
+      <image src="{{item.pic}}"  mode="aspectFit" />
+       <span class="teamname">{{item.name}}</span>
+    </swiper-item>
+   
+  </block>
+
+</swiper>
+<view class="right">
+<image  class="img_right" src="https://img.wondfun.com/wanba/img/gamepic/right_arrow.png" mode="aspectFit" bindtap='next' />
+</view>
+</view>
+
+
+<view style="height:50px;width:80%;margin:0 10% 0 10%;color:#fff;padding:5px;color:#946b25">
+<text>{{desc}}</text>
+<view bindtap="show"  class="btn" >
+<image src="https://img.wondfun.com/wanba/img/gamepic/jointeam_btn.png"  style="width:152px;height:40px;"/>
+
+  </view>
+</view>
+
+
+
+
+
+<view class="modal-box" hidden="{{flag}}" catchtouchmove="preventTouchMove">
+    <view class="modal-body">
+
+    <view class="modal-content">
+      <view style="margin-top:1%;padding:20rpx;color:#1989c3;">请选择你的角色</view>
+      
+      <view class="modal-btn">
+       
+        <image src="https://img.wondfun.com/wanba/img/gamepic/captain_btn.png" class="cancel_btn" style='' bindtap='isCaptain'></image>
+      </view>
+           <view class="modal-btn">
+        
+        <image src="https://img.wondfun.com/wanba/img/gamepic/member_btn.png" class="cancel_btn" style='' bindtap='isMember'></image>
+      </view>
+        <view class="modal-btn">
+        
+        <image src="https://img.wondfun.com/wanba/img/gamepic/cancel_btn.png" class="cancel_btn" style='' bindtap='hide'></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+ 
+

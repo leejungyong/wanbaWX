@@ -1,0 +1,20 @@
+
+<view class='info_box'>
+    <view class='detail'>
+      <view class='text'>
+        <text>真实姓名：</text>
+        <input type='text' placeholder='请填写真实姓名' placeholder-class='place'bindinput='name'></input>
+      </view>
+      <!-- <view class='text'>
+        <text> 手机号码：</text>
+        <input type='number' placeholder='请填写11位手机号码' maxlength='11' placeholder-class='place'></input>
+      </view> -->
+      <view class='text'>
+        <text> 银行卡号：</text>
+        <input type='number' placeholder='银行卡号' placeholder-class='place' bindinput='bankCardNum'></input>
+      </view>
+    </view>
+    <!-- <view class='tip'>预计5个工作日到账，每次提取不少于900元</view> -->
+  </view>
+
+  <button class='btn' bindtap='next'>下一步</button>

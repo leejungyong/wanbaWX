@@ -1,0 +1,6 @@
+ <view class="block">
+    <input class="input" value="{{nick}}" placeholder="转让给谁" placeholder-class='input-placeholder' confirm-type="search" bindconfirm='searchNick' bindinput="updateNick"></input>
+  </view>  
+  <block wx:for="{{list}}" wx:for-index="index" wx:key="index" wx:for-item="item">
+  <view bindtap="confrim" id="{{index}}" class="item">{{item.nick}}</view>
+  </block>

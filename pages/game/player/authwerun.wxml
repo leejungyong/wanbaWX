@@ -1,0 +1,7 @@
+
+  <view style="height:20vh;width:40vw;text-align:center;margin:5vh 30vw 0vh;30vw;">
+    <text>需要授权获取微信运动后才可使用</text>
+    
+  </view>
+ 
+<button type="primary" style="width:50%;margin:0 25% 0 25%;"  open-type="openSetting" bindopensetting="auth">打开授权设置页</button>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "宝石记录",
+  "navigationBarBackgroundColor": "#000000",
+  "navigationBarTextStyle": "white",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

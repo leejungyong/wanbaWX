@@ -1,0 +1,60 @@
+<view class="bg_head">
+
+  <image src="{{imgUrl}}wanba/img/gamepic/logo_big.png" mode="aspectFit" class="logo"></image>
+</view>
+<view style="position:fixed;top:25%;">
+<view class="btnview">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/viewteam_btn.png" class="btn" mode="aspectFit" bindtap="viewTeam"> </image>
+  </view>
+  <view class="btnview">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/quit_btn.png" class="btn" mode="aspectFit" bindtap="quit"> </image>
+  </view>
+  <view class="btnview" wx:if="{{!isCaptain}}">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/captain_btn.png" class="btn" mode="aspectFit" bindtap="captain"> </image>
+  </view>
+  
+  <view class="btnview" wx:if="{{act.status==0 && act.stone_mode==0}}">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/scanstone_btn.png" class="btn" mode="aspectFit" bindtap="scanStone"> </image>
+  </view>
+  <view class="btnview" wx:if="{{isCaptain}}">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/myqrcode_btn.png" class="btn" mode="aspectFit" bindtap="qrcode"> </image>
+  </view>
+  <view class="btnview">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/mywerun_btn.png" class="btn" mode="aspectFit" bindtap="werun"> </image>
+  </view>
+  <view class="btnview" wx:if="{{isCaptain}}">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/coach_btn.png" class="btn" mode="aspectFit" bindtap="sms"> </image>
+  </view>
+   <view class="btnview" wx:if="{{act.status==0}}">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/album.png" class="btn" mode="aspectFit" bindtap="album"> </image>
+  </view>
+     <view class="btnview" wx:if="{{act.mode==2 && act.status==6}}">
+    <image src="https://img.wondfun.com/wanba/img/gamepic/radar.png" class="btn" mode="aspectFit" bindtap="radar"> </image>
+  </view>
+</view>
+
+<!-- 查看宝石 -->
+<view class="modal-box" hidden="{{hideStone}}" catchtouchmove="preventTouchMove">
+
+  <view class="modal-body">
+
+    <view class="modal-content-stone">
+      <view class="upper">
+        <image src="{{imgUrl}}wanba/img/gamepic/close.png" class="closeimg" bindtap="hideStone"></image>
+        <image src="{{stoneSelected.pic2}}" class="boximg"></image>
+
+      </view>
+      <view class="middle">
+        <view class="m1">
+          <text class="c1">恭喜您获得宝石</text> {{stoneSelected.memo1}}
+        </view>
+        <view class="m2">
+          <text class="c1">{{stoneSelected.memo2}}</text>
+          <text class="c1">{{stoneSelected.memo3}}</text>
+          <text class="c2">{{stoneSelected.memo4}}</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view>

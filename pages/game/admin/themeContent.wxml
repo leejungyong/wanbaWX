@@ -1,0 +1,27 @@
+<view class='box'>
+  <view class='list-box'>
+    <view class='team' wx:for="{{list}}" wx:key="{{index}}" bindtap='toEdit' data-idx='{{index}}' >
+      <view class='pic-box'>
+        <image src='{{item.pic}}?{{stamp}}' mode='widthFix'></image>
+      </view>
+      <view class='title'>{{item.name}}</view>
+    </view>
+    <view class='add' bindtap='toAddTeam' wx:if='{{actmode<2}}'>
+      ＋
+    </view>
+  </view>
+
+  <!-- <image src='{{img}}'></image> -->
+<!-- 
+  <view class='info' style='margin:40rpx 0;'>
+    <view class='theme'>{{themeObj.title}}</view>
+    <view class='memo'>使用后帮派数量默认上限为6，如需更多请点击基础设置增加</view>
+  </view> -->
+
+
+</view>
+<!-- <view class='bottom'>
+  <view class='collect'>收藏</view>
+  <view class='consult'>咨询</view>
+  <view class='use'>立即使用</view>
+</view> -->

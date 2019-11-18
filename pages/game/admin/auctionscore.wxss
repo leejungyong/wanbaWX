@@ -1,0 +1,25 @@
+page{
+  background: #121a21; 
+}
+.card {
+  width: 90%;
+  height: 160rpx;
+  margin: 10px 5% 0 5%;
+  border: 1px solid #46607d;
+  border-radius: 5px;
+  background: #1c3043;
+}
+
+
+
+.card .title {
+  color: #946b25;
+  padding-left: 10rpx;
+  padding-top: 30rpx;
+  font-size: 18px;
+  height:40rpx;
+  line-height: 40rpx;
+  overflow:hidden;
+  width:450rpx;
+  
+}

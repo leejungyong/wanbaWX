@@ -1,0 +1,158 @@
+page {
+  background: #121a21;
+}
+
+.item {
+  width: 90%;
+  margin: 40rpx 5% 40rpx 5%;
+  color: #936b25;
+  height: 40rpx;
+  line-height: 60rpx;
+}
+
+.title {
+  display: inline-block;
+  line-height: 60rpx;
+}
+
+.star {
+  color: #f00;
+  display: inline-block;
+  line-height: 60rpx;
+}
+.desc{
+  font-size:10px;
+  display: inline-block;
+  line-height: 60rpx;
+ 
+}
+.input {
+  border-radius: 8rpx;
+  margin: 20rpx 0 20rpx 0;
+  background: #1c3043;
+  border: 1px solid #00a0e9;
+  width: 650rpx;
+  height: 60rpx;
+  color: #00a0e9;
+  text-align: left;
+  line-height: 60rpx;
+  font-size: 14px;
+  padding-left: 20rpx;
+}
+
+.input-placeholder {
+  color: #46607d;
+  font-size: 14px;
+  padding-left: 20rpx;
+}
+
+.pad {
+  padding-top: 40rpx;
+}
+
+.picker {
+  border-radius: 8rpx;
+  width: 100%;
+  border: 1px solid #00a0e9;
+  color: #46607d;
+  font-size: 14px;
+  background: #1c3043;
+  padding-left: 20rpx;
+}
+
+.block {
+  width: 100%;
+  display: table;
+  vertical-align: middle;
+  float: left;
+  margin-top: 60rpx;
+}
+
+.tip {
+  width: 90%;
+  margin: 0 5% 0 5%;
+  color: #46607d;
+  font-size: 12px;
+  padding-left: 40rpx;
+}
+
+.btnsmall {
+  width: 30%;
+  margin: 0 35% 0 35%;
+  border: 1px solid #00a0e9;
+  color: #00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+
+.item1 {
+  width: 90%;
+  margin: -30rpx 5% 0 5%;
+  color: #936b25;
+  height: 80rpx;
+}
+
+.w {
+  width: 570rpx;
+  display: inline-block;
+  float: left;
+}
+
+.btn {
+  width: 60rpx;
+  height: 60rpx;
+  border: 1px solid #00a0e9;
+  color: #00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 20rpx;
+  float: right;
+  padding: 5rpx 0rpx 0rpx 0rpx;
+  line-height: 50rpx;
+  border-radius: 10rpx;
+}
+
+.importtask {
+  width: 30%;
+  margin-left: 5%;
+  margin-top: 30rpx;
+  border: 1px solid #00a0e9;
+  color: #00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+
+.textarea {
+  width: 665rpx;
+  border: 1px solid #1989c3;
+  margin: 20rpx 5% 20rpx 5%;
+  color: #1989c3;
+  padding-top: 20rpx;
+  padding-left: 10rpx;
+  font-size: 14px;
+}
+
+.radio-group {
+  padding-top: 0px;
+  width: 100%;
+  color: #1989c3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.radio {
+  width: 33%;
+  padding-top: 10px;
+  /* float:left; */
+}
+.radio1{
+  width: 25%;
+  font-size:14px;
+  padding-top: 10px;
+  /* float:left; */
+}

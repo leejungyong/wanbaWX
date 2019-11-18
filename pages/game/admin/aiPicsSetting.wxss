@@ -1,0 +1,80 @@
+
+
+page{
+  background: #121a21; 
+}
+.route {
+  width: 650rpx;
+  margin: 50rpx;
+  
+}
+.list{
+
+}
+.item{
+  width:90%;
+  margin:40rpx 5% 40rpx 5%;
+  color:#936b25;
+  height:40rpx;
+  line-height: 40rpx;
+}
+.title{
+  display:inline-block;
+  line-height: 40rpx;
+  font-size:16px;
+}
+.view{
+position: fixed;
+bottom: 0;
+height:100rpx;
+width:100%;
+}
+.block{
+  width:50%;
+  display: table;
+  vertical-align: middle;
+  float:left;
+}
+
+ .btnsmall{
+  width:70%;
+  margin:0 15% 0 15%;
+  border:1px solid #00a0e9;
+  color:#00a0e9;
+  background: #1c3043;
+  display: inline-block;
+  text-align: center;
+}
+.mask{
+  width:650rpx;
+  color:#fff;
+  background-color: rgba(18,18,18,0.8);
+  position: relative;
+  height:100rpx;
+  bottom:110rpx;
+}
+.mask .left{
+ width:90%;
+ float:left;
+ display:inline;
+ overflow: hidden;
+}
+.mask .left .top{
+  color:#936b25;
+  height:50rpx;
+  line-height: 50rpx;
+  margin-left:20rpx;
+  margin-top:20rpx;
+  font-size:16px;
+   
+}
+.mask .right{
+  color:#936b25;
+  line-height: 100rpx;
+  width:10%;
+  float:left;
+  
+  display:inline;
+}
+
+

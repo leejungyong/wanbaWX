@@ -1,0 +1,16 @@
+var filter = {
+    money: function(arr, offset) {
+      var sum = 0
+  
+      for (var i = arr.length - 1; i >= offset; i--) {
+        sum += parseInt(arr[i].score)
+
+        
+      }
+      return sum
+    }
+}
+
+    module.exports = {
+      count: filter.money
+    }
